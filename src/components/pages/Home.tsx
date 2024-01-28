@@ -1,8 +1,7 @@
 "use client"
 
-import { useCounter } from "@store/CounterProvider"
 import { useUsers } from "@query/user"
-import Link from "next/link"
+import { useCounter } from "@store/CounterProvider"
 
 const Home = () => {
 	const usersQuery = useUsers()
@@ -22,7 +21,6 @@ const Home = () => {
 			>
 				Add To Counter
 			</button>
-			<Link href={"/about"}>About</Link>
 		</div>
 	)
 }
