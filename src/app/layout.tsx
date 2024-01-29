@@ -1,4 +1,4 @@
-import QueryProvider from "@/lib/provoders/QueryProvider"
+import QueryProvider from "@/lib/providers/QueryProvider"
 import CounterProvider from "@store/CounterProvider"
 import type { Metadata } from "next"
 import { Baloo_2 } from "next/font/google"

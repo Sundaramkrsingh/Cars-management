@@ -1,4 +1,4 @@
-import { getUser } from "@/utils/api/user"
+import { getUser } from "@/lib/api/user"
 import { useQuery } from "@tanstack/react-query"
 
 export const getUsersKey = () => ["userId"]

@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN, userSessionActive } from "@/utils"
+import { ACCESS_TOKEN, REFRESH_TOKEN, userSessionActive } from "@/lib"
 import axios, {
 	AxiosError,
 	AxiosInstance,
