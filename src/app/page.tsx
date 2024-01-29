@@ -1,9 +1,8 @@
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
 import { getQueryClient } from "@/lib/queryClient"
 import { getUsersKey } from "@/query/user"
 import { getUser } from "@/utils/api/user"
-
-import HomePage from "@components/pages/Home"
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query"
+import HomePage from "./components/Home"
 
 export default async function Home() {
 	const queryClient = getQueryClient()
