@@ -13,13 +13,15 @@ const DefaultCard = ({ className, icon, description, state }: CardProps) => {
 
 	return (
 		<div
-			className={`${className} relative flex flex-col gap-1 bg-white justify-center items-center rounded-lg p-2 cursor-pointer overflow-hidden`}
+			className={`${className} relative flex flex-col gap-1 bg-white justify-center items-center rounded-lg p-1 cursor-pointer overflow-hidden`}
 		>
 			{isInActive && (
 				<div className="absolute w-full h-full bg-moonstone-blue opacity-80" />
 			)}
 			<Icon />
-			<p className="text-black text-xs font-medium"> {description}</p>
+			<p className="text-black text-xs text-center font-medium">
+				{description}
+			</p>
 		</div>
 	)
 }
