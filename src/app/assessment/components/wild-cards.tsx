@@ -1,6 +1,6 @@
-import { Icons } from "@/components/icons"
-import PowerUpCard from "./power-up-card"
-import PreQHeading from "./pre-q-heading"
+import { Icons } from "@/components/icons";
+import PowerUpCard from "./power-up-card";
+import PreQHeading from "./pre-q-heading";
 
 const WildCards = () => {
 	return (
@@ -16,26 +16,26 @@ const WildCards = () => {
 				<PowerUpCard
 					className="col-span-2 row-span-1"
 					description="Thrice Up"
-					icon="power3x"
+					icon="half2"
 				/>
 				<PowerUpCard
 					className="col-span-2 row-span-1"
-					description="Thrice Up"
-					icon="power3x"
+					description="Chosen One"
+					icon="chart"
 				/>
 				<PowerUpCard
 					className="col-span-2 row-span-1"
-					description="Thrice Up"
-					icon="power3x"
+					description="Double edge"
+					icon="heartDouble"
 				/>
 				<PowerUpCard
 					className="col-span-2 row-span-1"
-					description="Thrice Up"
-					icon="power3x"
+					description="Time Machine"
+					icon="timeMachine"
 				/>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default WildCards
+export default WildCards;
