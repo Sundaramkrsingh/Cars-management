@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import Header from "./components/header"
 import PreQChip from "./components/pre-q-chip"
-import PlayButton from "./components/play-button"
 
 export const metadata: Metadata = {
 	title: "Assessment",
@@ -18,10 +17,9 @@ export default function RootLayout({
 			<div className="fixed bg-white top-0 left-0 right-0 h-[111px] z-0" />
 			<div className="bg-white h-screen w-[380px] mx-auto m-8 relative z-1">
 				<Header />
-				<div className="bg-[url('/stars.png')] bg-no-repeat bg-background text-primary px-5 h-screen w-full rounded-e-2xl">
+				<div className="bg-[url('/stars.png')] bg-fixed bg-[center_top_95px] overflow-y-scroll bg-no-repeat bg-background text-primary px-5 h-screen w-full rounded-e-2xl">
 					<PreQChip />
 					{children}
-					<PlayButton />
 				</div>
 			</div>
 		</>

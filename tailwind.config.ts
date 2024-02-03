@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config = {
 	darkMode: ["class"],
@@ -60,6 +60,12 @@ const config = {
 				"dark-slate-gray": "#1A5360",
 				"philippine-silver": "#B3B3B3",
 				"jelly-bean": "#E45D5D",
+				eucalyptus: "#37C8AB",
+				platinum: "#E6E6E6",
+				"aero-blue": "#C2EEE6",
+				"celadon-green": "#298F96",
+				"chinese-silver": "#cccccc",
+				"light-red": "#FECACA",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
@@ -83,6 +89,6 @@ const config = {
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+} satisfies Config
 
-export default config;
+export default config
