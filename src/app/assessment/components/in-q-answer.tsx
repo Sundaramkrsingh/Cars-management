@@ -2,9 +2,8 @@
 
 import { Icons } from "@/components/icons"
 import { Dispatch, SetStateAction } from "react"
-import { Answer, OptionCatagories, Validity } from "./in-q"
-
-type Options = "A" | "B" | "C" | "D"
+import type { Answer, OptionCatagories, Validity, Options } from "../type"
+import { cn } from "@/lib/utils"
 
 type InQAnswerProps = {
 	setAnswerBarVisibility: Dispatch<SetStateAction<boolean>>
@@ -22,8 +21,8 @@ const Option = ({
 	onClick,
 	activeOption,
 }: {
-	value: "A" | "B" | "C" | "D"
-	onClick: (value: "A" | "B" | "C" | "D") => void
+	value: Options
+	onClick: (value: Options) => void
 	activeOption: string
 	className?: string
 }) => {
@@ -32,9 +31,11 @@ const Option = ({
 	return (
 		<button
 			onClick={() => onClick(value)}
-			className={`${
-				activeOption === value && activeClass
-			} ${className} h-full w-1/4 bg-white border flex justify-center items-center text-xl text-dark-slate-gray border-celadon-green transition-all duration-500`}
+			className={cn(
+				"h-full w-1/4 bg-white border flex justify-center items-center text-xl text-dark-slate-gray border-celadon-green transition-all duration-500",
+				activeOption === value && activeClass,
+				className
+			)}
 		>
 			{value}
 		</button>
@@ -93,9 +94,10 @@ const InQAnswer = ({
 				)}
 			</div>
 			<button
-				className={`${
+				className={cn(
+					"h-14 w-14 play-button fixed bottom-5 right-5",
 					!activeOption && "!bg-chinese-silver"
-				} h-14 w-14 play-button fixed bottom-5 right-5`}
+				)}
 				onClick={() => {
 					if (activeOption) {
 						setAnswerBarVisibility(false)

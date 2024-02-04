@@ -1,13 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import type { Answer, OptionCatagories, Validity } from "../type"
+import AnswerDialogue from "./answer-dialogue"
 import InQAnswer from "./in-q-answer"
 import InQOptions from "./in-q-options"
 import QuestionWrapper from "./question-wrapper"
-import AnswerDialogue from "./answer-dialogue"
-
-export type Validity = "correct" | "wrong" | "default"
-export type OptionCatagories = "partial" | "full"
 
 const questionConfig: {
 	questionNumber: number
@@ -25,11 +23,6 @@ const questionConfig: {
 		{ label: "Shah Jahan", value: "shaj-jahan" },
 		{ label: "Aurangzeb", value: "aurangzeb" },
 	],
-}
-
-export type Answer = {
-	selectedOption?: { label: string; value: string }
-	optionValue?: "A" | "B" | "C" | "D"
 }
 
 const InQ = () => {

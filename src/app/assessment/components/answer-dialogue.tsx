@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons"
-import { Answer, OptionCatagories, Validity } from "./in-q"
+import type { Answer, Validity } from "../type"
 
 type AnswerDialogueProps = Answer & {
 	validity: Validity
@@ -10,7 +10,7 @@ const AnswerDialogue = ({
 	optionValue,
 	validity,
 }: AnswerDialogueProps) => {
-	const dialogueVariant = (variant: "correct" | "wrong" | "default") => {
+	const dialogueVariant = (variant: Validity) => {
 		const variantUiConfig = {
 			icon: { correct: "check", wrong: "cross", default: false },
 			className: {
