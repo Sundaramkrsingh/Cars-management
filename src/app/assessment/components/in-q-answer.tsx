@@ -64,7 +64,7 @@ const InQAnswer = ({
 	}
 
 	return (
-		<div className="w-full fixed bottom-5 left-5">
+		<div className="w-answer absolute bottom-5 justify-between flex">
 			<div className="h-14 w-[236px] flex">
 				<Option
 					value="A"
@@ -95,7 +95,7 @@ const InQAnswer = ({
 			</div>
 			<button
 				className={cn(
-					"h-14 w-14 play-button fixed bottom-5 right-5",
+					"h-14 w-14 play-button z-20",
 					!activeOption && "!bg-chinese-silver"
 				)}
 				onClick={() => {

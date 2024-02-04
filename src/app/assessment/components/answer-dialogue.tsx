@@ -1,14 +1,17 @@
 import { Icons } from "@/components/icons"
 import type { Answer, Validity } from "../type"
+import { cn } from "@/lib/utils"
 
 type AnswerDialogueProps = Answer & {
 	validity: Validity
+	className?: string
 }
 
 const AnswerDialogue = ({
 	selectedOption,
 	optionValue,
 	validity,
+	className,
 }: AnswerDialogueProps) => {
 	const dialogueVariant = (variant: Validity) => {
 		const variantUiConfig = {
@@ -31,7 +34,12 @@ const AnswerDialogue = ({
 	const Icon = Icons[dialogueVariant(validity).icon as keyof typeof Icons]
 
 	return (
-		<div className="w-full flex justify-end my-5 transition-all duration-500">
+		<div
+			className={cn(
+				"w-full flex justify-end my-5 transition-all duration-500",
+				className
+			)}
+		>
 			{selectedOption && (
 				<div
 					className={`${

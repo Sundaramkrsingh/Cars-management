@@ -1,5 +1,6 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import { useState } from "react"
 import type { Answer, OptionCatagories, Validity } from "../type"
 import AnswerDialogue from "./answer-dialogue"
@@ -36,10 +37,16 @@ const InQ = () => {
 
 	return (
 		<>
-			<QuestionWrapper className="mt-5">
+			<QuestionWrapper
+				className={cn("mt-5", !activeOption && "mb-[200px]")}
+			>
 				<InQOptions questionConfig={questionConfig} />
 			</QuestionWrapper>
-			<AnswerDialogue {...answer} validity={answerValidity} />
+			<AnswerDialogue
+				{...answer}
+				validity={answerValidity}
+				className={cn(activeOption && "mb-[200px]")}
+			/>
 			{answerBarVisibility && (
 				<InQAnswer
 					setAnswer={setAnswer}

@@ -107,4 +107,8 @@
 	.h-assessment {
 		height: calc(100vh - 64px);
 	}
+
+	.w-answer {
+		width: calc(100% - 40px);
+	}
 }
