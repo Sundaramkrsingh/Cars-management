@@ -5,15 +5,90 @@ import {
 	IconNode,
 	Info,
 	LucideProps,
-} from "lucide-react";
+} from "lucide-react"
 
-export type Icon = IconNode;
+export type Icon = IconNode
 
 export const Icons = {
 	leftArrow: ChevronLeft,
 	rightArrow: ChevronRight,
 	clock: Clock,
 	info: Info,
+	check: (props: LucideProps) => (
+		<svg
+			width="26"
+			height="26"
+			viewBox="0 0 26 26"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			{...props}
+		>
+			<circle cx="13" cy="13" r="13" fill="#20BF85" />
+			<path
+				d="M19 8.5L10.75 16.75L7 13"
+				stroke="white"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+		</svg>
+	),
+	cross: (props: LucideProps) => (
+		<svg
+			width="26"
+			height="26"
+			viewBox="0 0 26 26"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			{...props}
+		>
+			<circle cx="13" cy="13" r="13" fill="#F87171" />
+			<path
+				d="M17.5 8.5L8.5 17.5"
+				stroke="white"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+			<path
+				d="M8.5 8.5L17.5 17.5"
+				stroke="white"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+		</svg>
+	),
+	lockAnswer: (props: LucideProps) => (
+		<svg
+			width="18"
+			height="18"
+			viewBox="0 0 18 18"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			{...props}
+		>
+			<path
+				d="M14.25 6.318V5.24999C14.25 2.35051 11.8995 0 8.99999 0C6.10048 0 3.75 2.35051 3.75 5.24999V6.318C2.38502 6.91372 1.50197 8.2607 1.5 9.74999V14.25C1.50246 16.32 3.17994 17.9975 5.24998 18H12.75C14.82 17.9975 16.4975 16.32 16.5 14.25V9.74999C16.498 8.2607 15.615 6.91372 14.25 6.318ZM9.74998 12.75C9.74998 13.1642 9.4142 13.5 8.99999 13.5C8.58578 13.5 8.25 13.1642 8.25 12.75V11.25C8.25 10.8358 8.58578 10.5 8.99999 10.5C9.4142 10.5 9.74998 10.8358 9.74998 11.25V12.75ZM12.75 6.00001H5.24998V5.25002C5.24998 3.17897 6.9289 1.50001 8.99999 1.50001C11.0711 1.50001 12.75 3.17893 12.75 5.25002V6.00001Z"
+				fill="#298F96"
+			/>
+		</svg>
+	),
+	disabledLock: (props: LucideProps) => (
+		<svg
+			width="16"
+			height="18"
+			viewBox="0 0 16 18"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			{...props}
+		>
+			<path
+				d="M11.7493 6.00182H4.25042V5.25194C4.24986 3.1812 5.92807 1.50204 7.99882 1.50147C9.3632 1.50109 10.6201 2.24189 11.2806 3.43573C11.4817 3.79789 11.9383 3.92851 12.3005 3.72744C12.6626 3.52638 12.7932 3.06977 12.5922 2.70761C11.1879 0.171362 7.99351 -0.746324 5.45723 0.657922C3.78654 1.58292 2.75001 3.34229 2.75064 5.25198V6.31983C1.38587 6.91546 0.502945 8.26223 0.500977 9.7513V14.2506C0.503472 16.3203 2.1807 17.9976 4.25042 18.0001H11.7493C13.819 17.9976 15.4962 16.3203 15.4987 14.2506V9.7513C15.4962 7.6815 13.819 6.00428 11.7493 6.00182ZM8.74975 12.7508C8.74975 13.1649 8.41402 13.5007 7.99987 13.5007C7.58572 13.5007 7.25 13.1649 7.25 12.7508V11.251C7.25 10.8369 7.58572 10.5011 7.99987 10.5011C8.41402 10.5011 8.74975 10.8369 8.74975 11.251V12.7508Z"
+				fill="#999999"
+			/>
+		</svg>
+	),
 	chart: () => (
 		<svg
 			width="30"
@@ -569,4 +644,4 @@ export const Icons = {
 			/>
 		</svg>
 	),
-};
+}
