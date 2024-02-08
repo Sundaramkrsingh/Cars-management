@@ -1,8 +1,9 @@
+import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
+import PostQAnswer from "./post-q-answer"
+import PostQCard from "./post-q-card"
 import PostQHeader from "./post-q-header"
 import QuestionWrapper from "./question-wrapper"
-import PostQCard from "./post-q-card"
-import { Icons } from "@/components/icons"
 
 const postQConfig = {
 	score: 300,
@@ -27,11 +28,16 @@ const PostQ = () => {
 	const isAbaHappy = postQConfig.score !== 0
 
 	return (
-		<QuestionWrapper className={cn("mt-11 mb-[200px] overflow-visible")}>
-			<Icon isAbaHappy={isAbaHappy} />
-			<PostQHeader score={postQConfig.score} />
-			<PostQCard {...postQConfig.infoCard} />
-		</QuestionWrapper>
+		<>
+			<QuestionWrapper
+				className={cn("mt-11 mb-[200px] overflow-visible")}
+			>
+				<Icon isAbaHappy={isAbaHappy} />
+				<PostQHeader score={postQConfig.score} />
+				<PostQCard {...postQConfig.infoCard} />
+			</QuestionWrapper>
+			<PostQAnswer />
+		</>
 	)
 }
 
