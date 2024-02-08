@@ -42,9 +42,10 @@ const AnswerDialogue = ({
 		>
 			{selectedOption && (
 				<div
-					className={`${
-						dialogueVariant(validity).className
-					} p-4 max-w-[300px] bg-white rounded-b-2xl rounded-tl-2xl overflow-hidden flex gap-2 justify-center items-center`}
+					className={cn(
+						dialogueVariant(validity).className,
+						"p-4 max-w-[300px] bg-white rounded-b-2xl rounded-tl-2xl overflow-hidden flex gap-2 justify-center items-center z-10"
+					)}
 				>
 					<div
 						className={`mr-2 rounded-lg ${

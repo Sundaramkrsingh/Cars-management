@@ -1,8 +1,8 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { useState } from "react"
-import type { Answer, OptionCatagories, Validity } from "../type"
+import { Dispatch, SetStateAction, useState } from "react"
+import type { Answer, OptionCatagories, Options, Validity } from "../type"
 import AnswerDialogue from "./answer-dialogue"
 import InQAnswer from "./in-q-answer"
 import InQOptions from "./in-q-options"
@@ -26,14 +26,16 @@ const questionConfig: {
 	],
 }
 
-const InQ = () => {
+const InQ = ({ setShowPostQ }: any) => {
 	const [answerBarVisibility, setAnswerBarVisibility] =
 		useState<boolean>(true)
-	const [answer, setAnswer] = useState<Answer>({})
-	const [activeOption, setActiveOption] = useState<string>("")
+	const [answer, setAnswer] = useState<Answer>()
+	const [activeOption, setActiveOption] = useState<Options>()
 	const [answerValidity, setAnswerValidity] = useState<Validity>("default")
 	const [optionsCategory, setOptionsCategory] =
 		useState<OptionCatagories>("full")
+	const [ansDialogueMargin, setAnsDialogueMargin] =
+		useState<boolean>(answerBarVisibility)
 
 	return (
 		<>
@@ -43,19 +45,22 @@ const InQ = () => {
 				<InQOptions questionConfig={questionConfig} />
 			</QuestionWrapper>
 			<AnswerDialogue
+				className={cn(ansDialogueMargin && "mb-[200px]")}
 				{...answer}
 				validity={answerValidity}
-				className={cn(activeOption && "mb-[200px]")}
 			/>
 			{answerBarVisibility && (
 				<InQAnswer
-					setAnswer={setAnswer}
+					setAnswer={setAnswer as Dispatch<SetStateAction<Answer>>}
 					setAnswerBarVisibility={setAnswerBarVisibility}
 					setActiveOption={setActiveOption}
 					activeOption={activeOption}
 					options={questionConfig.options}
 					setValidity={setAnswerValidity}
 					optionsCategory={optionsCategory}
+					setShowPostQ={setShowPostQ}
+					setAnsDialogueMargin={setAnsDialogueMargin}
+					answer={answer}
 				/>
 			)}
 		</>

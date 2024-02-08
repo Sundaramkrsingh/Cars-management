@@ -7,12 +7,15 @@ import { cn } from "@/lib/utils"
 
 type InQAnswerProps = {
 	setAnswerBarVisibility: Dispatch<SetStateAction<boolean>>
-	setActiveOption: Dispatch<SetStateAction<string>>
-	setAnswer: Dispatch<SetStateAction<Answer>>
-	activeOption: string
+	setActiveOption: Dispatch<SetStateAction<Options | undefined>>
+	activeOption: Options | undefined
 	options: { label: string; value: string }[]
 	setValidity: Dispatch<SetStateAction<Validity>>
 	optionsCategory: OptionCatagories
+	setShowPostQ: any
+	setAnsDialogueMargin: Dispatch<SetStateAction<boolean>>
+	setAnswer: Dispatch<SetStateAction<Answer>>
+	answer: Answer | undefined
 }
 
 const Option = ({
@@ -23,7 +26,7 @@ const Option = ({
 }: {
 	value: Options
 	onClick: (value: Options) => void
-	activeOption: string
+	activeOption?: string
 	className?: string
 }) => {
 	const activeClass = "!text-white !bg-eucalyptus"
@@ -50,17 +53,26 @@ const InQAnswer = ({
 	options,
 	setValidity,
 	optionsCategory,
+	setShowPostQ,
+	setAnsDialogueMargin,
+	answer,
 }: InQAnswerProps) => {
 	const isPartial = optionsCategory === "partial"
 
 	const handelClick = (value: Options) => {
-		const selectedOption = options[value.charCodeAt(0) - 65]
-
 		setActiveOption(value)
-		setAnswer({
-			optionValue: value,
-			selectedOption,
-		})
+	}
+
+	const show = () => {
+		setTimeout(() => {
+			setValidity(
+				answer?.selectedOption?.label === "Shah Jahan"
+					? "correct"
+					: "wrong"
+			)
+			setAnsDialogueMargin(false)
+			setShowPostQ(true)
+		}, 1000)
 	}
 
 	return (
@@ -99,8 +111,18 @@ const InQAnswer = ({
 					!activeOption && "!bg-chinese-silver"
 				)}
 				onClick={() => {
-					if (activeOption) {
+					const optionIdx =
+						activeOption && activeOption?.charCodeAt(0) - 65
+
+					const selectedOption = optionIdx && options[optionIdx]
+
+					if (activeOption && selectedOption) {
 						setAnswerBarVisibility(false)
+						setAnswer({
+							optionValue: activeOption as Options,
+							selectedOption,
+						})
+						show()
 					}
 				}}
 			>

@@ -14,7 +14,7 @@ const AssessmentButton = ({ onClick }: AssessmentButtonProps) => {
 		<>
 			{buttonVisibility && (
 				<button
-					className="h-14 w-14 play-button absolute bottom-5 right-5 z-10"
+					className="h-14 w-14 play-button absolute bottom-5 right-5 z-[12]"
 					onClick={onClick}
 				>
 					<Icons.play />

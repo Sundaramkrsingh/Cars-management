@@ -66,6 +66,11 @@ const config = {
 				"celadon-green": "#298F96",
 				"chinese-silver": "#cccccc",
 				"light-red": "#FECACA",
+				"medium-aquamarine": "#6BD6C2",
+				"dark-liver": "#4D4D4D",
+				"middle-blue-green": "#86DDCD",
+				"royal-orange": "#F29C4D",
+				"mountain-meadow":"#20BF86"
 			},
 			borderRadius: {
 				lg: "var(--radius)",
