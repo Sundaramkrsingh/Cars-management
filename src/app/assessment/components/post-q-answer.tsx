@@ -1,8 +1,20 @@
+"use client"
+
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
-import React from "react"
+import { useChat } from "@/store/ChatProvider"
+import { useRouter } from "next/navigation"
 
-const PostQAnswer = () => {
+const PostQAnswer = ({ questionnaire }: { questionnaire: number }) => {
+	const router = useRouter()
+
+	const {
+		chat: { activeQuestionnaire, activeQState, questionCount },
+		setActiveQuestionnaire,
+		setActiveQState,
+		setCurrentStage,
+	} = useChat()((state) => state)
+
 	return (
 		<div className="w-answer absolute bottom-5 justify-between flex z-10">
 			<div className="h-14 w-[236px] flex gap-[2px]">
@@ -26,7 +38,14 @@ const PostQAnswer = () => {
 
 			<button
 				className={cn("h-14 w-14 play-button z-20")}
-				onClick={() => {}}
+				onClick={() => {
+					if (activeQuestionnaire < questionCount) {
+						setActiveQState(`pre-q-${1 + activeQuestionnaire}`)
+						setActiveQuestionnaire(1 + activeQuestionnaire)
+						setCurrentStage("pre-q")
+						router.push(`#pre-q-${1 + activeQuestionnaire}`)
+					}
+				}}
 			>
 				<Icons.play />
 			</button>

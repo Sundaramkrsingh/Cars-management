@@ -1,10 +1,35 @@
 "use client"
 
+import useTimeManager from "@/hooks/useTimeManager"
 import useTimer from "@/hooks/useTimer"
 import { cn } from "@/lib/utils"
+import { useChat } from "@/store/ChatProvider"
+import { useEffect, useState } from "react"
 
 const Timer = () => {
-	const [{ min, sec }, reset, isTimedOut] = useTimer(15)
+	const timeManager = useTimeManager()
+
+	const {
+		chat: { currentStage },
+	} = useChat()((state) => state)
+
+	const [currentTimeStage, setCurrentTimeStage] = useState(
+		timeManager[currentStage]
+	)
+
+	const [{ sec }, reset, isTimedOut] = useTimer(currentTimeStage.initialTime)
+
+	useEffect(() => {
+		if (isTimedOut) {
+			currentTimeStage.onTimeOut()
+		}
+	}, [currentTimeStage, isTimedOut])
+
+	useEffect(() => {
+		reset()
+		setCurrentTimeStage(timeManager[currentStage])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentStage, reset])
 
 	function getBackgroundColor(sec: number) {
 		return sec <= 5
@@ -21,7 +46,7 @@ const Timer = () => {
 				"absolute text-sm text-center w-[20%] right-5 bottom-4 font-semibold rounded-[10px] text-white px-4 py-2 transition-all duration-200"
 			)}
 		>
-			{`${sec} | 15`}
+			{`${sec} | ${currentTimeStage.initialTime}`}
 		</div>
 	)
 }

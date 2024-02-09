@@ -1,9 +1,11 @@
 "use client"
 
 import { Icons } from "@/components/icons"
-import { Dispatch, SetStateAction } from "react"
-import type { Answer, OptionCatagories, Validity, Options } from "../type"
 import { cn } from "@/lib/utils"
+import { useChat } from "@/store/ChatProvider"
+import { useRouter } from "next/navigation"
+import { Dispatch, SetStateAction } from "react"
+import type { Answer, OptionCatagories, Options, Validity } from "../type"
 
 type InQAnswerProps = {
 	setAnswerBarVisibility: Dispatch<SetStateAction<boolean>>
@@ -12,10 +14,10 @@ type InQAnswerProps = {
 	options: { label: string; value: string }[]
 	setValidity: Dispatch<SetStateAction<Validity>>
 	optionsCategory: OptionCatagories
-	setShowPostQ: any
 	setAnsDialogueMargin: Dispatch<SetStateAction<boolean>>
 	setAnswer: Dispatch<SetStateAction<Answer>>
-	answer: Answer | undefined
+	questionnaire: number
+	answer?: Answer
 }
 
 const Option = ({
@@ -46,24 +48,27 @@ const Option = ({
 }
 
 const InQAnswer = ({
-	setAnswerBarVisibility,
 	setActiveOption,
 	setAnswer,
 	activeOption,
 	options,
 	setValidity,
 	optionsCategory,
-	setShowPostQ,
 	setAnsDialogueMargin,
-	answer,
+	questionnaire,
 }: InQAnswerProps) => {
+	const router = useRouter()
+
+	const { setActiveQState, setInQAnswerVisibility, setCurrentStage } =
+		useChat()((state) => state)
+
 	const isPartial = optionsCategory === "partial"
 
 	const handelClick = (value: Options) => {
 		setActiveOption(value)
 	}
 
-	const show = () => {
+	const show = (answer: Answer) => {
 		setTimeout(() => {
 			setValidity(
 				answer?.selectedOption?.label === "Shah Jahan"
@@ -71,7 +76,8 @@ const InQAnswer = ({
 					: "wrong"
 			)
 			setAnsDialogueMargin(false)
-			setShowPostQ(true)
+			setActiveQState(`post-q-${questionnaire}`)
+			router.push(`#post-q-${questionnaire}`)
 		}, 1000)
 	}
 
@@ -114,15 +120,21 @@ const InQAnswer = ({
 					const optionIdx =
 						activeOption && activeOption?.charCodeAt(0) - 65
 
-					const selectedOption = optionIdx && options[optionIdx]
+					const selectedOption = options[optionIdx as number]
+
+					console.log(selectedOption)
 
 					if (activeOption && selectedOption) {
-						setAnswerBarVisibility(false)
-						setAnswer({
+						setCurrentStage("post-q")
+						setInQAnswerVisibility(false)
+						setAnswer(() => ({
+							optionValue: activeOption as Options,
+							selectedOption,
+						}))
+						show({
 							optionValue: activeOption as Options,
 							selectedOption,
 						})
-						show()
 					}
 				}}
 			>
