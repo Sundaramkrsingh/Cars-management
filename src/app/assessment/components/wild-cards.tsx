@@ -5,12 +5,14 @@ import { useState } from "react"
 import PowerUpCard from "./power-up-card"
 import PreQHeading from "./pre-q-heading"
 
-const WildCards = () => {
+const WildCards = ({ questionnaire }: { questionnaire: number }) => {
 	const [active, setActive] = useState<number | string | undefined>()
 
 	const commonPowerUpProps = {
 		activeCard: active,
 		setActive,
+		active,
+		questionnaire,
 	}
 
 	return (
