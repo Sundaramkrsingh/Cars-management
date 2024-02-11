@@ -70,7 +70,10 @@ const config = {
 				"dark-liver": "#4D4D4D",
 				"middle-blue-green": "#86DDCD",
 				"royal-orange": "#F29C4D",
-				"mountain-meadow":"#20BF86"
+				"mountain-meadow": "#20BF86",
+				"alice-blue": "#ECF6F9",
+				"eagle-green": "#014455",
+				skobeloff: "#00667F",
 			},
 			borderRadius: {
 				lg: "var(--radius)",

@@ -111,4 +111,17 @@
 	.w-answer {
 		width: calc(100% - 40px);
 	}
+
+	.bg-stats {
+		background: linear-gradient(
+			180deg,
+			#014455 0%,
+			#278990 63.41%,
+			#bdd9de 142.75%
+		);
+	}
+
+	.progress-blocks {
+		background: linear-gradient(159.98deg, #84e6bb 13.35%, #006680 129.98%);
+	}
 }
