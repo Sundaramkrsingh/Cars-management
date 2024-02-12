@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Header from "./components/header"
+import MobileNavigationBar from "./components/mobile-navigation-bar"
 
 export const metadata: Metadata = {
 	title: "Stats",
@@ -15,6 +16,7 @@ export default function RootLayout({
 		<div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1">
 			<Header />
 			<div>{children}</div>
+			<MobileNavigationBar />
 		</div>
 	)
 }
