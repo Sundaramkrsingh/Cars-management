@@ -1,6 +1,9 @@
+"use client"
+
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
 import { Dispatch, SetStateAction } from "react"
+import { useChat } from "@/store/ChatProvider"
 
 type CardProps = {
 	className: string
@@ -10,6 +13,7 @@ type CardProps = {
 	state?: "default" | "locked" | "in-active"
 	setActive: Dispatch<SetStateAction<string | number | undefined>>
 	activeCard: string | number | undefined
+	questionnaire: number
 }
 
 function capitalizeFirstLetter(str: string) {
@@ -24,8 +28,20 @@ const DefaultCard = ({
 	id,
 	setActive,
 	activeCard,
+	questionnaire,
 }: CardProps) => {
 	const isInActive = state === "in-active"
+
+	const {
+		chat: { currentStage, activeQuestionnaire },
+	} = useChat()((state) => state)
+
+	const isCurrentStagePreQ = currentStage === "pre-q"
+	const isActive = !isInActive
+	const isQuestionnaireActive = questionnaire === activeQuestionnaire
+
+	const isCardClickable =
+		isCurrentStagePreQ && isActive && isQuestionnaireActive
 
 	const iconKey =
 		activeCard === id
@@ -34,15 +50,20 @@ const DefaultCard = ({
 
 	const Icon = Icons[iconKey as keyof typeof Icons]
 
+	const handleClick = () => {
+		if (isCardClickable) {
+			activeCard === id ? setActive(undefined) : setActive(id)
+		}
+	}
+
 	return (
 		<div
-			onClick={() => {
-				!isInActive && setActive(id)
-			}}
+			onClick={handleClick}
 			className={cn(
-				"relative flex flex-col gap-1 bg-white justify-center items-center rounded-lg p-1 cursor-pointer overflow-hidden transition-all duration-300",
+				"relative flex flex-col gap-1 bg-white justify-center items-center rounded-lg p-1 overflow-hidden transition-all duration-300",
 				className,
-				activeCard === id && "bg-eucalyptus"
+				activeCard === id && "bg-eucalyptus",
+				isCardClickable ? "cursor-pointer" : "cursor-default"
 			)}
 		>
 			{isInActive && (
