@@ -74,6 +74,8 @@ const config = {
 				"alice-blue": "#ECF6F9",
 				"eagle-green": "#014455",
 				skobeloff: "#00667F",
+				"eerie-black": "#1A1A1A",
+				"dark-charcoal": "#333333",
 			},
 			borderRadius: {
 				lg: "var(--radius)",

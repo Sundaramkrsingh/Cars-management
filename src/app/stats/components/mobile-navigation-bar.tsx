@@ -24,8 +24,6 @@ const MobileNavigationBar = () => {
 				const isLogo = icon === "bezt"
 				const isActive = pathname === href
 
-				console.log({ isActive, href })
-
 				return (
 					<Link key={href} href={href}>
 						<div
