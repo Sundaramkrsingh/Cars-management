@@ -113,12 +113,8 @@
 	}
 
 	.bg-stats {
-		background: linear-gradient(
-			180deg,
-			#014455 0%,
-			#278990 63.41%,
-			#bdd9de 142.75%
-		);
+		background: url("/stars.png") no-repeat left top,
+			linear-gradient(180deg, #014455 0%, #278990 63.41%, #bdd9de 142.75%);
 	}
 
 	.progress-blocks {
