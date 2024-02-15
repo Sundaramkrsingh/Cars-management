@@ -10,16 +10,19 @@ const rankConfig = [
 		stars: "5,67,234",
 		rank: 2,
 		name: "Kevin",
+		href: "#",
 	},
 	{
 		stars: "8,56,679",
 		rank: 1,
 		name: "Maria",
+		href: "#",
 	},
 	{
 		stars: "7,75,000",
 		rank: 3,
 		name: "John",
+		href: "#",
 	},
 ]
 

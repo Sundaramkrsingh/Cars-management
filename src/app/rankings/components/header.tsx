@@ -4,7 +4,7 @@ import TopRankers from "./top-rankers"
 
 const Header = () => {
 	return (
-		<div className="bg-stats overflow-hidden bg-fixed bg-[center_top_60px] overflow-y-scroll no-scrollbar bg-red-50 text-primary px-5 w-full rounded-b-[32px] pb-[10px] bg-no-repeat">
+		<div className="fixed bg-stats w-inherit overflow-hidden bg-fixed bg-[center_top_60px] overflow-y-scroll no-scrollbar bg-red-50 text-primary px-5 w-full rounded-b-[32px] pb-[10px] bg-no-repeat">
 			<div className="h-[65px] flex items-center gap-2">
 				<Link href="/">
 					<Icons.leftArrow className="w-7 h-7" />
