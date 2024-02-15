@@ -113,12 +113,8 @@
 	}
 
 	.bg-stats {
-		background: linear-gradient(
-			180deg,
-			#014455 0%,
-			#278990 63.41%,
-			#bdd9de 142.75%
-		);
+		background: url("/stars.png") no-repeat left top,
+			linear-gradient(180deg, #014455 0%, #278990 63.41%, #bdd9de 142.75%);
 	}
 
 	.progress-blocks {
@@ -127,5 +123,17 @@
 
 	.stat-card-shadow {
 		box-shadow: 0px 4px 18.799999237060547px 0px #8080801f;
+	}
+
+	.my-rank-shadow {
+		box-shadow: 0px -16px 21px 0px #0000001a;
+	}
+
+	.rank-bar-shadow {
+		box-shadow: 0px 4px 18.799999237060547px 0px #8080801f;
+	}
+
+	.w-inherit {
+		width: inherit;
 	}
 }

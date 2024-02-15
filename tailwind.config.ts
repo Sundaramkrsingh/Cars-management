@@ -76,6 +76,10 @@ const config = {
 				skobeloff: "#00667F",
 				"eerie-black": "#1A1A1A",
 				"dark-charcoal": "#333333",
+				"cadet-blue": "#57A3A9",
+				"pink-lace": "#FFD4FF",
+				maroon: "#800100",
+				"dark-magenta": "#940094",
 			},
 			borderRadius: {
 				lg: "var(--radius)",

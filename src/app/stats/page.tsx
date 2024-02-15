@@ -7,7 +7,7 @@ const cardConfig = [
 		icon: "rank",
 		title: "Ranking",
 		description: "Know where you stand",
-		href: "/ranking",
+		href: "/rankings",
 	},
 	{
 		icon: "badge",
@@ -20,7 +20,7 @@ const cardConfig = [
 		title: "Report",
 		type: "cover",
 		description: "Detailed insights about your performance",
-		href: "/ranking",
+		href: "/report",
 	},
 ]
 
