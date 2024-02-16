@@ -80,6 +80,7 @@ const config = {
 				"pink-lace": "#FFD4FF",
 				maroon: "#800100",
 				"dark-magenta": "#940094",
+				"smoky-black": "#0D0D0D",
 			},
 			borderRadius: {
 				lg: "var(--radius)",

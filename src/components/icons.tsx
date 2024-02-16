@@ -16,6 +16,34 @@ export const Icons = {
 	clock: Clock,
 	info: Info,
 	user: CircleUser,
+	hexagon: (props: LucideProps) => (
+		<svg
+			width="40"
+			height="44"
+			viewBox="0 0 40 44"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			{...props}
+		>
+			<path
+				d="M15.1958 1.77372C18.1686 0.0573362 21.8314 0.0573367 24.8042 1.77372L35.1144 7.72628C38.0872 9.44266 39.9186 12.6147 39.9186 16.0474V27.9526C39.9186 31.3853 38.0872 34.5573 35.1144 36.2737L24.8042 42.2263C21.8314 43.9427 18.1686 43.9427 15.1958 42.2263L4.88564 36.2737C1.91278 34.5573 0.0814152 31.3853 0.0814152 27.9526V16.0474C0.0814152 12.6147 1.91278 9.44266 4.88564 7.72628L15.1958 1.77372Z"
+				fill="url(#paint0_linear_1294_7282)"
+			/>
+			<defs>
+				<linearGradient
+					id="paint0_linear_1294_7282"
+					x1="20"
+					y1="-0.999999"
+					x2="43.5476"
+					y2="63.619"
+					gradientUnits="userSpaceOnUse"
+				>
+					<stop stop-color="#84E6BB" />
+					<stop offset="1" stop-color="#006680" />
+				</linearGradient>
+			</defs>
+		</svg>
+	),
 	placeHolderAba: () => (
 		<svg
 			width="276"
