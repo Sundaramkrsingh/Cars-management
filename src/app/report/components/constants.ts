@@ -102,3 +102,28 @@ export const competenciesGradesCardConfig = {
 		},
 	],
 }
+
+export const facetsScoreCardConfig = {
+	heading: "Tier 1",
+	subHeading: "FACETS Score",
+	info: "info",
+	facetsScoreGraphConfig: {
+		labels: [
+			"G2, FLAIR",
+			"G6, ASSET",
+			"G3, CRAFT",
+			"G7, EXTRA",
+			"G6, TRAIT",
+			"G8, SKILL",
+		],
+		datasets: [
+			{
+				label: "Score",
+				data: [7, 5, 5, 6, 9, 6],
+				backgroundColor: "rgba(135,220,205,0.2)",
+				borderColor: "rgba(135,220,205,1)",
+				borderWidth: 1,
+			},
+		],
+	},
+}
