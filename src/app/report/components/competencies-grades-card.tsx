@@ -2,60 +2,6 @@ import React from "react"
 import Card from "./card"
 import { cn } from "@/lib/utils"
 
-const competenceConfig = [
-	{
-		title: "Grade 8 (Above 90%)",
-		data: [
-			{ label: "Networking Skills", variant: "green" },
-			{ label: "Networking Skills", variant: "yellow" },
-			{ label: "Contextual Vocabulary", variant: "blue" },
-			{ label: "Probability & Statistic", variant: "green" },
-			{ label: "Contextual Vocabulary", variant: "yellow" },
-			{ label: "Probability & Statistic", variant: "blue" },
-		],
-	},
-	{
-		title: "Grade 7 (70 -90%)",
-		data: [
-			{ label: "Combinatorics", variant: "blue" },
-			{ label: "Artistic Expression", variant: "red" },
-			{ label: "Antonyms & Synonyms", variant: "green" },
-			{ label: "Contextual Vocabulary", variant: "blue" },
-			{ label: "Playfulness & Humor", variant: "yellow" },
-		],
-	},
-	{
-		title: "Grade 6 (50 -70%)",
-		data: [
-			{ label: "Combinatorics", variant: "blue" },
-			{ label: "Artistic Expression", variant: "red" },
-			{ label: "Antonyms & Synonyms", variant: "green" },
-			{ label: "Contextual Vocabulary", variant: "blue" },
-			{ label: "Playfulness & Humor", variant: "yellow" },
-		],
-	},
-	{
-		title: "Grade 5 (50 -70%)",
-		data: [
-			{ label: "Combinatorics", variant: "blue" },
-			{ label: "Artistic Expression", variant: "red" },
-			{ label: "Antonyms & Synonyms", variant: "green" },
-			{ label: "Contextual Vocabulary", variant: "blue" },
-			{ label: "Playfulness & Humor", variant: "yellow" },
-		],
-	},
-	{
-		title: "Grade 4 (50 -70%)",
-		data: [
-			{ label: "Combinatorics", variant: "blue" },
-			{ label: "Artistic Expression", variant: "red" },
-			{ label: "Antonyms & Synonyms", variant: "green" },
-			{ label: "Contextual Vocabulary", variant: "blue" },
-			{ label: "Playfulness & Humor", variant: "yellow" },
-		],
-	},
-]
-
 type CompetenceChipProps = {
 	variant: string
 	label: string
@@ -119,9 +65,7 @@ const CompetenciesGradesCard = ({
 			{competenceInfo.map(({ ...rest }, idx) => (
 				<Competence
 					key={`card-${idx}`}
-					className={
-						idx !== competenceConfig.length - 1 ? "mb-8" : ""
-					}
+					className={idx !== competenceInfo.length - 1 ? "mb-8" : ""}
 					{...rest}
 				/>
 			))}
