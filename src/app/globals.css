@@ -136,4 +136,8 @@
 	.w-inherit {
 		width: inherit;
 	}
+
+	.summary-card-shadow {
+		box-shadow: 0px 4px 18.799999237060547px 0px #8080801f;
+	}
 }

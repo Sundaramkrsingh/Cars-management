@@ -37,7 +37,7 @@ const rankConfig: RankConfig[] = [
 	},
 ]
 
-export default async function Stats() {
+export default async function Rankings() {
 	return (
 		<div className="p-5 pt-[276px] text-black flex flex-col gap-3 bg-alice-blue pb-[84px]">
 			{rankConfig.length ? (

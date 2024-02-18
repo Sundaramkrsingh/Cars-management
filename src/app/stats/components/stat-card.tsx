@@ -13,10 +13,10 @@ const Partial = ({
 	const Icon = Icons[icon as keyof typeof Icons]
 
 	return (
-		<Link className={cn(className)} href={href}>
+		<Link className={cn("h-full", className)} href={href}>
 			<div
 				className={cn(
-					"flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer stat-card-shadow"
+					"h-full flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer stat-card-shadow"
 				)}
 			>
 				<div className="progress-blocks w-9 h-9 flex items-center justify-center rounded-[7px]">
@@ -35,10 +35,10 @@ const Cover = ({ icon, title, description, className, href }: StatCardProp) => {
 	const Icon = Icons[icon as keyof typeof Icons]
 
 	return (
-		<Link className={cn(className)} href={href}>
+		<Link className={cn("h-full", className)} href={href}>
 			<div
 				className={cn(
-					"relative flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer stat-card-shadow h-32"
+					"relative flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer stat-card-shadow h-full"
 				)}
 			>
 				<p className="text-eerie-black text-base font-semibold">

@@ -26,7 +26,7 @@ const cardConfig = [
 
 export default async function Stats() {
 	return (
-		<div className="p-5 pt-7">
+		<div className="p-5 pb-[105px] pt-[376px]">
 			<div className="grid grid-cols-4 grid-rows-2 gap-3">
 				{cardConfig.map(
 					(
