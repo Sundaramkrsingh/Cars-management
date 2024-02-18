@@ -18,7 +18,7 @@ const MobileNavigationBar = () => {
 	const pathname = usePathname()
 
 	return (
-		<div className="p-4 px-6 absolute w-full bottom-0 bg-white h-20 flex rounded-t-lg border-t border-t-aero-blu justify-between">
+		<div className="fixed w-inherit bottom-0 p-4 px-6 bg-white h-20 flex rounded-t-lg border-t border-t-aero-blu justify-between">
 			{navigationConfig.map(({ href, icon, label }) => {
 				const Icon = Icons[icon as keyof typeof Icons]
 				const isLogo = icon === "bezt"

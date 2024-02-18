@@ -13,7 +13,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1">
+		<div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
 			<Header />
 			<div>{children}</div>
 			<MobileNavigationBar />
