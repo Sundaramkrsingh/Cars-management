@@ -89,6 +89,8 @@ const config = {
 				diamond: "#BAE6FD",
 				"magic-mint": "#A7F3D0",
 				"pale-lavender": "#E9D5FF",
+				"pastel-yellow": "#F8F98F",
+				"pale-blue": "#BBEDE4",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
