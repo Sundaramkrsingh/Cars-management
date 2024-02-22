@@ -1,5 +1,6 @@
 import { Icons } from "@/components/icons"
 import Link from "next/link"
+import { Suspense } from "react"
 import TopRankers from "./top-rankers"
 
 const Header = () => {
@@ -12,7 +13,9 @@ const Header = () => {
 				<h1 className="font-medium text-lg">Rankings</h1>
 			</div>
 			<div>
-				<TopRankers />
+				<Suspense>
+					<TopRankers />
+				</Suspense>
 			</div>
 		</div>
 	)
