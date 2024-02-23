@@ -9,23 +9,23 @@ import { useChat } from "@/store/ChatProvider"
 import { useEffect } from "react"
 
 export default function Chat() {
-	const { setQuestionCount } = useChat()((state) => state)
+  const { setQuestionCount } = useChat()((state) => state)
 
-	useEffect(() => {
-		setQuestionCount(res.length - 1)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+  useEffect(() => {
+    setQuestionCount(res.length - 1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-	return (
-		<>
-			<PreQChip />
-			{res.map(({ preQ, inQ, postQ }, index) => (
-				<div key={index}>
-					<PreQ {...preQ} questionnaire={index} />
-					<InQ {...inQ} questionnaire={index} />
-					<PostQ {...postQ} questionnaire={index} />
-				</div>
-			))}
-		</>
-	)
+  return (
+    <>
+      <PreQChip />
+      {res.map(({ preQ, inQ, postQ }, index) => (
+        <div key={index}>
+          <PreQ {...preQ} questionnaire={index} />
+          <InQ {...inQ} questionnaire={index} />
+          <PostQ {...postQ} questionnaire={index} />
+        </div>
+      ))}
+    </>
+  )
 }

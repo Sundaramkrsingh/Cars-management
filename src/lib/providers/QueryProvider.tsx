@@ -8,15 +8,15 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { queryClientConfig } from "@/lib/queryClient"
 
 const QueryProvider = ({ children }: React.PropsWithChildren) => {
-	const [queryClient] = useState(() => new QueryClient(queryClientConfig))
+  const [queryClient] = useState(() => new QueryClient(queryClientConfig))
 
-	return (
-		<QueryClientProvider client={queryClient}>
-			{children}
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
 
-			{/* <ReactQueryDevtools /> */}
-		</QueryClientProvider>
-	)
+      {/* <ReactQueryDevtools /> */}
+    </QueryClientProvider>
+  )
 }
 
 export default QueryProvider

@@ -1,8 +1,8 @@
-import { AxiosRequestConfig } from 'axios'
-import adminInstance from './axios'
+import { AxiosRequestConfig } from "axios"
+import adminInstance from "./axios"
 
 const InstanceTypeMapping = {
-  adminInstance
+  adminInstance,
 } as const
 
 type InstanceTypes = keyof typeof InstanceTypeMapping
@@ -14,13 +14,13 @@ const fetcher = (instanceType: InstanceTypes) => {
       return axios
         .request({
           url,
-          method: 'GET',
-          params
+          method: "GET",
+          params,
         })
-        .then(response => {
+        .then((response) => {
           return response
         })
-        .catch(err => {
+        .catch((err) => {
           throw err
         })
     },
@@ -35,15 +35,15 @@ const fetcher = (instanceType: InstanceTypes) => {
       return axios
         .request({
           url,
-          method: 'POST',
+          method: "POST",
           data,
           params,
-          ...config
+          ...config,
         })
-        .then(response => {
+        .then((response) => {
           return response
         })
-        .catch(err => {
+        .catch((err) => {
           throw err
         })
     },
@@ -56,14 +56,14 @@ const fetcher = (instanceType: InstanceTypes) => {
       return axios
         .request({
           url,
-          method: 'PUT',
+          method: "PUT",
           data,
-          params
+          params,
         })
-        .then(response => {
+        .then((response) => {
           return response
         })
-        .catch(err => {
+        .catch((err) => {
           throw err
         })
     },
@@ -76,14 +76,14 @@ const fetcher = (instanceType: InstanceTypes) => {
       return axios
         .request({
           url,
-          method: 'PATCH',
+          method: "PATCH",
           data,
-          params
+          params,
         })
-        .then(response => {
+        .then((response) => {
           return response
         })
-        .catch(err => {
+        .catch((err) => {
           throw err
         })
     },
@@ -96,17 +96,17 @@ const fetcher = (instanceType: InstanceTypes) => {
       return axios
         .request({
           url,
-          method: 'DELETE',
+          method: "DELETE",
           params: params,
-          data
+          data,
         })
-        .then(response => {
+        .then((response) => {
           return response
         })
-        .catch(err => {
+        .catch((err) => {
           throw err
         })
-    }
+    },
   }
 }
 

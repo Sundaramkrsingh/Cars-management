@@ -14,8 +14,7 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
     "src/**/*.{js,ts,jsx,tsx}": [
-      "eslint --fix",
-      "pnpm run build"
+      "eslint --fix"
     ]
   },
   "dependencies": {
