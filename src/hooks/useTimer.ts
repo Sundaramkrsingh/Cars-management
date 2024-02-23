@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
 
 const getTimeObject = (interval: number) => {
-	let min = Math.floor(interval / 60)
-	let sec = Math.floor(interval - min * 60)
-	return { min: min >= 0 ? min : 0, sec: sec >= 0 ? sec : 0 }
+  let min = Math.floor(interval / 60)
+  let sec = Math.floor(interval - min * 60)
+  return { min: min >= 0 ? min : 0, sec: sec >= 0 ? sec : 0 }
 }
 
 // Virtual delay is used to sync the timer time and actual time
@@ -19,48 +19,47 @@ const VIRTUAL_DELAY = 2
  */
 
 const useTimer = (
-	interval: number
+  interval: number
 ): [{ min: number; sec: number }, () => void, boolean] => {
-	const initialTime = useMemo(() => getTimeObject(interval), [interval])
+  const initialTime = useMemo(() => getTimeObject(interval), [interval])
 
-	const [time, setTime] = useState(new Date().getTime() + interval * 1000)
+  const [time, setTime] = useState(new Date().getTime() + interval * 1000)
 
-	const [finalTime, setFinalTime] = useState(interval)
+  const [finalTime, setFinalTime] = useState(interval)
 
-	const [resultTime, setResultTime] = useState(initialTime)
+  const [resultTime, setResultTime] = useState(initialTime)
 
-	const [isTimedOut, setIsTimedOut] = useState(false)
+  const [isTimedOut, setIsTimedOut] = useState(false)
 
-	const reset = useCallback(() => {
-		setTime(new Date().getTime() + interval * 1000)
-		setFinalTime(interval)
-		setResultTime(initialTime)
-		setIsTimedOut(false)
-	}, [initialTime, interval])
+  const reset = useCallback(() => {
+    setTime(new Date().getTime() + interval * 1000)
+    setFinalTime(interval)
+    setResultTime(initialTime)
+    setIsTimedOut(false)
+  }, [initialTime, interval])
 
-	useEffect(() => {
-		setIsTimedOut(finalTime <= 0)
-	}, [finalTime])
+  useEffect(() => {
+    setIsTimedOut(finalTime <= 0)
+  }, [finalTime])
 
-	useEffect(() => {
-		if (!isTimedOut) {
-			const id = setTimeout(() => {
-				const currTime = new Date().getTime()
-				let countDownTime =
-					time > currTime ? (time - currTime) / 1000 : 0
-				if (countDownTime >= finalTime - VIRTUAL_DELAY) {
-					setFinalTime((prev) => prev - 1)
-				} else setFinalTime(countDownTime + VIRTUAL_DELAY)
-			}, 1000)
-			return () => clearTimeout(id)
-		}
-	})
+  useEffect(() => {
+    if (!isTimedOut) {
+      const id = setTimeout(() => {
+        const currTime = new Date().getTime()
+        let countDownTime = time > currTime ? (time - currTime) / 1000 : 0
+        if (countDownTime >= finalTime - VIRTUAL_DELAY) {
+          setFinalTime((prev) => prev - 1)
+        } else setFinalTime(countDownTime + VIRTUAL_DELAY)
+      }, 1000)
+      return () => clearTimeout(id)
+    }
+  })
 
-	useEffect(() => {
-		setResultTime(getTimeObject(finalTime))
-	}, [finalTime])
+  useEffect(() => {
+    setResultTime(getTimeObject(finalTime))
+  }, [finalTime])
 
-	return [resultTime, reset, isTimedOut]
+  return [resultTime, reset, isTimedOut]
 }
 
 export default useTimer
