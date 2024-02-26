@@ -19,7 +19,7 @@ export default async function Home() {
         More
       </Link>
       <Link href="/more/profile" className="hover:underline">
-      My profile
+        My profile
       </Link>
     </div>
   )

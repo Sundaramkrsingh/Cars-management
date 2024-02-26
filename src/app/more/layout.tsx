@@ -11,9 +11,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-	return (
-		<div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
-			<LayoutManager>{children}</LayoutManager>
-		</div>
-	)
+  return (
+    <div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
+      <LayoutManager>{children}</LayoutManager>
+    </div>
+  )
 }
