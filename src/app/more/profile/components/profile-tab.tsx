@@ -2,16 +2,15 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 import { parseAsString, useQueryState } from "nuqs"
-import { Suspense } from "react"
 import {
-    Awards,
-    BasicInformation,
-    Education,
-    Licenses,
-    Profile,
-    Projects,
-    Resume,
-    WorkExperience,
+	Awards,
+	BasicInformation,
+	Education,
+	Licenses,
+	Profile,
+	Projects,
+	Resume,
+	WorkExperience,
 } from "./cards"
 
 const ProfileTab = () => {
@@ -21,7 +20,6 @@ const ProfileTab = () => {
 	)
 
 	return (
-		<Suspense>
 			<Tabs defaultValue={type}>
 				<div className="flex w-full gap-2 items-center justify-center">
 					<TabsList className="w-full bg-celadon-green">
@@ -60,7 +58,6 @@ const ProfileTab = () => {
 					</div>
 				</TabsContent>
 			</Tabs>
-		</Suspense>
 	)
 }
 
