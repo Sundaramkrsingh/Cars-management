@@ -154,4 +154,8 @@
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
   }
+
+  .edit-card-shadow {
+    box-shadow: 0px 4px 18.799999237060547px 0px #8080801f;
+  }
 }
