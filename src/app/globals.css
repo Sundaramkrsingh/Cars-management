@@ -148,10 +148,14 @@
       linear-gradient(84.15deg, #00667f 22.27%, #37c8ab 178.89%);
   }
 
-  .progress-ring-circle {
-    stroke-dasharray: 400, 400;
-    transition: stroke-dashoffset 0.35s;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-  }
+	.progress-ring-circle {
+		stroke-dasharray: 400, 400;
+		transition: stroke-dashoffset 0.35s;
+		transform: rotate(-90deg);
+		transform-origin: 50% 50%;
+	}
+
+	.edit-card-shadow {
+		box-shadow: 0px 4px 18.799999237060547px 0px #8080801f;
+	}
 }

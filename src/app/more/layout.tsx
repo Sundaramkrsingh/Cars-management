@@ -1,6 +1,5 @@
-import MobileNavigationBar from "@/components/shared/mobile-navigation-bar"
 import type { Metadata } from "next"
-import Header from "./components/header"
+import LayoutManager from "./components/layoutManager"
 
 export const metadata: Metadata = {
   title: "More",
@@ -12,11 +11,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return (
-    <div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
-      <Header />
-      <div>{children}</div>
-      <MobileNavigationBar />
-    </div>
-  )
+	return (
+		<div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
+			<LayoutManager>{children}</LayoutManager>
+		</div>
+	)
 }

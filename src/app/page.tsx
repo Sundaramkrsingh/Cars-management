@@ -15,6 +15,12 @@ export default async function Home() {
       <Link href="/stats" className="hover:underline">
         Stats
       </Link>
+      <Link href="/more" className="hover:underline">
+        More
+      </Link>
+      <Link href="/more/profile" className="hover:underline">
+      My profile
+      </Link>
     </div>
   )
 }
