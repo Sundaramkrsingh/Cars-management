@@ -12,12 +12,23 @@ import {
   Resume,
   WorkExperience,
 } from "./cards"
+import type { EditVariants } from "../type"
 
 const ProfileTab = () => {
   const [type, setType] = useQueryState(
     "details",
     parseAsString.withDefault("personal")
   )
+
+  const [_, setEdit] = useQueryState("edit")
+
+  const handelEditClick = (card: EditVariants) => {
+    setEdit(card)
+  }
+
+  const commonProps = {
+    onClick: handelEditClick,
+  }
 
   return (
     <Tabs defaultValue={type}>
@@ -42,14 +53,14 @@ const ProfileTab = () => {
 
       <TabsContent value="personal" className="my-5">
         <div className="flex flex-col gap-5">
-          <Profile />
-          <WorkExperience />
-          <Projects />
-          <Licenses />
-          <Education />
-          <Awards />
+          <Profile {...commonProps} />
+          <WorkExperience {...commonProps} />
+          <Projects {...commonProps} />
+          <Licenses {...commonProps} />
+          <Education {...commonProps} />
+          <Awards {...commonProps} />
           <Resume />
-          <BasicInformation />
+          <BasicInformation {...commonProps} />
         </div>
       </TabsContent>
       <TabsContent value="elective" className="my-5">

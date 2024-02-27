@@ -1,11 +1,16 @@
-import Image from "next/image"
-import EditWrapperCard from "./edit-wrapper-card"
-import { cn } from "@/lib/utils"
-import Link from "next/link"
 import { Icons } from "@/components/icons"
+import { cn } from "@/lib/utils"
+import Image from "next/image"
+import Link from "next/link"
 import React, { ChangeEvent, useRef, useState } from "react"
+import { EditVariants } from "../type"
+import EditWrapperCard from "./edit-wrapper-card"
 
-export const Profile = () => {
+type CommonCardProps = {
+  onClick: (card: EditVariants) => void
+}
+
+export const Profile = ({ onClick }: CommonCardProps) => {
   const profileSectionConfig = {
     avatar: { initials: "MG", bgColor: "#F8F98F", src: null },
     name: "Maria George",
@@ -18,7 +23,7 @@ export const Profile = () => {
 
   return (
     <EditWrapperCard
-      onClick={() => console.log("Profile")}
+      onClick={() => onClick("profile")}
       heading={
         <div
           className={cn(
@@ -43,7 +48,7 @@ export const Profile = () => {
   )
 }
 
-export const WorkExperience = () => {
+export const WorkExperience = ({ onClick }: CommonCardProps) => {
   const workExConfig = [
     {
       designation: "Product Designer",
@@ -65,7 +70,7 @@ export const WorkExperience = () => {
 
   return (
     <EditWrapperCard
-      onClick={() => console.log("WorkExperience")}
+      onClick={() => onClick("work-experience")}
       heading="Work Experience"
     >
       {workExConfig.map(({ company, designation, experience }, idx) => {
@@ -88,7 +93,7 @@ export const WorkExperience = () => {
   )
 }
 
-export const Projects = () => {
+export const Projects = ({ onClick }: CommonCardProps) => {
   const projectsConfig = [
     {
       project: "Salesmate- Advanced CRM Platform",
@@ -109,7 +114,7 @@ export const Projects = () => {
     },
   ]
   return (
-    <EditWrapperCard onClick={() => console.log("Projects")} heading="Projects">
+    <EditWrapperCard onClick={() => onClick("projects")} heading="Projects">
       {projectsConfig.map(({ project, projectLink, contributions }, idx) => {
         return (
           <React.Fragment key={idx}>
@@ -139,7 +144,7 @@ export const Projects = () => {
   )
 }
 
-export const Licenses = () => {
+export const Licenses = ({ onClick }: CommonCardProps) => {
   const licensesConfig = [
     {
       companyImage: "/kaggle.svg",
@@ -162,7 +167,7 @@ export const Licenses = () => {
 
   return (
     <EditWrapperCard
-      onClick={() => console.log("Licenses & certifications")}
+      onClick={() => onClick("licenses")}
       heading="Licenses & certifications"
     >
       {licensesConfig.map(
@@ -213,7 +218,7 @@ export const Licenses = () => {
   )
 }
 
-export const Education = () => {
+export const Education = ({ onClick }: CommonCardProps) => {
   const educationConfig = [
     {
       college: "IIT , Roorkee",
@@ -228,10 +233,7 @@ export const Education = () => {
   ]
 
   return (
-    <EditWrapperCard
-      onClick={() => console.log("Education")}
-      heading="Education"
-    >
+    <EditWrapperCard onClick={() => onClick("education")} heading="Education">
       {educationConfig.map(({ college, course, duration }, idx) => {
         return (
           <>
@@ -249,7 +251,7 @@ export const Education = () => {
   )
 }
 
-export const Awards = () => {
+export const Awards = ({ onClick }: CommonCardProps) => {
   const awardsConfig = [
     {
       award: "All India Hackathon 2nd prize",
@@ -267,7 +269,7 @@ export const Awards = () => {
   ]
   return (
     <EditWrapperCard
-      onClick={() => console.log("Awards")}
+      onClick={() => onClick("awards")}
       heading="Awards and achievements"
     >
       {awardsConfig.map(({ award, awardLink, description }, idx) => {
@@ -291,6 +293,7 @@ export const Awards = () => {
     </EditWrapperCard>
   )
 }
+
 export const Resume = () => {
   const [file, setFile] = useState<File>()
   const fileInputRef = useRef(null)
@@ -332,7 +335,7 @@ export const Resume = () => {
     </EditWrapperCard>
   )
 }
-export const BasicInformation = () => {
+export const BasicInformation = ({ onClick }: CommonCardProps) => {
   const basicInfoConfig = {
     email: "maria@gmail.com",
     phoneNo: "731822446",
@@ -345,7 +348,7 @@ export const BasicInformation = () => {
 
   return (
     <EditWrapperCard
-      onClick={() => console.log("BasicInformation")}
+      onClick={() => onClick("basic-information")}
       heading="BasicInformation"
     >
       <div className="mb-4">
