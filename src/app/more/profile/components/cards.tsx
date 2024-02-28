@@ -349,7 +349,7 @@ export const BasicInformation = ({ onClick }: CommonCardProps) => {
   return (
     <EditWrapperCard
       onClick={() => onClick("basic-information")}
-      heading="BasicInformation"
+      heading="Basic Information"
     >
       <div className="mb-4">
         <p className="text-dark-charcoal text-sm">Email</p>
