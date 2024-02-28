@@ -51,7 +51,7 @@ const Profile = ({ children }: LayoutProps) => {
         </Link>
         <h1 className="font-medium text-lg">{heading}</h1>
       </div>
-      <div>{children}</div>
+      {children}
     </>
   )
 }

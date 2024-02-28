@@ -1,46 +1,38 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
+import { useQueryState } from "nuqs"
+import type { PageProps } from "../../type"
+import ProfileEdit from "./profile-edit"
 import ProfileTab from "./profile-tab"
 
-const Default = () => <ProfileTab />
+const Default = ({ setEdit }: PageProps) => <ProfileTab setEdit={setEdit} />
 
-const ProfileEdit = () => {
-  return <>Edit</>
-}
-
-const WorkExperience = () => {
+const WorkExperience = ({ setEdit }: PageProps) => {
   return <>Work Experience</>
 }
 
-const Projects = () => {
+const Projects = ({ setEdit }: PageProps) => {
   return <>Projects</>
 }
 
-const Licenses = () => {
+const Licenses = ({ setEdit }: PageProps) => {
   return <>Licenses</>
 }
 
-const Education = () => {
+const Education = ({ setEdit }: PageProps) => {
   return <>Education</>
 }
 
-const Awards = () => {
+const Awards = ({ setEdit }: PageProps) => {
   return <>Awards</>
 }
 
-const Resume = () => {
+const Resume = ({ setEdit }: PageProps) => {
   return <>Resume</>
 }
 
-const BasicInformation = () => {
-  return <>Basic Information</>
-}
-
 const PageRenderer = () => {
-  const searchParams = useSearchParams()
-
-  const edit = searchParams.get("edit")
+  const [edit, setEdit] = useQueryState("edit")
 
   const pageMap = {
     profile: ProfileEdit,
@@ -50,13 +42,12 @@ const PageRenderer = () => {
     education: Education,
     awards: Awards,
     resume: Resume,
-    "basic-information": BasicInformation,
     default: Default,
   }
 
   const Page = pageMap[edit as keyof typeof pageMap] || pageMap["default"]
 
-  return <Page />
+  return <Page setEdit={setEdit} />
 }
 
 export default PageRenderer

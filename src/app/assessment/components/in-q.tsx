@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import type { Answer, OptionCatagories, Options, Validity } from "../type"
 import AnswerDialogue from "./answer-dialogue"

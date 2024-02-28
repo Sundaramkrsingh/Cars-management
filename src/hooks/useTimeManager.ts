@@ -1,6 +1,6 @@
 "use client"
 
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 
 const useTimeManager = () => {

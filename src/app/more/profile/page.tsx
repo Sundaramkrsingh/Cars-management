@@ -1,9 +1,12 @@
-import PageRenderer from "./components/PageRenderer"
+import ProfileFromDataProvider from "@/store/profile-form-provider"
+import PageRenderer from "./components/page-renderer"
 
 export default async function Profile() {
   return (
-    <div className="px-5 pt-2 text-black">
-      <PageRenderer />
-    </div>
+    <ProfileFromDataProvider>
+      <div className="px-5 pt-2 pb-4 text-black h-profile">
+        <PageRenderer />
+      </div>
+    </ProfileFromDataProvider>
   )
 }

@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 import { useEffect, useState } from "react"
 import PostQAnswer from "./post-q-answer"
 import PostQCard from "./post-q-card"

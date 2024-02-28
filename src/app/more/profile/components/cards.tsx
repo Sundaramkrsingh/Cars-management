@@ -75,7 +75,7 @@ export const WorkExperience = ({ onClick }: CommonCardProps) => {
     >
       {workExConfig.map(({ company, designation, experience }, idx) => {
         return (
-          <>
+          <React.Fragment key={`${company}_${idx}`}>
             <p className="text-smoky-black font-medium">{designation}</p>
             <p className="text-eerie-black text-sm font-medium">{company}</p>
             <div className="flex gap-2 items-center text-sm mt-1">
@@ -86,7 +86,7 @@ export const WorkExperience = ({ onClick }: CommonCardProps) => {
             {idx !== workExConfig.length - 1 && (
               <hr className="border-platinum my-4" />
             )}
-          </>
+          </React.Fragment>
         )
       })}
     </EditWrapperCard>
@@ -236,7 +236,7 @@ export const Education = ({ onClick }: CommonCardProps) => {
     <EditWrapperCard onClick={() => onClick("education")} heading="Education">
       {educationConfig.map(({ college, course, duration }, idx) => {
         return (
-          <>
+          <React.Fragment key={`${college}_${idx}`}>
             <p className="text-smoky-black font-medium">{college}</p>
             <p className="text-eerie-black text-sm">{course}</p>
 
@@ -244,7 +244,7 @@ export const Education = ({ onClick }: CommonCardProps) => {
             {idx !== educationConfig.length - 1 && (
               <hr className="border-platinum my-4" />
             )}
-          </>
+          </React.Fragment>
         )
       })}
     </EditWrapperCard>

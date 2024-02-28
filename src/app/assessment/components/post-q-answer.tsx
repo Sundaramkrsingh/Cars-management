@@ -2,7 +2,7 @@
 
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 
 const PostQAnswer = ({ questionnaire }: { questionnaire: number }) => {

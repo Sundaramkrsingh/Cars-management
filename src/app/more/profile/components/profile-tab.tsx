@@ -2,6 +2,8 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 import { parseAsString, useQueryState } from "nuqs"
+import type { PageProps } from "../../type"
+import type { EditVariants } from "../type"
 import {
   Awards,
   BasicInformation,
@@ -12,15 +14,14 @@ import {
   Resume,
   WorkExperience,
 } from "./cards"
-import type { EditVariants } from "../type"
 
-const ProfileTab = () => {
+type ProfileProps = PageProps & {}
+
+const ProfileTab = ({ setEdit }: ProfileProps) => {
   const [type, setType] = useQueryState(
     "details",
     parseAsString.withDefault("personal")
   )
-
-  const [_, setEdit] = useQueryState("edit")
 
   const handelEditClick = (card: EditVariants) => {
     setEdit(card)

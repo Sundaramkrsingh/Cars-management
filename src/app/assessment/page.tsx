@@ -5,7 +5,7 @@ import PostQ from "./components/post-q"
 import { PreQ } from "./components/pre-q"
 import PreQChip from "./components/pre-q-chip"
 import { res } from "../../../core.res"
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 import { useEffect } from "react"
 
 export default function Chat() {

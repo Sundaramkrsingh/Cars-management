@@ -1,4 +1,4 @@
-import ChatProvider from "@/store/ChatProvider"
+import ChatProvider from "@/store/chat-provider"
 import type { Metadata } from "next"
 import Header from "./components/header"
 
