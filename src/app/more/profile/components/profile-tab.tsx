@@ -2,6 +2,8 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 import { parseAsString, useQueryState } from "nuqs"
+import type { PageProps } from "../../type"
+import type { EditVariants } from "../type"
 import {
   Awards,
   BasicInformation,
@@ -13,11 +15,21 @@ import {
   WorkExperience,
 } from "./cards"
 
-const ProfileTab = () => {
+type ProfileProps = PageProps & {}
+
+const ProfileTab = ({ setEdit }: ProfileProps) => {
   const [type, setType] = useQueryState(
     "details",
     parseAsString.withDefault("personal")
   )
+
+  const handelEditClick = (card: EditVariants) => {
+    setEdit(card)
+  }
+
+  const commonProps = {
+    onClick: handelEditClick,
+  }
 
   return (
     <Tabs defaultValue={type}>
@@ -42,14 +54,14 @@ const ProfileTab = () => {
 
       <TabsContent value="personal" className="my-5">
         <div className="flex flex-col gap-5">
-          <Profile />
-          <WorkExperience />
-          <Projects />
-          <Licenses />
-          <Education />
-          <Awards />
+          <Profile {...commonProps} />
+          <WorkExperience {...commonProps} />
+          <Projects {...commonProps} />
+          <Licenses {...commonProps} />
+          <Education {...commonProps} />
+          <Awards {...commonProps} />
           <Resume />
-          <BasicInformation />
+          <BasicInformation {...commonProps} />
         </div>
       </TabsContent>
       <TabsContent value="elective" className="my-5">

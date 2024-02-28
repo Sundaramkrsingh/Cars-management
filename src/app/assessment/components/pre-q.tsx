@@ -1,7 +1,7 @@
 "use client"
 
 import { Icons } from "@/components/icons"
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Foresight, PowerUps, WildCards } from "../components"

@@ -3,7 +3,7 @@
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
 import { Dispatch, SetStateAction } from "react"
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 
 type CardProps = {
   className: string

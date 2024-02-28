@@ -1,15 +1,12 @@
-import { Suspense } from "react"
-import ProfileTab from "./components/profile-tab"
+import ProfileFromDataProvider from "@/store/profile-form-provider"
+import PageRenderer from "./components/page-renderer"
 
 export default async function Profile() {
-
-  // this is a test comment
-
   return (
-    <div className="px-5 pt-2 text-black">
-      <Suspense>
-        <ProfileTab />
-      </Suspense>
-    </div>
+    <ProfileFromDataProvider>
+      <div className="px-5 pt-2 pb-4 text-black h-profile">
+        <PageRenderer />
+      </div>
+    </ProfileFromDataProvider>
   )
 }

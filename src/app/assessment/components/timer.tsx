@@ -3,7 +3,7 @@
 import useTimeManager from "@/hooks/useTimeManager"
 import useTimer from "@/hooks/useTimer"
 import { cn } from "@/lib/utils"
-import { useChat } from "@/store/ChatProvider"
+import { useChat } from "@/store/chat-provider"
 import { useEffect, useState } from "react"
 
 const Timer = () => {

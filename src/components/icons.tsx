@@ -1,4 +1,5 @@
 import {
+  AlertCircle,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -26,6 +27,32 @@ export const Icons = {
   settings: Settings,
   help: HelpCircle,
   upload: Upload,
+  alert: AlertCircle,
+  vectorCross: (props: LucideProps) => (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M15 5L5 15"
+        stroke="#0D0D0D"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5 5L15 15"
+        stroke="#0D0D0D"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
   edit: (props: LucideProps) => (
     <svg
       width="32"
@@ -39,9 +66,9 @@ export const Icons = {
       <path
         d="M18.6055 10.716C18.7539 10.5676 18.93 10.4499 19.1238 10.3697C19.3176 10.2894 19.5254 10.248 19.7352 10.248C19.945 10.248 20.1527 10.2894 20.3466 10.3697C20.5404 10.4499 20.7165 10.5676 20.8649 10.716C21.0132 10.8643 21.1309 11.0405 21.2112 11.2343C21.2915 11.4281 21.3328 11.6359 21.3328 11.8457C21.3328 12.0555 21.2915 12.2632 21.2112 12.4571C21.1309 12.6509 21.0132 12.827 20.8649 12.9754L13.2395 20.6008L10.1328 21.448L10.9801 18.3414L18.6055 10.716Z"
         stroke="#298F96"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   ),
