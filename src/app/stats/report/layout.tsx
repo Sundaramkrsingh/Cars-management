@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 px-5 overflow-y-scroll">
+    <div className="bg-alice-blue w-[380px] no-scrollbar h-screen mx-auto relative z-1 px-5 overflow-y-scroll">
       <Header />
       <div>{children}</div>
     </div>

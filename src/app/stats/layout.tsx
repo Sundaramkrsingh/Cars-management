@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Header from "./components/header"
 
 export const metadata: Metadata = {
   title: "Stats",
@@ -12,8 +11,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
-      <Header />
+    <div className="bg-alice-blue w-[380px] no-scrollbar h-screen mx-auto relative z-1 overflow-y-scroll">
       <div>{children}</div>
     </div>
   )

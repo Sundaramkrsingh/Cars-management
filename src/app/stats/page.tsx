@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils"
 import StatCard from "./components/stat-card"
 import type { StatCardProp } from "./type"
 import MobileNavigationBar from "@/components/shared/mobile-navigation-bar"
+import Header from "./components/header"
 
 const cardConfig = [
   {
@@ -14,7 +15,7 @@ const cardConfig = [
     icon: "badge",
     title: "Rewards",
     description: "Powerups, badges and more",
-    href: "/rewards",
+    href: "/stats/rewards",
   },
   {
     icon: "reportGraph",
@@ -28,6 +29,7 @@ const cardConfig = [
 export default async function Stats() {
   return (
     <>
+      <Header />
       <div className="p-5 pb-[105px] relative pt-[376px]">
         <div className="grid grid-cols-4 grid-rows-2 gap-3">
           {cardConfig.map(
