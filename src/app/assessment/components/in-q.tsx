@@ -18,13 +18,12 @@ const questionConfig: {
 } = {
   questionNumber: 2,
   questionCount: 10,
-  question:
-    "The Taj Mahal, a UNESCO World Heritage Site, was built during the reign of which Mughal emperor",
+  question: "what is the capital of India.",
   options: [
-    { label: "Akbar", value: "akbar" },
-    { label: "Jhangir", value: "jhangir" },
-    { label: "Shah Jahan", value: "shaj-jahan" },
-    { label: "Aurangzeb", value: "aurangzeb" },
+    { label: "Mumbai", value: "mumbai" },
+    { label: "Goa", value: "gao" },
+    { label: "Delhi", value: "delhi" },
+    { label: "Kolkata", value: "kolkata" },
   ],
 }
 
