@@ -1,4 +1,3 @@
-import MobileNavigationBar from "@/components/shared/mobile-navigation-bar"
 import type { Metadata } from "next"
 import Header from "./components/header"
 
@@ -16,7 +15,6 @@ export default function RootLayout({
     <div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
       <Header />
       <div>{children}</div>
-      <MobileNavigationBar />
     </div>
   )
 }

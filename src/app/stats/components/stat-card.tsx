@@ -29,11 +29,18 @@ const Partial = ({
   )
 }
 
-const Cover = ({ icon, title, description, className, href }: StatCardProp) => {
+const Cover = ({
+  icon,
+  title,
+  description,
+  className,
+  href,
+  cta = "View full report",
+}: StatCardProp) => {
   const Icon = Icons[icon as keyof typeof Icons]
 
   return (
-    <Link className={cn("h-full", className)} href={href}>
+    <Link className={cn("min-h-32", className)} href={href}>
       <div
         className={cn(
           "relative flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer stat-card-shadow h-full"
@@ -42,9 +49,7 @@ const Cover = ({ icon, title, description, className, href }: StatCardProp) => {
         <p className="text-eerie-black text-base font-semibold">{title}</p>
         <p className="text-dark-charcoal text-sm w-40">{description}</p>
         <div className="flex items-center gap-2">
-          <p className="font-medium text-eerie-black text-sm">
-            View full report
-          </p>
+          <p className="font-medium text-eerie-black text-sm">{cta}</p>
           <Icons.rightArrow className="w-5 h-4 mt-[-4px] text-eerie-black" />
         </div>
         <Icon className="absolute right-0 top-0" />
