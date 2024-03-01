@@ -84,7 +84,7 @@ const ProfileSection = () => {
       <Avatar {...rest} />
       <div>
         <p className="font-semibold text-[22px]">{name}</p>
-        <Link href="#" className="flex items-center">
+        <Link href="/more/profile" className="flex items-center">
           <p className="font-medium gap-2">Edit</p>
           <Icons.rightArrow className="w-4 h-4" />
         </Link>

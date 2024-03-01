@@ -7,4 +7,5 @@ export type StatCardProp = {
   description: string
   className?: string
   type?: string
+  cta?: string
 }

@@ -13,7 +13,7 @@ const postQConfig = {
   infoCard: {
     image: "/placeholder.png",
     description:
-      "The Taj Mahal, a UNESCO World Heritage Site, was built during the reign of which Mughal emperor",
+      "Delhi, India's capital, boasts a rich history as the seat of ancient kingdoms, including the Pandavas and Mughals. Rebuilt by various rulers",
   },
 }
 
