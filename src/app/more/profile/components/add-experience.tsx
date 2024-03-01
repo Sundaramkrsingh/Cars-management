@@ -19,11 +19,11 @@ const AddExperience = ({ setEdit }: PageProps) => {
   const form = useForm<z.infer<typeof userExperienceSchema>>({
     mode: "onSubmit",
     resolver: zodResolver(userExperienceSchema),
-    defaultValues: experience,
+    // defaultValues: experience,
   })
 
   const handelSubmit = () => {
-    setProfileEdit(form.getValues())
+    // setProfileEdit(form.getValues())
     setEdit(null)
   }
 

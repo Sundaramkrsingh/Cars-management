@@ -166,4 +166,16 @@
   .h-profile {
     height: calc(100% - 65px);
   }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url("/calendar.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    left: 90%;
+  }
 }
