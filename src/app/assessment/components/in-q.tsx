@@ -18,7 +18,7 @@ const questionConfig: {
 } = {
   questionNumber: 2,
   questionCount: 10,
-  question: "what is the capital of India.",
+  question: "What is the capital of India.",
   options: [
     { label: "Mumbai", value: "mumbai" },
     { label: "Goa", value: "gao" },
