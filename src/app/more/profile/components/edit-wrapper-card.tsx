@@ -5,12 +5,14 @@ type EditWrapperCardProps = {
   heading: string | React.ReactNode
   children: React.ReactNode
   onClick?: () => void
+  endowment?: React.ReactNode
 }
 
 const EditWrapperCard = ({
   children,
   heading,
   onClick,
+  endowment,
 }: EditWrapperCardProps) => {
   return (
     <div className="p-5 edit-card-shadow flex flex-col w-full rounded-[10px]">
@@ -20,7 +22,11 @@ const EditWrapperCard = ({
         ) : (
           <>{heading}</>
         )}
-        {onClick && <Icons.edit onClick={onClick} className="cursor-pointer" />}
+        {onClick && !endowment ? (
+          <Icons.edit onClick={onClick} className="cursor-pointer" />
+        ) : (
+          endowment
+        )}
       </div>
       {children}
     </div>

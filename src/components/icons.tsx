@@ -28,6 +28,49 @@ export const Icons = {
   help: HelpCircle,
   upload: Upload,
   alert: AlertCircle,
+  add: (props: LucideProps) => (
+    <svg
+      width="35"
+      height="35"
+      viewBox="0 0 35 35"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect
+        x="0.409091"
+        y="0.409091"
+        width="33.5455"
+        height="33.5455"
+        rx="9.40909"
+        fill="#DFF6F2"
+      />
+      <rect
+        x="0.409091"
+        y="0.409091"
+        width="33.5455"
+        height="33.5455"
+        rx="9.40909"
+        stroke="#1B5360"
+        stroke-width="0.818182"
+        stroke-dasharray="3.27 3.27"
+      />
+      <path
+        d="M17.1816 11.9316V22.4316"
+        stroke="#1B5360"
+        stroke-width="1.63636"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M11.9316 17.1816H22.4316"
+        stroke="#1B5360"
+        stroke-width="1.63636"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  ),
   vectorCross: (props: LucideProps) => (
     <svg
       width="20"

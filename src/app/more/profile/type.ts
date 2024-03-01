@@ -1,9 +1,10 @@
 export type EditVariants =
   | "profile"
-  | "work-experience"
+  | "add-experience"
   | "projects"
   | "licenses"
   | "education"
   | "awards"
   | "resume"
   | "basic-information"
+  | "work-experience "

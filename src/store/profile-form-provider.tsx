@@ -10,8 +10,16 @@ type ProfileEdit = {
   bio: string
 }
 
+type Experience = {
+  title: string
+  company: string
+  startDate: Date | string
+  endDate: Date | string
+}
+
 export type ProfileFromData = {
   profileEdit: ProfileEdit
+  experience: Experience[]
 }
 
 const initialState: ProfileFromData = {
@@ -21,6 +29,7 @@ const initialState: ProfileFromData = {
     username: "@mariageorgebezt",
     bio: "",
   },
+  experience: [],
 }
 
 const createStore = (profileFormData: ProfileFromData) =>
@@ -32,6 +41,14 @@ const createStore = (profileFormData: ProfileFromData) =>
     setProfileEdit(data: ProfileEdit) {
       set((prev) => ({
         profileFormData: { ...prev.profileFormData, profileEdit: data },
+      }))
+    },
+    setExperience(data: Experience) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          experience: [...prev.profileFormData.experience, data],
+        },
       }))
     },
   }))

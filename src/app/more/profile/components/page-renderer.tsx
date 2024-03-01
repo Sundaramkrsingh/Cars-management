@@ -4,13 +4,13 @@ import { useQueryState } from "nuqs"
 import type { PageProps } from "../../type"
 import ProfileEdit from "./profile-edit"
 import ProfileTab from "./profile-tab"
+import AddExperience from "./add-experience"
 
 const Default = ({ setEdit }: PageProps) => <ProfileTab setEdit={setEdit} />
 
 const WorkExperience = ({ setEdit }: PageProps) => {
   return <>Work Experience</>
 }
-
 const Projects = ({ setEdit }: PageProps) => {
   return <>Projects</>
 }
@@ -36,7 +36,8 @@ const PageRenderer = () => {
 
   const pageMap = {
     profile: ProfileEdit,
-    "work-experience": WorkExperience,
+    "add-experience": AddExperience,
+    "work-experience ": WorkExperience,
     projects: Projects,
     licenses: Licenses,
     education: Education,

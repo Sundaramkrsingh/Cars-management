@@ -5,9 +5,14 @@ import Link from "next/link"
 import React, { ChangeEvent, useRef, useState } from "react"
 import { EditVariants } from "../type"
 import EditWrapperCard from "./edit-wrapper-card"
+import { Options } from "nuqs"
 
 type CommonCardProps = {
   onClick: (card: EditVariants) => void
+  setEdit?: <Shallow>(
+    value: string | ((old: string | null) => string | null) | null,
+    options?: Options<Shallow> | undefined
+  ) => Promise<URLSearchParams>
 }
 
 export const Profile = ({ onClick }: CommonCardProps) => {
@@ -48,47 +53,79 @@ export const Profile = ({ onClick }: CommonCardProps) => {
   )
 }
 
-export const WorkExperience = ({ onClick }: CommonCardProps) => {
-  const workExConfig = [
-    {
-      designation: "Product Designer",
-      company: "UST Global ",
-      experience: {
-        duration: "2 years, 3 months",
-        timePeriod: "Aug 2022 - Present",
-      },
-    },
-    {
-      designation: "Visual Design Intern",
-      company: "Google Pay",
-      experience: {
-        duration: "1 months",
-        timePeriod: "Dec 2022 - Jan 2023",
-      },
-    },
-  ]
+export const WorkExperience = ({ onClick, setEdit }: CommonCardProps) => {
+  const workExConfig: any = {
+    profileCompletion: "6%",
+    workExp: [
+      // {
+      //   designation: "Product Designer",
+      //   company: "UST Global ",
+      //   experience: {
+      //     duration: "2 years, 3 months",
+      //     timePeriod: "Aug 2022 - Present",
+      //   },
+      // },
+      // {
+      //   designation: "Visual Design Intern",
+      //   company: "Google Pay",
+      //   experience: {
+      //     duration: "1 months",
+      //     timePeriod: "Dec 2022 - Jan 2023",
+      //   },
+      // },
+    ],
+  }
+
+  const isEmpty = workExConfig.workExp.length === 0
 
   return (
     <EditWrapperCard
-      onClick={() => onClick("work-experience")}
+      onClick={() => {
+        isEmpty
+          ? onClick("add-experience")
+          : setEdit && setEdit("work-experience ")
+      }}
       heading="Work Experience"
-    >
-      {workExConfig.map(({ company, designation, experience }, idx) => {
-        return (
-          <React.Fragment key={`${company}_${idx}`}>
-            <p className="text-smoky-black font-medium">{designation}</p>
-            <p className="text-eerie-black text-sm font-medium">{company}</p>
-            <div className="flex gap-2 items-center text-sm mt-1">
-              <p className="text-eerie-black">{experience.timePeriod}</p>
-              <div className="w-1 h-1 rounded-full bg-eerie-black" />
-              <p className="text-eerie-black">{experience.duration}</p>
-            </div>
-            {idx !== workExConfig.length - 1 && (
-              <hr className="border-platinum my-4" />
-            )}
-          </React.Fragment>
+      endowment={
+        isEmpty ? (
+          <div className="bg-azureish-white px-2 py-[2px] rounded-[4px] text-sm text-eagle-green">
+            {`${workExConfig?.profileCompletion} profile`}
+          </div>
+        ) : (
+          false
         )
-      })}
+      }
+    >
+      {!isEmpty ? (
+        workExConfig?.workExp?.map(
+          ({ company, designation, experience }: any, idx: number) => {
+            return (
+              <React.Fragment key={`${company}_${idx}`}>
+                <p className="text-smoky-black font-medium">{designation}</p>
+                <p className="text-eerie-black text-sm font-medium">
+                  {company}
+                </p>
+                <div className="flex gap-2 items-center text-sm mt-1">
+                  <p className="text-eerie-black">{experience.timePeriod}</p>
+                  <div className="w-1 h-1 rounded-full bg-eerie-black" />
+                  <p className="text-eerie-black">{experience.duration}</p>
+                </div>
+                {idx !== workExConfig.length - 1 && (
+                  <hr className="border-platinum my-4" />
+                )}
+              </React.Fragment>
+            )
+          }
+        )
+      ) : (
+        <div className="h-full flex items-center gap-4">
+          <Icons.add
+            className="cursor-pointer "
+            onClick={() => setEdit && setEdit("add-experience")}
+          />
+          <p className="text-skobeloff font-medium">Add work experience</p>
+        </div>
+      )}
     </EditWrapperCard>
   )
 }

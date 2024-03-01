@@ -26,13 +26,14 @@ const Profile = ({ children }: LayoutProps) => {
 
   const navHeadingMap = {
     profile: "Basic Information",
-    "work-experience": "Work experience",
+    "add-experience": "Add experience",
     projects: "Projects",
     licenses: "Licenses & certifications",
     education: "Education",
     awards: "Awards and achievements",
     "basic-information": "Basic Information",
     default: "My profile",
+    "work-experience ": "Work experiences",
   }
 
   const url = Object.keys(navHeadingMap).includes(edit as string)

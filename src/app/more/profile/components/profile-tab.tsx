@@ -29,6 +29,7 @@ const ProfileTab = ({ setEdit }: ProfileProps) => {
 
   const commonProps = {
     onClick: handelEditClick,
+    setEdit: setEdit,
   }
 
   return (
