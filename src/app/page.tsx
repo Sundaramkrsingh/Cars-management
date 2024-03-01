@@ -24,7 +24,7 @@ export default async function Home() {
   ]
 
   return (
-    <div className="bg-alice-blue w-[380px] h-screen mx-auto relative z-1 overflow-y-scroll">
+    <div className="bg-alice-blue w-[380px] no-scrollbar h-screen mx-auto relative z-1 overflow-y-scroll">
       <div className="p-5 pt-0">
         <div className="text-smoky-black h-[65px] flex items-center gap-2">
           <h1 className="font-medium text-lg">Home</h1>
