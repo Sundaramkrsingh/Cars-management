@@ -11,6 +11,7 @@ import type { PageProps } from "../../type"
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { Icons } from "@/components/icons"
+import EditDrawer from "./edit-drawer"
 
 const AddExperience = ({ setEdit }: PageProps) => {
   const searchParams = useSearchParams()
@@ -62,12 +63,7 @@ const AddExperience = ({ setEdit }: PageProps) => {
       onSubmit={form.handleSubmit(handelSubmit)}
       className="flex flex-col justify-between h-full relative"
     >
-      {work && (
-        <Icons.delete
-          onClick={() => {}}
-          className="text-celadon-green font-medium text-lg absolute cursor-pointer right-5 top-[-50px]"
-        />
-      )}
+      {work && <EditDrawer />}
       <div className="flex flex-col gap-[18px]">
         <Input
           label="Title"

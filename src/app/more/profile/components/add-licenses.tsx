@@ -1,4 +1,3 @@
-import { Icons } from "@/components/icons"
 import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { userLicensesSchema } from "@/lib/validations/add-license"
@@ -9,6 +8,7 @@ import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
+import EditDrawer from "./edit-drawer"
 
 const AddLicenses = ({ setEdit }: PageProps) => {
   const searchParams = useSearchParams()
@@ -61,12 +61,7 @@ const AddLicenses = ({ setEdit }: PageProps) => {
       onSubmit={form.handleSubmit(handelSubmit)}
       className="flex flex-col justify-between h-full relative"
     >
-      {licenses && (
-        <Icons.delete
-          onClick={() => {}}
-          className="text-celadon-green font-medium text-lg absolute cursor-pointer right-5 top-[-50px]"
-        />
-      )}
+      {licenses && <EditDrawer />}
       <div className="flex flex-col gap-[18px]">
         <Input
           label="License or certification name"

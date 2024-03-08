@@ -1,15 +1,15 @@
-import { Icons } from "@/components/icons"
 import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { TextArea } from "@/components/ui/text-area"
+import { userProjectSchema } from "@/lib/validations/add-project"
 import { useProfileFromData } from "@/store/profile-form-provider"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useSearchParams } from "next/navigation"
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
-import { userProjectSchema } from "@/lib/validations/add-project"
-import { TextArea } from "@/components/ui/text-area"
+import EditDrawer from "./edit-drawer"
 
 const AddProjects = ({ setEdit }: PageProps) => {
   const searchParams = useSearchParams()
@@ -52,12 +52,7 @@ const AddProjects = ({ setEdit }: PageProps) => {
       onSubmit={form.handleSubmit(handelSubmit)}
       className="flex flex-col justify-between h-full relative"
     >
-      {project && (
-        <Icons.delete
-          onClick={() => {}}
-          className="text-celadon-green font-medium text-lg absolute cursor-pointer right-5 top-[-50px]"
-        />
-      )}
+      {project && <EditDrawer />}
       <div className="flex flex-col gap-[18px]">
         <Input
           label="Project title"
