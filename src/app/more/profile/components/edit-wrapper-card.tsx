@@ -2,7 +2,7 @@ import { Icons } from "@/components/icons"
 import React from "react"
 
 type EditWrapperCardProps = {
-  heading: string | React.ReactNode
+  heading?: string | React.ReactNode
   children: React.ReactNode
   onClick?: () => void
   endowment?: React.ReactNode
@@ -15,15 +15,18 @@ const EditWrapperCard = ({
   endowment,
 }: EditWrapperCardProps) => {
   return (
-    <div className="p-5 edit-card-shadow flex flex-col w-full rounded-[10px]">
-      <div className="w-full flex justify-between items-center mb-4">
+    <div className="relative p-5 edit-card-shadow flex flex-col w-full rounded-[10px]">
+      <div className="w-full flex justify-between items-center w-1/2 mb-4">
         {typeof heading === "string" ? (
           <p className="text-[20px] font-medium">{heading}</p>
         ) : (
-          <>{heading}</>
+          <>{heading && heading}</>
         )}
         {onClick && !endowment ? (
-          <Icons.edit onClick={onClick} className="cursor-pointer" />
+          <Icons.edit
+            onClick={onClick}
+            className="absolute right-5 top-5 cursor-pointer"
+          />
         ) : (
           endowment
         )}

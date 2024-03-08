@@ -23,7 +23,7 @@ const ProfileEdit = ({ setEdit }: PageProps) => {
   })
 
   const handelSubmit = () => {
-    setProfileEdit(form.getValues())
+    setProfileEdit(form.getValues() as any)
     setEdit(null)
   }
 

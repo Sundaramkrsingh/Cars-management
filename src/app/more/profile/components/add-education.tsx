@@ -1,58 +1,56 @@
-"use client"
-
+import { Icons } from "@/components/icons"
 import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { userExperienceSchema } from "@/lib/validations/add-experience"
+import { userEducationSchema } from "@/lib/validations/add-education"
 import { useProfileFromData } from "@/store/profile-form-provider"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useSearchParams } from "next/navigation"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
-import { useSearchParams } from "next/navigation"
-import { useEffect } from "react"
-import { Icons } from "@/components/icons"
 
-const AddExperience = ({ setEdit }: PageProps) => {
+const AddEducation = ({ setEdit }: PageProps) => {
   const searchParams = useSearchParams()
-  const work = searchParams.get("work")
+  const educationIdx = searchParams.get("education")
 
   const {
-    profileFormData: { experience },
-    setExperience,
-    setExperienceEdit,
+    profileFormData: { education },
+    setEducation,
+    setEducationEdit,
   } = useProfileFromData()((state) => state)
 
-  const form = useForm<z.infer<typeof userExperienceSchema>>({
+  const form = useForm<z.infer<typeof userEducationSchema>>({
     mode: "onSubmit",
-    resolver: zodResolver(userExperienceSchema),
+    resolver: zodResolver(userEducationSchema),
     defaultValues: {
-      company: "",
-      title: "",
+      institution: "",
+      degree: "",
       startDate: "" as any,
       endDate: "" as any,
     },
   })
 
   useEffect(() => {
-    if (work) {
-      const endDate = new Date(experience[+work].endDate)
+    if (educationIdx) {
+      const endDate = new Date(education[+educationIdx].endDate)
         .toISOString()
         .slice(0, 10)
 
-      const startDate = new Date(experience[+work].startDate)
+      const startDate = new Date(education[+educationIdx].startDate)
         .toISOString()
         .slice(0, 10)
 
-      form.reset({ ...experience[+work], endDate, startDate } as any)
+      form.reset({ ...education[+educationIdx], startDate, endDate } as any)
     }
-  }, [experience, form, work])
+  }, [education, form, educationIdx])
 
   const handelSubmit = (data: any) => {
-    if (work) {
-      setExperienceEdit(data, +work)
+    if (educationIdx) {
+      setEducationEdit(data, +educationIdx)
       setEdit(null)
     } else {
-      setExperience(data)
+      setEducation(data)
       setEdit(null)
     }
   }
@@ -62,7 +60,7 @@ const AddExperience = ({ setEdit }: PageProps) => {
       onSubmit={form.handleSubmit(handelSubmit)}
       className="flex flex-col justify-between h-full relative"
     >
-      {work && (
+      {educationIdx && (
         <Icons.delete
           onClick={() => {}}
           className="text-celadon-green font-medium text-lg absolute cursor-pointer right-5 top-[-50px]"
@@ -70,16 +68,16 @@ const AddExperience = ({ setEdit }: PageProps) => {
       )}
       <div className="flex flex-col gap-[18px]">
         <Input
-          label="Title"
-          name="title"
+          label="Institution name"
+          name="institution"
           form={form}
-          placeholder="Ex : Product Designer"
+          placeholder="Enter you school or college name"
         />
         <Input
-          label="Company name"
-          name="company"
+          label="Degree"
+          name="degree"
           form={form}
-          placeholder="Ex : Google Pay"
+          placeholder="Ex : B.tech"
         />
         <Input label="Start date" name="startDate" type="date" form={form} />
         <Input label="End date" name="endDate" type="date" form={form} />
@@ -89,4 +87,4 @@ const AddExperience = ({ setEdit }: PageProps) => {
   )
 }
 
-export default AddExperience
+export default AddEducation

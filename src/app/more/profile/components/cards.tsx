@@ -1,11 +1,12 @@
 import { Icons } from "@/components/icons"
-import { cn } from "@/lib/utils"
+import { cn, dateDiffInYearsOrMonths, monthNames } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
 import React, { ChangeEvent, useRef, useState } from "react"
-import { EditVariants } from "../type"
+import type { EditVariants } from "../type"
 import EditWrapperCard from "./edit-wrapper-card"
 import { Options } from "nuqs"
+import { useProfileFromData } from "@/store/profile-form-provider"
 
 type CommonCardProps = {
   onClick: (card: EditVariants) => void
@@ -16,15 +17,13 @@ type CommonCardProps = {
 }
 
 export const Profile = ({ onClick }: CommonCardProps) => {
-  const profileSectionConfig = {
-    avatar: { initials: "MG", bgColor: "#F8F98F", src: null },
-    name: "Maria George",
-    description:
-      "Product Designer | Global profile of 300 + clients | Bridging Business Goals with Exceptional User Experiences | AI/M practitioner",
-    email: "@mariageorgebezt",
-  }
+  const {
+    profileFormData: { profileEdit },
+  } = useProfileFromData()((state) => state)
 
-  const { avatar, email, description, name } = profileSectionConfig
+  const { avatar, email, bio: description, firstName, lastName } = profileEdit
+
+  const name = firstName + " " + lastName
 
   return (
     <EditWrapperCard
@@ -40,7 +39,7 @@ export const Profile = ({ onClick }: CommonCardProps) => {
             <Image src={avatar?.src} alt="profile-img" layout="fill" />
           ) : (
             <p className="text-[23px] font-semibold text-skobeloff">
-              {avatar.initials}
+              {avatar?.initials}
             </p>
           )}
         </div>
@@ -56,34 +55,20 @@ export const Profile = ({ onClick }: CommonCardProps) => {
 export const WorkExperience = ({ onClick, setEdit }: CommonCardProps) => {
   const workExConfig: any = {
     profileCompletion: "6%",
-    workExp: [
-      // {
-      //   designation: "Product Designer",
-      //   company: "UST Global ",
-      //   experience: {
-      //     duration: "2 years, 3 months",
-      //     timePeriod: "Aug 2022 - Present",
-      //   },
-      // },
-      // {
-      //   designation: "Visual Design Intern",
-      //   company: "Google Pay",
-      //   experience: {
-      //     duration: "1 months",
-      //     timePeriod: "Dec 2022 - Jan 2023",
-      //   },
-      // },
-    ],
   }
 
-  const isEmpty = workExConfig.workExp.length === 0
+  const {
+    profileFormData: { experience },
+  } = useProfileFromData()((state) => state)
+
+  const isEmpty = experience.length === 0
 
   return (
     <EditWrapperCard
       onClick={() => {
         isEmpty
           ? onClick("add-experience")
-          : setEdit && setEdit("work-experience ")
+          : setEdit && setEdit("work-experience")
       }}
       heading="Work Experience"
       endowment={
@@ -97,20 +82,28 @@ export const WorkExperience = ({ onClick, setEdit }: CommonCardProps) => {
       }
     >
       {!isEmpty ? (
-        workExConfig?.workExp?.map(
-          ({ company, designation, experience }: any, idx: number) => {
+        experience?.map(
+          ({ company, title, startDate: date, endDate }, idx: number) => {
+            const startDate = new Date(date)
+            const timeDiff = dateDiffInYearsOrMonths(
+              new Date(endDate),
+              new Date(startDate)
+            )
+
             return (
               <React.Fragment key={`${company}_${idx}`}>
-                <p className="text-smoky-black font-medium">{designation}</p>
+                <p className="text-smoky-black font-medium">{title}</p>
                 <p className="text-eerie-black text-sm font-medium">
                   {company}
                 </p>
                 <div className="flex gap-2 items-center text-sm mt-1">
-                  <p className="text-eerie-black">{experience.timePeriod}</p>
+                  <p className="text-eerie-black">
+                    {`${startDate.getFullYear()} ${monthNames[startDate.getMonth()]}`}
+                  </p>
                   <div className="w-1 h-1 rounded-full bg-eerie-black" />
-                  <p className="text-eerie-black">{experience.duration}</p>
+                  <p className="text-eerie-black">{timeDiff}</p>
                 </div>
-                {idx !== workExConfig.length - 1 && (
+                {idx !== experience.length - 1 && (
                   <hr className="border-platinum my-4" />
                 )}
               </React.Fragment>
@@ -130,203 +123,294 @@ export const WorkExperience = ({ onClick, setEdit }: CommonCardProps) => {
   )
 }
 
-export const Projects = ({ onClick }: CommonCardProps) => {
-  const projectsConfig = [
-    {
-      project: "Salesmate- Advanced CRM Platform",
-      contributions: [
-        "B2B CRM product targeted for sales team to increase overall performance",
-        "Increased team sales by 37%",
-      ],
-      projectLink: "#",
-    },
+export const Projects = ({ onClick, setEdit }: CommonCardProps) => {
+  const projectConfig: any = {
+    profileCompletion: "2%",
+  }
 
-    {
-      project: "Air Bnb seller rooms feature",
-      contributions: [
-        "Ideated on concepts to integrate AI for easing seller room creation",
-        "Decreased user dropout rate by 12 which lead to increase in avg number of seller profiles created",
-      ],
-      projectLink: "#",
-    },
-  ]
-  return (
-    <EditWrapperCard onClick={() => onClick("projects")} heading="Projects">
-      {projectsConfig.map(({ project, projectLink, contributions }, idx) => {
-        return (
-          <React.Fragment key={idx}>
-            <p className="text-smoky-black font-medium mb-1">{project}</p>
-            {contributions.map((contribution, idx) => (
-              <p
-                className="text-eerie-black text-sm"
-                key={`${contribution}-${idx}`}
-              >
-                - {contribution}
-              </p>
-            ))}
-            <Link
-              href={projectLink}
-              className="flex gap-2 items-center text-skobeloff font-semibold mt-1"
-            >
-              <p className=""> Link to credential</p>
-              <Icons.rightArrow className="w-4 h-4" />
-            </Link>
-            {idx !== projectsConfig.length - 1 && (
-              <hr className="border-platinum my-4" />
-            )}
-          </React.Fragment>
-        )
-      })}
-    </EditWrapperCard>
-  )
-}
+  const {
+    profileFormData: { projects },
+  } = useProfileFromData()((state) => state)
 
-export const Licenses = ({ onClick }: CommonCardProps) => {
-  const licensesConfig = [
-    {
-      companyImage: "/kaggle.svg",
-      certification: "Microsoft level 1 UX certification",
-      issuer: "Microsoft inc",
-      issued: "Aug 2022",
-      expires: "Aug 2023",
-      certificationLink: "#",
-    },
-
-    {
-      companyImage: "/course.svg",
-      certification: "Google user flows course",
-      issuer: "Coursera",
-      issued: "Aug 2022",
-      expires: "Aug 2027",
-      certificationLink: "#",
-    },
-  ]
+  const isEmpty = projects.length === 0
 
   return (
     <EditWrapperCard
-      onClick={() => onClick("licenses")}
-      heading="Licenses & certifications"
+      onClick={() =>
+        isEmpty ? onClick("add-projects") : setEdit && setEdit("projects")
+      }
+      heading="Projects"
+      endowment={
+        isEmpty ? (
+          <div className="bg-azureish-white px-2 py-[2px] rounded-[4px] text-sm text-eagle-green">
+            {`${projectConfig?.profileCompletion} profile`}
+          </div>
+        ) : (
+          false
+        )
+      }
     >
-      {licensesConfig.map(
-        (
-          {
-            certification,
-            issued,
-            expires,
-            certificationLink,
-            issuer,
-            companyImage,
-          },
-          idx
-        ) => {
-          return (
-            <div key={idx} className="flex items-start gap-3">
-              <Image
-                src={companyImage}
-                alt="company-img"
-                width={40}
-                height={40}
-              />
-
-              <div>
-                <p className="text-smoky-black font-medium">{certification}</p>
-                <p className="text-eerie-black text-sm">{issuer}</p>
-                <div className="flex gap-2 items-center text-sm mt-1">
-                  <p className="text-dark-liver">Issued {issued}</p>
-                  <div className="w-1 h-1 rounded-full bg-eerie-black" />
-                  <p className="text-dark-liver">Expires {expires}</p>
+      {!isEmpty ? (
+        <>
+          {projects.map(({ title, link, description }, idx) => {
+            return (
+              <React.Fragment key={idx}>
+                <p className="text-smoky-black font-medium mb-1">{title}</p>
+                <div
+                  className="text-eerie-black text-sm"
+                  key={`${title}-${idx}`}
+                >
+                  {description}
                 </div>
                 <Link
-                  href={certificationLink}
-                  className="flex gap-2 items-center text-skobeloff font-semibold"
+                  href={link}
+                  className="flex gap-2 items-center text-skobeloff font-semibold mt-1"
                 >
                   <p className=""> Link to credential</p>
                   <Icons.rightArrow className="w-4 h-4" />
                 </Link>
-                {idx !== licensesConfig.length - 1 && (
+                {idx !== projects.length - 1 && (
                   <hr className="border-platinum my-4" />
                 )}
-              </div>
-            </div>
-          )
-        }
+              </React.Fragment>
+            )
+          })}
+        </>
+      ) : (
+        <div className="h-full flex items-center gap-4">
+          <Icons.add
+            className="cursor-pointer "
+            onClick={() => setEdit && setEdit("add-projects")}
+          />
+          <p className="text-skobeloff font-medium">Add your main projects</p>
+        </div>
       )}
     </EditWrapperCard>
   )
 }
 
-export const Education = ({ onClick }: CommonCardProps) => {
-  const educationConfig = [
-    {
-      college: "IIT , Roorkee",
-      course: "M tech, Web Design and Development",
-      duration: "2022 - 2024",
-    },
-    {
-      college: "SRM University",
-      course: "B tech, Computer Science",
-      duration: "2018 - 2022",
-    },
-  ]
+export const Licenses = ({ onClick, setEdit }: CommonCardProps) => {
+  const licensesConfig: any = {
+    profileCompletion: "2%",
+  }
+
+  const {
+    profileFormData: { licenses },
+  } = useProfileFromData()((state) => state)
+
+  const isEmpty = licenses.length === 0
 
   return (
-    <EditWrapperCard onClick={() => onClick("education")} heading="Education">
-      {educationConfig.map(({ college, course, duration }, idx) => {
-        return (
-          <React.Fragment key={`${college}_${idx}`}>
-            <p className="text-smoky-black font-medium">{college}</p>
-            <p className="text-eerie-black text-sm">{course}</p>
-
-            <p className="text-eerie-black text-sm mt-1">{duration}</p>
-            {idx !== educationConfig.length - 1 && (
-              <hr className="border-platinum my-4" />
-            )}
-          </React.Fragment>
+    <EditWrapperCard
+      onClick={() => onClick("licenses")}
+      heading="Licenses & certifications"
+      endowment={
+        isEmpty ? (
+          <div className="bg-azureish-white px-2 py-[2px] rounded-[4px] text-sm text-eagle-green">
+            {`${licensesConfig?.profileCompletion} profile`}
+          </div>
+        ) : (
+          false
         )
-      })}
+      }
+    >
+      {!isEmpty ? (
+        <>
+          {licenses.map(
+            (
+              {
+                certification,
+                startDate: sDate,
+                expiryDate: eDate,
+                link,
+                provider,
+                companyImage,
+              },
+              idx
+            ) => {
+              const startDate = new Date(sDate)
+              const expiryDate = new Date(eDate)
+
+              return (
+                <React.Fragment key={idx}>
+                  <div className="flex items-start gap-3">
+                    {companyImage && (
+                      <Image
+                        src={companyImage}
+                        alt="company-img"
+                        width={40}
+                        height={40}
+                      />
+                    )}
+                    <div>
+                      <p className="text-smoky-black font-medium">
+                        {certification}
+                      </p>
+                      <p className="text-eerie-black text-sm">{provider}</p>
+                      <div className="flex gap-2 items-center text-sm mt-1">
+                        <p className="text-dark-liver">
+                          Issued{" "}
+                          {`${monthNames[startDate.getMonth()]} ${startDate.getFullYear()}`}
+                        </p>
+                        <div className="w-1 h-1 rounded-full bg-eerie-black" />
+                        <p className="text-dark-liver">
+                          Expires{" "}
+                          {`${monthNames[expiryDate.getMonth()]} ${expiryDate.getFullYear()}`}
+                        </p>
+                      </div>
+                      <Link
+                        href={link}
+                        className="flex gap-2 items-center text-skobeloff font-semibold"
+                      >
+                        <p className=""> Link to credential</p>
+                        <Icons.rightArrow className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+                  {idx !== licenses.length - 1 && (
+                    <hr className="border-platinum my-4" />
+                  )}
+                </React.Fragment>
+              )
+            }
+          )}
+        </>
+      ) : (
+        <div className="h-full flex items-center gap-4">
+          <Icons.add
+            className="cursor-pointer"
+            onClick={() => setEdit && setEdit("add-licenses")}
+          />
+          <p className="text-skobeloff font-medium">
+            Add any certifications you hve
+          </p>
+        </div>
+      )}
     </EditWrapperCard>
   )
 }
 
-export const Awards = ({ onClick }: CommonCardProps) => {
-  const awardsConfig = [
-    {
-      award: "All India Hackathon 2nd prize",
-      description:
-        "2nd prize for automated attendence taker product for all India level hackathon",
-      awardLink: "#",
-    },
+export const Education = ({ onClick, setEdit }: CommonCardProps) => {
+  const educationConfig: any = {
+    profileCompletion: "2%",
+  }
 
-    {
-      award: "Top 100  product design challenger",
-      description:
-        "Best product design challenger for DesignUp challenge with around 3 lacks participants from all over the world",
-      awardLink: "#",
-    },
-  ]
+  const {
+    profileFormData: { education },
+  } = useProfileFromData()((state) => state)
+
+  const isEmpty = education.length === 0
+
+  return (
+    <EditWrapperCard
+      onClick={() => onClick("education")}
+      heading="Education"
+      endowment={
+        isEmpty ? (
+          <div className="bg-azureish-white px-2 py-[2px] rounded-[4px] text-sm text-eagle-green">
+            {`${educationConfig?.profileCompletion} profile`}
+          </div>
+        ) : (
+          false
+        )
+      }
+    >
+      {!isEmpty ? (
+        <>
+          {education.map(
+            (
+              { institution, degree, startDate: sDate, endDate: eDate },
+              idx
+            ) => {
+              const startDate = new Date(sDate)
+              const endDate = new Date(eDate)
+
+              return (
+                <React.Fragment key={`${institution}_${idx}`}>
+                  <p className="text-smoky-black font-medium">{institution}</p>
+                  <p className="text-eerie-black text-sm">{degree}</p>
+
+                  <p className="text-eerie-black text-sm mt-1">{`${startDate.getFullYear()}-${endDate.getFullYear()}`}</p>
+                  {idx !== education.length - 1 && (
+                    <hr className="border-platinum my-4" />
+                  )}
+                </React.Fragment>
+              )
+            }
+          )}
+        </>
+      ) : (
+        <div className="h-full flex items-center gap-4">
+          <Icons.add
+            className="cursor-pointer "
+            onClick={() => setEdit && setEdit("add-education")}
+          />
+          <p className="text-skobeloff font-medium">
+            Add your education details.
+          </p>
+        </div>
+      )}
+    </EditWrapperCard>
+  )
+}
+
+export const Awards = ({ onClick, setEdit }: CommonCardProps) => {
+  const awardsConfig: any = {
+    profileCompletion: "2%",
+  }
+
+  const {
+    profileFormData: { awards },
+  } = useProfileFromData()((state) => state)
+
+  const isEmpty = awards.length === 0
+
   return (
     <EditWrapperCard
       onClick={() => onClick("awards")}
       heading="Awards and achievements"
-    >
-      {awardsConfig.map(({ award, awardLink, description }, idx) => {
-        return (
-          <React.Fragment key={idx}>
-            <p className="text-smoky-black font-medium">{award}</p>
-            <p className="text-eerie-black text-sm">{description}</p>
-            <Link
-              href={awardLink}
-              className="flex gap-2 items-center text-skobeloff font-semibold mt-1"
-            >
-              <p className=""> Link to credential</p>
-              <Icons.rightArrow className="w-4 h-4" />
-            </Link>
-            {idx !== awardsConfig.length - 1 && (
-              <hr className="border-platinum my-4" />
-            )}
-          </React.Fragment>
+      endowment={
+        isEmpty ? (
+          <p className="bg-azureish-white min-w-20 px-2 py-[2px] rounded-[4px] text-sm text-eagle-green">
+            {`${awardsConfig?.profileCompletion} profile`}
+          </p>
+        ) : (
+          false
         )
-      })}
+      }
+    >
+      {!isEmpty ? (
+        <>
+          {awards.map(({ title, link, description }, idx) => {
+            return (
+              <React.Fragment key={idx}>
+                <p className="text-smoky-black font-medium">{title}</p>
+                <p className="text-eerie-black text-sm">{description}</p>
+                <Link
+                  href={link}
+                  className="flex gap-2 items-center text-skobeloff font-semibold mt-1"
+                >
+                  <p className=""> Link to credential</p>
+                  <Icons.rightArrow className="w-4 h-4" />
+                </Link>
+                {idx !== awards.length - 1 && (
+                  <hr className="border-platinum my-4" />
+                )}
+              </React.Fragment>
+            )
+          })}
+        </>
+      ) : (
+        <div className="h-full flex items-center gap-4">
+          <Icons.add
+            className="cursor-pointer "
+            onClick={() => setEdit && setEdit("add-awards")}
+          />
+          <p className="text-skobeloff font-medium">
+            Add awards or achievements
+          </p>
+        </div>
+      )}
     </EditWrapperCard>
   )
 }
@@ -373,15 +457,11 @@ export const Resume = () => {
   )
 }
 export const BasicInformation = ({ onClick }: CommonCardProps) => {
-  const basicInfoConfig = {
-    email: "maria@gmail.com",
-    phoneNo: "731822446",
-    dob: "15 September 2024",
-    address:
-      "Habibullah Rd, Satyamurthy Nagar, T. Nagar, Chennai, Tamil Nadu 600017",
-  }
+  const {
+    profileFormData: { basicInformation },
+  } = useProfileFromData()((state) => state)
 
-  const { address, dob, email, phoneNo } = basicInfoConfig
+  const { address, dob, email, phoneNumber } = basicInformation
 
   return (
     <EditWrapperCard
@@ -390,19 +470,47 @@ export const BasicInformation = ({ onClick }: CommonCardProps) => {
     >
       <div className="mb-4">
         <p className="text-dark-charcoal text-sm">Email</p>
-        <p className="text-smoky-black font-medium">{email}</p>
+        <p
+          className={cn(
+            "text-smoky-black font-medium",
+            email ? "text-smoky-black" : "text-dark-slate-gray"
+          )}
+        >
+          {email ? email : "No email added"}
+        </p>
       </div>
       <div className="mb-4">
         <p className="text-dark-charcoal text-sm">Date of birth</p>
-        <p className="text-smoky-black font-medium">{dob}</p>
+        <p
+          className={cn(
+            "text-smoky-black font-medium",
+            dob ? "text-smoky-black" : "text-dark-slate-gray"
+          )}
+        >
+          {dob ? dob : "No date of birth added"}
+        </p>
       </div>
       <div className="mb-4">
         <p className="text-dark-charcoal text-sm">Phone number</p>
-        <p className="text-smoky-black font-medium">{phoneNo}</p>
+        <p
+          className={cn(
+            "text-smoky-black font-medium",
+            phoneNumber ? "text-smoky-black" : "text-dark-slate-gray"
+          )}
+        >
+          {phoneNumber ? phoneNumber : "No phone number added"}
+        </p>
       </div>
       <div>
         <p className="text-dark-charcoal text-sm">Address</p>
-        <p className="text-smoky-black font-medium">{address}</p>
+        <p
+          className={cn(
+            "text-smoky-black font-medium",
+            address ? "text-smoky-black" : "text-dark-slate-gray"
+          )}
+        >
+          {address ? address : "No address added"}
+        </p>
       </div>
     </EditWrapperCard>
   )

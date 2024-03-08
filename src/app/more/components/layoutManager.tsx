@@ -23,17 +23,40 @@ const Profile = ({ children }: LayoutProps) => {
   const searchParams = useSearchParams()
 
   const edit = searchParams.get("edit")
+  const work = searchParams.get("work")
+  const project = searchParams.get("project")
+  const license = searchParams.get("license")
+  const education = searchParams.get("education")
+  const awards = searchParams.get("awards")
+  const basic = searchParams.get("basic")
 
   const navHeadingMap = {
     profile: "Basic Information",
-    "add-experience": "Add experience",
+    "work-experience": "Work experiences",
+    "add-experience": work ? "Edit experience" : "Add experience",
+
     projects: "Projects",
+    "add-projects": project ? "Edit projects" : "Add Projects",
+
     licenses: "Licenses & certifications",
+    "add-licenses": license
+      ? "Edit licenses & certifications"
+      : "Add licenses & certifications",
+
     education: "Education",
+    "add-education": education ? "Edit education" : "Add Education",
+
     awards: "Awards and achievements",
+    "add-awards": awards
+      ? "Edit awards and achievements"
+      : "Add awards and achievements",
+
     "basic-information": "Basic Information",
+    "add-basic-information": basic
+      ? "Edit basic information"
+      : "Add basic Information",
+
     default: "My profile",
-    "work-experience ": "Work experiences",
   }
 
   const url = Object.keys(navHeadingMap).includes(edit as string)

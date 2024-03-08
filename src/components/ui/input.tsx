@@ -20,6 +20,7 @@ export interface InputProps
   placeholder?: string
   description?: string
   textArea?: boolean
+  required?: boolean
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -33,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       placeholder,
       label,
       disabled = false,
-      textArea = false,
+      required = true,
       ...rest
     },
     ref
@@ -57,7 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
             return (
               <FormItem>
-                <FormLabel>{label}</FormLabel>
+                <FormLabel required={required}>{label}</FormLabel>
                 <FormControl>
                   <>
                     <input
@@ -67,7 +68,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         {
                           "!border-red-500": errors[name]?.message,
                           "!bg-white": errors[name]?.message,
-                          "h-32": textArea,
                         },
                         className
                       )}
@@ -89,7 +89,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     {description}
                   </FormDescription>
                 )}
-                <FormMessage />
+                <FormMessage type={type} />
               </FormItem>
             )
           }}
