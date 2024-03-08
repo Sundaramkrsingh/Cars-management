@@ -71,7 +71,7 @@ const InQAnswer = ({
   const show = (answer: Answer) => {
     setTimeout(() => {
       setValidity(
-        answer?.selectedOption?.label === "Shah Jahan" ? "correct" : "wrong"
+        answer?.selectedOption?.label === "Delhi" ? "correct" : "wrong"
       )
       setAnsDialogueMargin(false)
       setActiveQState(`post-q-${questionnaire}`)
