@@ -61,7 +61,7 @@ export const WorkExperience = ({ onClick, setEdit }: CommonCardProps) => {
     profileFormData: { experience },
   } = useProfileFromData()((state) => state)
 
-  const isEmpty = experience.length === 0
+  const isEmpty = experience?.length === 0
 
   return (
     <EditWrapperCard
@@ -132,7 +132,7 @@ export const Projects = ({ onClick, setEdit }: CommonCardProps) => {
     profileFormData: { projects },
   } = useProfileFromData()((state) => state)
 
-  const isEmpty = projects.length === 0
+  const isEmpty = projects?.length === 0
 
   return (
     <EditWrapperCard
@@ -152,7 +152,7 @@ export const Projects = ({ onClick, setEdit }: CommonCardProps) => {
     >
       {!isEmpty ? (
         <>
-          {projects.map(({ title, link, description }, idx) => {
+          {projects?.map(({ title, link, description }, idx) => {
             return (
               <React.Fragment key={idx}>
                 <p className="text-smoky-black font-medium mb-1">{title}</p>
@@ -198,7 +198,7 @@ export const Licenses = ({ onClick, setEdit }: CommonCardProps) => {
     profileFormData: { licenses },
   } = useProfileFromData()((state) => state)
 
-  const isEmpty = licenses.length === 0
+  const isEmpty = licenses?.length === 0
 
   return (
     <EditWrapperCard
@@ -216,7 +216,7 @@ export const Licenses = ({ onClick, setEdit }: CommonCardProps) => {
     >
       {!isEmpty ? (
         <>
-          {licenses.map(
+          {licenses?.map(
             (
               {
                 certification,
@@ -299,7 +299,7 @@ export const Education = ({ onClick, setEdit }: CommonCardProps) => {
     profileFormData: { education },
   } = useProfileFromData()((state) => state)
 
-  const isEmpty = education.length === 0
+  const isEmpty = education?.length === 0
 
   return (
     <EditWrapperCard
@@ -317,7 +317,7 @@ export const Education = ({ onClick, setEdit }: CommonCardProps) => {
     >
       {!isEmpty ? (
         <>
-          {education.map(
+          {education?.map(
             (
               { institution, degree, startDate: sDate, endDate: eDate },
               idx
@@ -363,7 +363,7 @@ export const Awards = ({ onClick, setEdit }: CommonCardProps) => {
     profileFormData: { awards },
   } = useProfileFromData()((state) => state)
 
-  const isEmpty = awards.length === 0
+  const isEmpty = awards?.length === 0
 
   return (
     <EditWrapperCard
@@ -381,7 +381,7 @@ export const Awards = ({ onClick, setEdit }: CommonCardProps) => {
     >
       {!isEmpty ? (
         <>
-          {awards.map(({ title, link, description }, idx) => {
+          {awards?.map(({ title, link, description }, idx) => {
             return (
               <React.Fragment key={idx}>
                 <p className="text-smoky-black font-medium">{title}</p>

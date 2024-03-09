@@ -16,7 +16,7 @@ const refreshUrl = "admin/refresh-token"
 const signInUrl = "admin/sign-in"
 const validateTokenUrl = "admin/validate-reset-token"
 
-const adminInstance = axios.create({
+const userInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -27,11 +27,11 @@ let isRefreshing = false
 
 const failedAdminQueue: any = []
 
-adminInstance.interceptors.request.use(
+userInstance.interceptors.request.use(
   handleRequest as (req: AxiosRequestConfig) => Promise<any>
 )
-adminInstance.interceptors.response.use(handleResponse, (error) =>
-  handleError(error, adminInstance, failedAdminQueue)
+userInstance.interceptors.response.use(handleResponse, (error) =>
+  handleError(error, userInstance, failedAdminQueue)
 )
 
 function processQueue(error: AxiosError, token = null) {
@@ -108,7 +108,7 @@ async function handleError(
 
     isRefreshing = true
 
-    return adminInstance
+    return userInstance
       .post(refreshUrl, {
         refreshToken: localStorage.getItem(REFRESH_TOKEN),
       })
@@ -153,4 +153,4 @@ async function handleError(
   return Promise.reject(error)
 }
 
-export default adminInstance
+export default userInstance

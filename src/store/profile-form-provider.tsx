@@ -164,6 +164,8 @@ const initialState: ProfileFromData = {
 const createStore = (profileFormData: ProfileFromData) =>
   create<{
     profileFormData: ProfileFromData
+    setProfileFormData: (data: ProfileFromData) => void
+
     setProfileEdit: (data: ProfileEdit) => void
 
     setExperience: (data: Experience) => void
@@ -184,6 +186,11 @@ const createStore = (profileFormData: ProfileFromData) =>
     setBasicInfo: (data: BasicInformation) => void
   }>((set) => ({
     profileFormData,
+    setProfileFormData(data: ProfileFromData) {
+      set((prev) => ({
+        profileFormData: { ...prev.profileFormData, ...data },
+      }))
+    },
 
     setProfileEdit(data: ProfileEdit) {
       set((prev) => ({

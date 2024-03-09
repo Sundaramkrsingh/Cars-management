@@ -1,5 +1,5 @@
 import QueryProvider from "@/lib/providers/QueryProvider"
-import CounterProvider from "@store/CounterProvider"
+import UserProvider from "@store/user-provider"
 import type { Metadata } from "next"
 import { Baloo_2 } from "next/font/google"
 import "./globals.css"
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={baloo.className}>
         <QueryProvider>
-          <CounterProvider counter={{ count: 1 }}>{children}</CounterProvider>
+          <UserProvider>{children}</UserProvider>
         </QueryProvider>
       </body>
     </html>

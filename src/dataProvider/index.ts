@@ -1,8 +1,8 @@
 import { AxiosRequestConfig } from "axios"
-import adminInstance from "./axios"
+import userInstance from "./axios"
 
 const InstanceTypeMapping = {
-  adminInstance,
+  userInstance,
 } as const
 
 type InstanceTypes = keyof typeof InstanceTypeMapping
