@@ -5,4 +5,5 @@ export type PageProps = {
     value: string | ((old: string | null) => string | null) | null,
     options?: Options<Shallow> | undefined
   ) => Promise<URLSearchParams>
+  loading?: boolean
 }
