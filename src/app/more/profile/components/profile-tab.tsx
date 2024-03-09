@@ -29,6 +29,7 @@ const ProfileTab = ({ setEdit }: ProfileProps) => {
 
   const commonProps = {
     onClick: handelEditClick,
+    setEdit: setEdit,
   }
 
   return (
@@ -53,7 +54,7 @@ const ProfileTab = ({ setEdit }: ProfileProps) => {
       </div>
 
       <TabsContent value="personal" className="my-5">
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 pb-5">
           <Profile {...commonProps} />
           <WorkExperience {...commonProps} />
           <Projects {...commonProps} />
