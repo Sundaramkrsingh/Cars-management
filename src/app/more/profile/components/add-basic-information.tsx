@@ -8,12 +8,18 @@ import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
+import { useBasicInfo } from "@/query/profile"
 
 const AddBasicInformation = ({ setEdit }: PageProps) => {
   const {
-    profileFormData: { basicInformation },
+    profileFormData: {
+      profileEdit: { firstName, lastName },
+      basicInformation,
+    },
     setBasicInfo,
   } = useProfileFromData()((state) => state)
+
+  const { editBasicInfo } = useBasicInfo()
 
   const form = useForm<z.infer<typeof userBasicInformationSchema>>({
     mode: "onSubmit",
@@ -24,11 +30,20 @@ const AddBasicInformation = ({ setEdit }: PageProps) => {
   useEffect(() => {
     const dob = new Date(basicInformation.dob as any).toISOString().slice(0, 10)
 
-    form.reset({ ...basicInformation, dob } as any)
+    form.reset({ ...basicInformation, dob, phoneNumber: "1234567890" } as any)
   }, [form, basicInformation])
 
-  const handelSubmit = () => {
-    setBasicInfo(form.getValues() as any)
+  const handelSubmit = (data: any) => {
+    console.log(data)
+
+    const { address, phoneNumber, ...rest } = data
+
+    editBasicInfo
+      .mutateAsync({ firstName, lastName, ...rest } as any)
+      .then(() => {
+        setBasicInfo(data as any)
+      })
+
     setEdit(null)
   }
 
@@ -49,6 +64,7 @@ const AddBasicInformation = ({ setEdit }: PageProps) => {
           name="phoneNumber"
           form={form}
           placeholder="Enter your phone number"
+          disabled
         />
         <Input type="date" label="Date of birth" name="dob" form={form} />
         <TextArea

@@ -34,13 +34,14 @@ const dataManager = (profileData: any) => {
   }
 
   const basicInformation = {
+    phoneNumber: "12345678",
     email: profileData?.email,
     dob: profileData?.dob,
     address: `${profileData?.address?.line1}, ${profileData?.address?.cityDistrict}, ${profileData?.address?.state}, ${profileData?.address?.country}`,
   }
 
   const experience = () =>
-    profileData?.workExperience.map((data: any) => ({
+    profileData?.workExperience?.map((data: any) => ({
       ...data,
       startDate: data?.from,
       endDate: data?.to,

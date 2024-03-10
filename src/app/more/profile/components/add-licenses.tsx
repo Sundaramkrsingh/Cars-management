@@ -9,15 +9,33 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
 import EditDrawer from "./edit-drawer"
+import { useLicenseCertification } from "@/query/profile"
+import { licensesManager } from "@/lib/utils"
+
+const createMutationObj = (data: any) => {
+  const { certification, provider, link, expiryDate, startDate, id } = data
+  return {
+    provider,
+    id,
+    name: certification,
+    url: link,
+    to: expiryDate,
+    from: startDate,
+  }
+}
 
 const AddLicenses = ({ setEdit }: PageProps) => {
   const searchParams = useSearchParams()
   const licenses = searchParams.get("license")
 
+  const { addLicenseCertification, editLicenseCertification, deleteLic } =
+    useLicenseCertification()
+
   const {
     profileFormData: { licenses: licensesConfig },
     setLicenses,
     setLicenseEdit,
+    removeLicense,
   } = useProfileFromData()((state) => state)
 
   const form = useForm<z.infer<typeof userLicensesSchema>>({
@@ -44,14 +62,33 @@ const AddLicenses = ({ setEdit }: PageProps) => {
 
       form.reset({ ...licensesConfig[+licenses], startDate, expiryDate } as any)
     }
-  }, [licensesConfig, form, licenses])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form, licenses])
 
   const handelSubmit = (data: any) => {
     if (licenses) {
+      const mutationObj = createMutationObj({
+        ...licensesConfig[+licenses],
+        ...data,
+      })
+
+      editLicenseCertification.mutateAsync(mutationObj as any).then((res) => {
+        const lic = licensesManager(res.data.data)
+
+        setLicenseEdit(lic, +licenses)
+      })
+
       setLicenseEdit(data, +licenses)
       setEdit(null)
     } else {
-      setLicenses(data)
+      const mutationObj = createMutationObj(data)
+
+      addLicenseCertification.mutateAsync(mutationObj as any).then((res) => {
+        const resp = res.data.data
+
+        setLicenses({ ...resp, ...data })
+      })
+
       setEdit(null)
     }
   }
@@ -61,7 +98,17 @@ const AddLicenses = ({ setEdit }: PageProps) => {
       onSubmit={form.handleSubmit(handelSubmit)}
       className="flex flex-col justify-between h-full relative"
     >
-      {licenses && <EditDrawer />}
+      {licenses && (
+        <EditDrawer
+          onClick={() => {
+            deleteLic
+              .mutateAsync({ id: licensesConfig[+licenses].id } as any)
+              .then(() => {
+                removeLicense(+licenses)
+              })
+          }}
+        />
+      )}
       <div className="flex flex-col gap-[18px]">
         <Input
           label="License or certification name"

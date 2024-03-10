@@ -19,22 +19,22 @@ const EditDrawer = ({ onClick }: { onClick?: () => void }) => (
     <DrawerContent className="border-none bg-white flex flex-col items-center">
       <DrawerHeader>
         <DrawerTitle className="text-lg font-semibold text-black text-center">
-          Discard changes ?
+          Are you sure you want to delete ?
         </DrawerTitle>
         <DrawerDescription className="text-dark-charcoal text-center">
-          Are you sure you want to discard the changes you made
+          Once deleted it cannot be recovered
         </DrawerDescription>
       </DrawerHeader>
       <DrawerFooter className="w-full gap-4">
-        <Link
-          href={"/more/profile"}
+        <button
+          onClick={onClick && onClick}
           className="w-full bg-celadon-green h-12 rounded-lg flex items-center justify-center text-base font-medium text-white"
         >
-          Submit
-        </Link>
+          Delete
+        </button>
         <DrawerClose>
           <button className="w-full bg-white border-philippine-silver border-[1px] h-12 rounded-lg text-base font-medium text-granite-gray">
-            No continue editing
+            No don’t delete
           </button>
         </DrawerClose>
       </DrawerFooter>

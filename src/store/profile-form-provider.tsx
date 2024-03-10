@@ -21,12 +21,15 @@ type Experience = {
   company: string
   startDate: Date | string
   endDate: Date | string
+  profileId?: string | number
+  id?: string | number
 }
 
 type Project = {
   title: string
   description: string
   link: string
+  id?: string | number
 }
 
 type Licenses = {
@@ -36,6 +39,7 @@ type Licenses = {
   expiryDate: string | Date
   link: string
   companyImage?: string
+  id?: string | number
 }
 
 type Education = {
@@ -43,12 +47,14 @@ type Education = {
   degree: string
   startDate: string
   endDate: string
+  id?: string | number
 }
 
 type Awards = {
   title: string
   description: string
   link: string
+  id?: string | number
 }
 type BasicInformation = {
   email?: string
@@ -170,18 +176,23 @@ const createStore = (profileFormData: ProfileFromData) =>
 
     setExperience: (data: Experience) => void
     setExperienceEdit: (data: Experience, idx: number) => void
+    removeExperience: (idx: number) => void
 
     setProject: (data: Project) => void
     setProjectEdit: (data: Project, idx: number) => void
+    removeProject: (idx: number) => void
 
     setLicenses: (data: Licenses) => void
     setLicenseEdit: (data: Licenses, idx: number) => void
+    removeLicense: (idx: number) => void
 
     setEducation: (data: Education) => void
     setEducationEdit: (data: Education, idx: number) => void
+    removeEducation: (idx: number) => void
 
     setAwards: (data: Awards) => void
     setAwardEdit: (data: Awards, idx: number) => void
+    removeAward: (idx: number) => void
 
     setBasicInfo: (data: BasicInformation) => void
   }>((set) => ({
@@ -216,6 +227,16 @@ const createStore = (profileFormData: ProfileFromData) =>
         },
       }))
     },
+    removeExperience(index: number) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          experience: prev.profileFormData.experience.filter(
+            (_, i) => i !== index
+          ),
+        },
+      }))
+    },
 
     setProject(data: Project) {
       set((prev) => ({
@@ -232,6 +253,14 @@ const createStore = (profileFormData: ProfileFromData) =>
           projects: prev.profileFormData.projects.map((exp, i) =>
             i === index ? { ...exp, ...data } : exp
           ),
+        },
+      }))
+    },
+    removeProject(index: number) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          projects: prev.profileFormData.projects.filter((_, i) => i !== index),
         },
       }))
     },
@@ -254,6 +283,14 @@ const createStore = (profileFormData: ProfileFromData) =>
         },
       }))
     },
+    removeLicense(index: number) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          licenses: prev.profileFormData.licenses.filter((_, i) => i !== index),
+        },
+      }))
+    },
 
     setEducation(data: Education) {
       set((prev) => ({
@@ -269,6 +306,16 @@ const createStore = (profileFormData: ProfileFromData) =>
           ...prev.profileFormData,
           education: prev.profileFormData.education.map((edu, i) =>
             i === index ? { ...edu, ...data } : edu
+          ),
+        },
+      }))
+    },
+    removeEducation(index: number) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          education: prev.profileFormData.education.filter(
+            (_, i) => i !== index
           ),
         },
       }))
@@ -289,6 +336,14 @@ const createStore = (profileFormData: ProfileFromData) =>
           awards: prev.profileFormData.awards.map((award, i) =>
             i === index ? { ...award, ...data } : award
           ),
+        },
+      }))
+    },
+    removeAward(index: number) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          awards: prev.profileFormData.awards.filter((_, i) => i !== index),
         },
       }))
     },

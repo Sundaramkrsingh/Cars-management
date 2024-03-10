@@ -487,7 +487,9 @@ export const BasicInformation = ({ onClick }: CommonCardProps) => {
             dob ? "text-smoky-black" : "text-dark-slate-gray"
           )}
         >
-          {dob ? dob : "No date of birth added"}
+          {dob
+            ? new Date(dob).toISOString().slice(0, 10)
+            : "No date of birth added"}
         </p>
       </div>
       <div className="mb-4">

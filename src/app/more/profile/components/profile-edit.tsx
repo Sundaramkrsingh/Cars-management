@@ -9,12 +9,15 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
+import { useBasicInfo, useProfile } from "@/query/profile"
 
 const ProfileEdit = ({ setEdit }: PageProps) => {
   const {
     profileFormData: { profileEdit },
     setProfileEdit,
   } = useProfileFromData()((state) => state)
+
+  const { editBasicInfo } = useBasicInfo()
 
   const form = useForm<z.infer<typeof userProfileSchema>>({
     mode: "onSubmit",
@@ -23,7 +26,12 @@ const ProfileEdit = ({ setEdit }: PageProps) => {
   })
 
   const handelSubmit = () => {
-    setProfileEdit(form.getValues() as any)
+    const { avatar, ...rest } = form.getValues()
+
+    editBasicInfo.mutateAsync({ ...rest } as any).then(() => {
+      setProfileEdit({ avatar, ...rest } as any)
+    })
+
     setEdit(null)
   }
 
