@@ -26,7 +26,7 @@ const ProfileEdit = ({ setEdit }: PageProps) => {
   })
 
   const handelSubmit = () => {
-    const { avatar, ...rest } = form.getValues()
+    const { avatar, ...rest } = form.getValues() as any
 
     editBasicInfo.mutateAsync({ ...rest } as any).then(() => {
       setProfileEdit({ avatar, ...rest } as any)
