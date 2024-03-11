@@ -106,15 +106,11 @@ const postProject = ({ id, data }: { id: string | number; data: any }) => {
 const patchProject = ({ id, data }: { id: string | number; data: any }) => {
   const { id: projectId } = data
 
-  console.log({ data })
-
   return fetcher.patch(`/profiles/${id}/project/${projectId}`, data)
 }
 
 const deleteProject = ({ id, data }: { id: string | number; data: any }) => {
   const { id: projectId } = data
-
-  console.log({ data })
 
   return fetcher.delete(`/profiles/${id}/project/${projectId}`)
 }

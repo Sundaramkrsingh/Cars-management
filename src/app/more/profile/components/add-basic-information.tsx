@@ -34,8 +34,6 @@ const AddBasicInformation = ({ setEdit }: PageProps) => {
   }, [form, basicInformation])
 
   const handelSubmit = (data: any) => {
-    console.log(data)
-
     const { address, phoneNumber, ...rest } = data
 
     editBasicInfo
