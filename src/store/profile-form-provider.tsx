@@ -4,11 +4,11 @@ import { createContext, useContext, useState } from "react"
 import { create } from "zustand"
 
 type ProfileEdit = {
-  firstName: string
-  lastName: string
-  username: string
-  bio: string
-  email: string
+  firstName?: string
+  lastName?: string
+  username?: string
+  bio?: string
+  email?: string
   avatar?: {
     initials: string
     bgColor: string
@@ -74,97 +74,13 @@ export type ProfileFromData = {
 }
 
 const initialState: ProfileFromData = {
-  profileEdit: {
-    avatar: { initials: "MG", bgColor: "#F8F98F", src: null },
-    firstName: "Maria",
-    lastName: "George",
-    username: "@mariageorgebezt",
-    bio: "Product Designer | Global profile of 300 + clients | Bridging Business Goals with Exceptional User Experiences | AI/M practitioner",
-    email: "@mariageorgebezt",
-  },
-  experience: [
-    {
-      title: "Product Designer",
-      company: "UST Global ",
-      startDate: "Tue Mar 05 2022 21:33:10 GMT+0530 (India Standard Time)",
-      endDate: "Tue Mar 05 2023 21:33:10 GMT+0530 (India Standard Time)",
-    },
-    {
-      title: "Visual Design Intern",
-      company: "Google Pay",
-      startDate: "Tue Mar 05 2023 21:33:10 GMT+0530 (India Standard Time)",
-      endDate: "Tue Mar 05 2024 21:33:10 GMT+0530 (India Standard Time)",
-    },
-  ],
-  projects: [
-    {
-      title: "Salesmate- Advanced CRM Platform",
-      description:
-        "- B2B CRM product targeted for sales team to increase overall performance - Increased team sales by 37%",
-      link: "#",
-    },
-    {
-      title: "Air Bnb seller rooms feature",
-      description:
-        "- Ideated on concepts to integrate AI for easing seller room creation - Decreased user dropout rate by 12 which lead to increase in avg number of seller profiles created",
-      link: "#",
-    },
-  ],
-  licenses: [
-    {
-      companyImage: "/kaggle.svg",
-      certification: "Microsoft level 1 UX certification",
-      provider: "Microsoft inc",
-      startDate: "Aug 2022",
-      expiryDate: "Aug 2023",
-      link: "#",
-    },
-
-    {
-      companyImage: "/course.svg",
-      certification: "Google user flows course",
-      provider: "Coursera",
-      startDate: "Aug 2022",
-      expiryDate: "Aug 2027",
-      link: "#",
-    },
-  ],
-  education: [
-    {
-      institution: "IIT , Roorkee",
-      degree: "M tech, Web Design and Development",
-      startDate: "Aug 2022",
-      endDate: "Aug 2022",
-    },
-    {
-      institution: "SRM University",
-      degree: "B tech, Computer Science",
-      startDate: "Aug 2022",
-      endDate: "Aug 2022",
-    },
-  ],
-  awards: [
-    {
-      title: "All India Hackathon 2nd prize",
-      description:
-        "2nd prize for automated attendence taker product for all India level hackathon",
-      link: "#",
-    },
-
-    {
-      title: "Top 100  product design challenger",
-      description:
-        "Best product design challenger for DesignUp challenge with around 3 lacks participants from all over the world",
-      link: "#",
-    },
-  ],
-  basicInformation: {
-    email: "maria@gmail.com",
-    phoneNumber: "731822446",
-    dob: "15 September 2024",
-    address:
-      "Habibullah Rd, Satyamurthy Nagar, T. Nagar, Chennai, Tamil Nadu 600017",
-  },
+  profileEdit: {},
+  experience: [],
+  projects: [],
+  licenses: [],
+  education: [],
+  awards: [],
+  basicInformation: {},
 }
 
 const createStore = (profileFormData: ProfileFromData) =>

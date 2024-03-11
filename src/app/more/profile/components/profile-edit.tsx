@@ -4,12 +4,12 @@ import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { TextArea } from "@/components/ui/text-area"
 import { userProfileSchema } from "@/lib/validations/basic-profile"
+import { useBasicInfo } from "@/query/profile"
 import { useProfileFromData } from "@/store/profile-form-provider"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
-import { useBasicInfo, useProfile } from "@/query/profile"
 
 const ProfileEdit = ({ setEdit }: PageProps) => {
   const {
@@ -25,11 +25,13 @@ const ProfileEdit = ({ setEdit }: PageProps) => {
     defaultValues: profileEdit,
   })
 
-  const handelSubmit = () => {
-    const { avatar, ...rest } = form.getValues() as any
+  const handelSubmit = (data: any) => {
+    const { avatar, username, ...rest } = form.getValues() as any
 
-    editBasicInfo.mutateAsync({ ...rest } as any).then(() => {
-      setProfileEdit({ avatar, ...rest } as any)
+    editBasicInfo.mutateAsync({ ...rest } as any).then((res) => {
+      const resp = res.data.data
+
+      setProfileEdit({ ...resp, ...data, avatar })
     })
 
     setEdit(null)

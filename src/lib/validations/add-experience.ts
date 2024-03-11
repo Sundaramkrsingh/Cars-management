@@ -15,5 +15,5 @@ export const userExperienceSchema = z.object({
     .min(1, messages.mandatory)
     .max(50, messages.exceedCharrCount),
   startDate: z.coerce.date(),
-  endDate: z.coerce.date(),
+  endDate: z.unknown(),
 })

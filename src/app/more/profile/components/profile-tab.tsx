@@ -15,10 +15,11 @@ import {
   Resume,
   WorkExperience,
 } from "./cards"
+import { Icons } from "@/components/icons"
 
 type ProfileProps = PageProps & {}
 
-const ProfileTab = ({ setEdit, loading }: ProfileProps) => {
+const ProfileTab = ({ setEdit, profile }: ProfileProps) => {
   const [type, setType] = useQueryState(
     "details",
     parseAsString.withDefault("personal")
@@ -55,7 +56,7 @@ const ProfileTab = ({ setEdit, loading }: ProfileProps) => {
       </div>
 
       <TabsContent value="personal" className="my-5">
-        {loading ? (
+        {profile?.isLoading ? (
           <div className="flex flex-col gap-5">
             <Skeleton className="h-[200px] w-full rounded-xl" />{" "}
             <Skeleton className="h-[200px] w-full rounded-xl" />{" "}
@@ -63,16 +64,27 @@ const ProfileTab = ({ setEdit, loading }: ProfileProps) => {
             <Skeleton className="h-[200px] w-full rounded-xl" />
           </div>
         ) : (
-          <div className="flex flex-col gap-5 pb-5">
-            <Profile {...commonProps} />
-            <WorkExperience {...commonProps} />
-            <Projects {...commonProps} />
-            <Licenses {...commonProps} />
-            <Education {...commonProps} />
-            <Awards {...commonProps} />
-            <Resume />
-            <BasicInformation {...commonProps} />
-          </div>
+          <>
+            {profile?.isError ? (
+              <div className="w-full h-[70vh] flex flex-col justify-center items-center">
+                <Icons.sadAba className="ml-[-30px] w-52 h-56" />
+                <p className="mt-5 text-2xl font-semibold">
+                  Failed to fetch data
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-5 pb-5">
+                <Profile {...commonProps} />
+                <WorkExperience {...commonProps} />
+                <Projects {...commonProps} />
+                <Licenses {...commonProps} />
+                <Education {...commonProps} />
+                <Awards {...commonProps} />
+                <Resume />
+                <BasicInformation {...commonProps} />
+              </div>
+            )}
+          </>
         )}
       </TabsContent>
       <TabsContent value="elective" className="my-5">

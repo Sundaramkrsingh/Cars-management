@@ -11,5 +11,5 @@ export const userProjectSchema = z.object({
     .min(1, messages.mandatory)
     .max(50, messages.exceedCharrCount),
   description: z.string().min(1, messages.mandatory),
-  link: z.string().min(1, messages.mandatory),
+  link: z.string(),
 })

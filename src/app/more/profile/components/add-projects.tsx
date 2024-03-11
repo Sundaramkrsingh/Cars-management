@@ -16,7 +16,7 @@ import { projectsManager } from "@/lib/utils"
 const createMutationObj = (data: any) => {
   const { description, title, link, id } = data
 
-  return { id, title, description, url: link }
+  return { id, title, description, ...(link && { url: link }) }
 }
 
 const AddProjects = ({ setEdit }: PageProps) => {

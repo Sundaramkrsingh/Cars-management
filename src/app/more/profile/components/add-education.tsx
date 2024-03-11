@@ -20,8 +20,8 @@ const createMutationObj = (data: any) => {
     degree,
     university: "",
     schoolCollage: institution,
-    to: endDate,
     from: startDate,
+    ...(endDate && { to: endDate }),
   }
 }
 

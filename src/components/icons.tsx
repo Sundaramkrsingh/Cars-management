@@ -126,7 +126,7 @@ export const Icons = {
         rx="9.40909"
         stroke="#1B5360"
         strokeWidth="0.818182"
-        stroke-dasharray="3.27 3.27"
+        strokeDasharray="3.27 3.27"
       />
       <path
         d="M17.1816 11.9316V22.4316"

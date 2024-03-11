@@ -21,7 +21,14 @@ export const Profile = ({ onClick }: CommonCardProps) => {
     profileFormData: { profileEdit },
   } = useProfileFromData()((state) => state)
 
-  const { avatar, email, bio: description, firstName, lastName } = profileEdit
+  const {
+    avatar,
+    email,
+    username,
+    bio: description,
+    firstName,
+    lastName,
+  } = profileEdit
 
   const name = firstName + " " + lastName
 
@@ -47,7 +54,7 @@ export const Profile = ({ onClick }: CommonCardProps) => {
     >
       <p className="font-medium text-[22px] mb-1">{name}</p>
       <p className="text-smoky-black mb-9">{description}</p>
-      <p className="text-granite-gray text-sm">{email}</p>
+      <p className="text-granite-gray text-sm">@{username}</p>
     </EditWrapperCard>
   )
 }
@@ -83,8 +90,13 @@ export const WorkExperience = ({ onClick, setEdit }: CommonCardProps) => {
     >
       {!isEmpty ? (
         experience?.map(
-          ({ company, title, startDate: date, endDate }, idx: number) => {
+          (
+            { company, title, startDate: date, endDate: eDate },
+            idx: number
+          ) => {
             const startDate = new Date(date)
+            const endDate = new Date(eDate)
+
             const timeDiff = dateDiffInYearsOrMonths(
               new Date(endDate),
               new Date(startDate)
@@ -99,6 +111,8 @@ export const WorkExperience = ({ onClick, setEdit }: CommonCardProps) => {
                 <div className="flex gap-2 items-center text-sm mt-1">
                   <p className="text-eerie-black">
                     {`${startDate.getFullYear()} ${monthNames[startDate.getMonth()]}`}
+                    -
+                    {`${endDate.getFullYear()} ${monthNames[endDate.getMonth()]}`}
                   </p>
                   <div className="w-1 h-1 rounded-full bg-eerie-black" />
                   <p className="text-eerie-black">{timeDiff}</p>

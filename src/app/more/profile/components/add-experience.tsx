@@ -17,7 +17,13 @@ import { experienceManager } from "@/lib/utils"
 const createMutationObj = (data: any) => {
   const { startDate, endDate, title, company, id } = data
 
-  return { title, company, to: endDate, from: startDate, id }
+  return {
+    title,
+    id,
+    company,
+    from: startDate,
+    ...(endDate && { to: endDate }),
+  }
 }
 
 const AddExperience = ({ setEdit }: PageProps) => {

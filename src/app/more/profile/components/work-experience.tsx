@@ -40,6 +40,8 @@ const WorkExperience = ({ setEdit }: PageProps) => {
               <div className="flex gap-2 items-center text-sm mt-1">
                 <p className="text-eerie-black">
                   {`${startDate.getFullYear()} ${monthNames[startDate.getMonth()]}`}
+                  -
+                  {`${endDate.getFullYear()} ${monthNames[endDate.getMonth()]}`}
                 </p>
                 <div className="w-1 h-1 rounded-full bg-eerie-black" />
                 <p className="text-eerie-black">{timeDiff}</p>
