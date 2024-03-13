@@ -39,3 +39,53 @@ export const monthNames = [
   "Nov",
   "Dec",
 ]
+
+export const profileManager = (data: any) => ({
+  firstName: data?.firstName,
+  lastName: data?.lastName,
+  username: data?.username,
+  bio: data?.bio,
+  email: data?.email,
+  avatar: {
+    initials: "",
+    bgColor: "",
+    src: data?.avatar,
+  },
+})
+
+export const basicInformationManager = (data: any) => ({
+  email: data?.email,
+  dob: data?.dob,
+  address: `${data?.address?.line1}, ${data?.address?.cityDistrict}, ${data?.address?.state}, ${data?.address?.country}`,
+})
+
+export const experienceManager = (data: any) => ({
+  ...data,
+  startDate: data?.from,
+  endDate: data?.to,
+})
+
+export const awardsManager = (data: any) => ({
+  ...data,
+  link: data?.url || "#",
+})
+
+export const educationManager = (data: any) => ({
+  ...data,
+  institution: data?.schoolCollage,
+  startDate: data?.from,
+  endDate: data?.to,
+})
+
+export const projectsManager = (data: any) => ({
+  ...data,
+  link: data?.url || "#",
+})
+
+export const licensesManager = (data: any) => ({
+  ...data,
+  certification: data?.name,
+  startDate: data?.from,
+  expiryDate: data?.to,
+  link: data?.url || "#",
+})
