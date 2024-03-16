@@ -93,6 +93,9 @@ const config = {
         "pale-blue": "#BBEDE4",
         "light-silver": "#D0D5DD",
         "azureish-white": "#DFF6F2",
+        "english-vermillion": "#D04949",
+        "imperial-red": "#EF233C",
+        charcoal: "#344054",
       },
       borderRadius: {
         lg: "var(--radius)",

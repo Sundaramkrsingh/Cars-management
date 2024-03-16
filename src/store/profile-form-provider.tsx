@@ -277,7 +277,9 @@ const ProfileFromDataContext = createContext<ReturnType<
 
 export const useProfileFromData = () => {
   if (!ProfileFromDataContext)
-    throw new Error("useCounter must be used within a ChatProvider")
+    throw new Error(
+      "useProfileFromData must be used within a ProfileFromDataProvider"
+    )
   return useContext(ProfileFromDataContext)!
 }
 

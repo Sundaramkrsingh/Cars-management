@@ -16,7 +16,7 @@ const RankBar = ({ avatar, rank, stars, name, stage, href }: RankBarProps) => {
   return (
     <Link
       href={href}
-      className="rank-bar-shadow px-[10px] h-[54px] w-full bg-white flex items-center rounded-[10px] justify-between"
+      className="card-shadow px-[10px] h-[54px] w-full bg-white flex items-center rounded-[10px] justify-between"
     >
       <div className="flex items-center">
         <div className="bg-middle-blue-green rounded-full font-medium text-dark-charcoal text-sm min-h-6 min-w-6 items-center justify-center flex mr-3 px-1">

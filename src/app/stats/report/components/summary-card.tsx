@@ -61,7 +61,7 @@ const SummaryCard = ({
   subHeading,
 }: SummaryCardProps) => {
   return (
-    <div className="flex flex-col summary-card-shadow p-[18px] rounded-[10px] bg-white">
+    <div className="flex flex-col card-shadow p-[18px] rounded-[10px] bg-white">
       <p className="font-semibold text-lg text-black mb-2">{heading}</p>
       <p className="text-eagle-green text-xs font-medium mb-4">{subHeading}</p>
       <ProgressBar progress={progress} stage={stage} />
