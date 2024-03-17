@@ -15,7 +15,7 @@ const EditWrapperCard = ({
   endowment,
 }: EditWrapperCardProps) => {
   return (
-    <div className="relative p-5 edit-card-shadow flex flex-col w-full rounded-[10px]">
+    <div className="relative p-5 card-shadow flex flex-col w-full rounded-[10px]">
       <div className="flex justify-between items-center w-full mb-4">
         {typeof heading === "string" ? (
           <p className="text-[20px] font-medium">{heading}</p>

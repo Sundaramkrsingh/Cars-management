@@ -80,10 +80,25 @@ const Profile = ({ children }: LayoutProps) => {
   )
 }
 
+const Filter = ({ children }: LayoutProps) => {
+  return (
+    <>
+      <div className="h-[65px] flex items-center gap-2 text-black p-5">
+        <Link href="/more/profile?details=elective">
+          <Icons.leftArrow className="w-7 h-7" />
+        </Link>
+        <h1 className="font-medium text-lg">Filter</h1>
+      </div>
+      {children}
+    </>
+  )
+}
+
 function LayoutManager({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const layoutMap = {
+    "/more/profile/filter": Filter,
     "/more/profile": Profile,
     "/more": More,
   }

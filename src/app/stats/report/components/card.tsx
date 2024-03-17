@@ -10,7 +10,7 @@ type CardProps = {
 
 const Card = ({ heading, subHeading, info, children }: CardProps) => {
   return (
-    <div className="flex flex-col summary-card-shadow p-[18px] rounded-[10px] bg-white">
+    <div className="flex flex-col card-shadow p-[18px] rounded-[10px] bg-white">
       <p className="font-semibold text-sm text-dark-charcoal mb-2 uppercase">
         {heading}
       </p>

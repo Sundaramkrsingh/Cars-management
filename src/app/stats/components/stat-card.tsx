@@ -16,7 +16,7 @@ const Partial = ({
     <Link className={cn("h-full", className)} href={href}>
       <div
         className={cn(
-          "h-full flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer stat-card-shadow"
+          "h-full flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer card-shadow"
         )}
       >
         <div className="progress-blocks w-9 h-9 flex items-center justify-center rounded-[7px]">
@@ -43,7 +43,7 @@ const Cover = ({
     <Link className={cn("min-h-32", className)} href={href}>
       <div
         className={cn(
-          "relative flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer stat-card-shadow h-full"
+          "relative flex flex-col p-4 gap-1 bg-white rounded-[10px] cursor-pointer card-shadow h-full"
         )}
       >
         <p className="text-eerie-black text-base font-semibold">{title}</p>
