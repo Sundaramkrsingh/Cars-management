@@ -14,6 +14,7 @@ type CardProps = {
   setActive: Dispatch<SetStateAction<string | number | undefined>>
   activeCard: string | number | undefined
   questionnaire: number
+  onClick?: () => void
 }
 
 function capitalizeFirstLetter(str: string) {
@@ -29,6 +30,7 @@ const DefaultCard = ({
   setActive,
   activeCard,
   questionnaire,
+  onClick,
 }: CardProps) => {
   const isInActive = state === "in-active"
 
@@ -53,6 +55,7 @@ const DefaultCard = ({
   const handleClick = () => {
     if (isCardClickable) {
       activeCard === id ? setActive(undefined) : setActive(id)
+      onClick && onClick()
     }
   }
 

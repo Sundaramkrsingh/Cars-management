@@ -1,8 +1,9 @@
 "use client"
 
 import { Foresight } from "../../components"
+import type { QuestionProps } from "./series-type"
 
-const Trait = ({ ad = false }: { ad?: boolean }) => {
+const Trait = ({ ad = false }: QuestionProps) => {
   return (
     <>
       <Foresight />

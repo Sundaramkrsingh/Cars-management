@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import DiceDialog from "./dice-dialog"
 import PowerUpCard from "./power-up-card"
 import PreQHeading from "./pre-q-heading"
 
@@ -48,14 +49,18 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
           id={4}
           {...commonPowerUpProps}
         />
-        <PowerUpCard
-          className="col-span-2 row-span-1 p-2"
-          description="Dice Up"
-          icon="dice"
-          state="in-active"
-          id={5}
-          {...commonPowerUpProps}
-        />
+        <DiceDialog
+          questionnaire={questionnaire}
+          className="col-span-2 row-span-1"
+        >
+          <PowerUpCard
+            className="col-span-2 row-span-1 p-2"
+            description="Dice Up"
+            icon="dice"
+            id={5}
+            {...commonPowerUpProps}
+          />
+        </DiceDialog>
       </div>
     </div>
   )

@@ -62,7 +62,7 @@ export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
     >
       <Icons.info className="text-philippine-silver w-4 h-4 mb-2 cursor-pointer" />
       <QuestionWrapper>
-        <CurrentQuestion />
+        <CurrentQuestion questionnaire={questionnaire} />
       </QuestionWrapper>
       {currentStage === "pre-q" && <AssessmentButton onClick={handelClick} />}
     </TransitionWrapper>
