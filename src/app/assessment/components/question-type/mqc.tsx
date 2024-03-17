@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator"
 import React from "react"
 
-const InQOptions = ({ questionConfig }: any) => {
+const Mcq = ({ questionConfig }: any) => {
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-platinum">{`Q ${questionConfig.questionNumber} / ${questionConfig.questionCount}`}</p>
@@ -27,4 +27,4 @@ const InQOptions = ({ questionConfig }: any) => {
   )
 }
 
-export default InQOptions
+export default Mcq

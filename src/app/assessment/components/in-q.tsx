@@ -3,10 +3,11 @@
 import { cn } from "@/lib/utils"
 import { useChat } from "@/store/chat-provider"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import type { Answer, OptionCatagories, Options, Validity } from "../type"
+import type { Answer, OptionCatagories, Validity } from "../type"
 import AnswerDialogue from "./answer-dialogue"
 import InQAnswer from "./in-q-answer"
-import InQOptions from "./in-q-options"
+import Mcq from "./question-type/mqc"
+import Textual from "./question-type/textual"
 import QuestionWrapper from "./question-wrapper"
 import TransitionWrapper from "./transition-wrapper"
 
@@ -15,10 +16,14 @@ const questionConfig: {
   questionCount: number
   question: string
   options: { label: string; value: string }[]
+  questionType?: "mcq" | "textual"
+  questionDescription?: string
 } = {
+  // questionType: "textual",
   questionNumber: 2,
   questionCount: 10,
   question: "What is the capital of India.",
+  // questionDescription: "Read the statement and select agree or disagree.",
   options: [
     { label: "Mumbai", value: "mumbai" },
     { label: "Goa", value: "gao" },
@@ -35,12 +40,21 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
   const [showInQ, setShowInQ] = useState(false)
   const [answerBarVisibility, setAnswerBarVisibility] = useState<boolean>(true)
   const [answer, setAnswer] = useState<Answer>()
-  const [activeOption, setActiveOption] = useState<Options>()
+  const [activeOption, setActiveOption] = useState<string>()
   const [answerValidity, setAnswerValidity] = useState<Validity>("default")
   const [optionsCategory, setOptionsCategory] =
     useState<OptionCatagories>("full")
   const [ansDialogueMargin, setAnsDialogueMargin] =
     useState<boolean>(answerBarVisibility)
+
+  const questionTypeMap = {
+    mcq: Mcq,
+    textual: Textual,
+  }
+
+  const defaultQType = "mcq"
+
+  const Question = questionTypeMap[questionConfig?.questionType || defaultQType]
 
   useEffect(() => {
     if (activeQState.includes(`in-q-${questionnaire}`)) {
@@ -53,7 +67,7 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
       <QuestionWrapper
         className={cn("mt-5", currentStage === "in-q" && "mb-[200px]")}
       >
-        <InQOptions questionConfig={questionConfig} />
+        <Question questionConfig={questionConfig} />
       </QuestionWrapper>
       <AnswerDialogue
         className={cn(

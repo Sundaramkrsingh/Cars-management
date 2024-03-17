@@ -4,14 +4,16 @@ import { Icons } from "@/components/icons"
 import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Foresight, PowerUps, WildCards } from "../components"
 import AssessmentButton from "./assessment-button"
 import QuestionWrapper from "./question-wrapper"
+import Default from "./questions-series/default"
+import Trait from "./questions-series/trait"
 import TransitionWrapper from "./transition-wrapper"
+import { cn } from "@/lib/utils"
 
 export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
   const {
-    chat: { activeQuestionnaire, currentStage, activeQState },
+    chat: { activeQuestionnaire, currentStage, activeQState, seriesType },
     setCurrentStage,
     setActiveQState,
   } = useChat()((state) => state)
@@ -20,9 +22,17 @@ export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
 
   const [showPreQ, setShowPreQ] = useState(false)
 
+  const questionTypeMap = {
+    default: Default,
+    trait: Trait,
+  }
+
+  const CurrentQuestion = questionTypeMap[seriesType]
+
   useEffect(() => {
     activeQuestionnaire === questionnaire &&
       setActiveQState(`pre-q-${questionnaire}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -46,15 +56,13 @@ export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
 
   return (
     <TransitionWrapper
-      className="mt-5"
+      className={cn(questionnaire === 0 ? "mt-[-10px]" : "mt-5")}
       show={showPreQ}
       id={`pre-q-${questionnaire}`}
     >
-      <Icons.info className="text-philippine-silver w-4 h-4 mb-2" />
+      <Icons.info className="text-philippine-silver w-4 h-4 mb-2 cursor-pointer" />
       <QuestionWrapper>
-        <Foresight />
-        <PowerUps questionnaire={questionnaire} />
-        <WildCards questionnaire={questionnaire} />
+        <CurrentQuestion />
       </QuestionWrapper>
       {currentStage === "pre-q" && <AssessmentButton onClick={handelClick} />}
     </TransitionWrapper>

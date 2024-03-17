@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons"
-import type { Answer, Validity } from "../type"
 import { cn } from "@/lib/utils"
+import type { Answer, Validity } from "../type"
 
 type AnswerDialogueProps = Answer & {
   validity: Validity
@@ -48,9 +48,13 @@ const AnswerDialogue = ({
           )}
         >
           <div
-            className={`mr-2 rounded-lg ${
-              isDefault ? "bg-aero-blue" : "bg-white"
-            } text-foreground w-6 h-6 flex justify-center items-center transition-all duration-500`}
+            className={cn(
+              "mr-2 rounded-lg text-foreground h-6 flex justify-center items-center transition-all duration-500",
+              isDefault ? "bg-aero-blue" : "bg-white",
+              ["A", "B", "C", "D"].includes(optionValue as string)
+                ? "w-6"
+                : "px-1 w-fit"
+            )}
           >
             {optionValue}
           </div>
