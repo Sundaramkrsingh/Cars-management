@@ -15,7 +15,7 @@ const TransitionWrapper = ({
     id={id}
     className={cn(
       className,
-      "transition-all duration-500 scroll-mx-5",
+      "transition-all duration-500",
       show ? "opacity-100 visible" : "opacity-0 invisible absolute top-0"
     )}
   >
