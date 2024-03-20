@@ -1,13 +1,21 @@
 "use client"
 
-import { Icons } from "@/components/icons"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 import { parseAsString, useQueryState } from "nuqs"
 import type { PageProps } from "../../type"
 import type { EditVariants } from "../type"
-import Electives from "./electives"
-import ProfileDetails from "./profile-details"
+import {
+  Awards,
+  BasicInformation,
+  Education,
+  Licenses,
+  Profile,
+  Projects,
+  Resume,
+  WorkExperience,
+} from "./cards"
+import { Icons } from "@/components/icons"
 
 type ProfileProps = PageProps & {}
 
@@ -65,13 +73,24 @@ const ProfileTab = ({ setEdit, profile }: ProfileProps) => {
                 </p>
               </div>
             ) : (
-              <ProfileDetails {...commonProps} />
+              <div className="flex flex-col gap-5 pb-5">
+                <Profile {...commonProps} />
+                <WorkExperience {...commonProps} />
+                <Projects {...commonProps} />
+                <Licenses {...commonProps} />
+                <Education {...commonProps} />
+                <Awards {...commonProps} />
+                <Resume />
+                <BasicInformation {...commonProps} />
+              </div>
             )}
           </>
         )}
       </TabsContent>
       <TabsContent value="elective" className="my-5">
-        <Electives />
+        <div className="flex gap-[10px] justify-center items-end mt-4">
+          Test 2
+        </div>
       </TabsContent>
     </Tabs>
   )
