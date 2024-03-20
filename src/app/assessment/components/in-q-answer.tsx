@@ -9,8 +9,8 @@ import type { Answer, OptionCatagories, Options, Validity } from "../type"
 
 type InQAnswerProps = {
   setAnswerBarVisibility: Dispatch<SetStateAction<boolean>>
-  setActiveOption: Dispatch<SetStateAction<Options | undefined>>
-  activeOption: Options | undefined
+  setActiveOption: Dispatch<SetStateAction<string | undefined>>
+  activeOption: string | undefined
   options: { label: string; value: string }[]
   setValidity: Dispatch<SetStateAction<Validity>>
   optionsCategory: OptionCatagories
@@ -18,10 +18,15 @@ type InQAnswerProps = {
   setAnswer: Dispatch<SetStateAction<Answer>>
   questionnaire: number
   answer?: Answer
+  labelVariant?: string
 }
+
+const full = { alphabetic: ["A", "B", "C", "D"] }
+const partial = { alphabetic: ["A", "B"], validation: ["Agree", "Disagree"] }
 
 const Option = ({
   value,
+  label,
   className,
   onClick,
   activeOption,
@@ -30,6 +35,7 @@ const Option = ({
   onClick: (value: Options) => void
   activeOption?: string
   className?: string
+  label: string
 }) => {
   const activeClass = "!text-white !bg-eucalyptus"
 
@@ -42,7 +48,7 @@ const Option = ({
         className
       )}
     >
-      {value}
+      {label}
     </button>
   )
 }
@@ -56,13 +62,23 @@ const InQAnswer = ({
   optionsCategory,
   setAnsDialogueMargin,
   questionnaire,
+  labelVariant = "alphabetic",
 }: InQAnswerProps) => {
+  const isPartial = optionsCategory === "partial"
+
+  const labelType = isPartial
+    ? partial[labelVariant as keyof typeof partial]
+    : full[labelVariant as keyof typeof full]
+
+  const optionEngine = labelType?.map((label, index) => ({
+    value: options[index].value,
+    label,
+  }))
+
   const router = useRouter()
 
   const { setActiveQState, setInQAnswerVisibility, setCurrentStage } =
     useChat()((state) => state)
-
-  const isPartial = optionsCategory === "partial"
 
   const handelClick = (value: Options) => {
     setActiveOption(value)
@@ -81,29 +97,17 @@ const InQAnswer = ({
 
   return (
     <div className="w-answer absolute bottom-5 justify-between flex">
-      <div className="h-14 w-[236px] flex">
-        <Option
-          value="A"
-          activeOption={activeOption}
-          onClick={handelClick}
-          className="rounded-l-2xl"
-        />
-        <Option value="B" activeOption={activeOption} onClick={handelClick} />
-        {!isPartial && (
-          <>
-            <Option
-              value="C"
-              activeOption={activeOption}
-              onClick={handelClick}
-            />
-            <Option
-              value="D"
-              activeOption={activeOption}
-              onClick={handelClick}
-              className="rounded-r-2xl"
-            />
-          </>
-        )}
+      <div className="h-14 w-[236px] flex rounded-2xl overflow-hidden">
+        {optionEngine.map(({ label, value }, idx) => (
+          <Option
+            key={value}
+            label={label}
+            value={value}
+            activeOption={activeOption}
+            onClick={handelClick}
+            className={cn(isPartial ? "w-1/2" : "w-1/4")}
+          />
+        ))}
       </div>
       <button
         className={cn(
@@ -111,17 +115,18 @@ const InQAnswer = ({
           !activeOption && "!bg-chinese-silver"
         )}
         onClick={() => {
-          const optionIdx = activeOption && activeOption?.charCodeAt(0) - 65
+          const selectedOption =
+            options[options.findIndex(({ value }) => value === activeOption)]
 
-          const selectedOption = options[optionIdx as number]
-
-          console.log(selectedOption)
+          const optionValue = optionEngine.find(
+            ({ value }) => value === activeOption
+          )?.label
 
           if (activeOption && selectedOption) {
             setCurrentStage("post-q")
             setInQAnswerVisibility(false)
             setAnswer(() => ({
-              optionValue: activeOption as Options,
+              optionValue,
               selectedOption,
             }))
             show({

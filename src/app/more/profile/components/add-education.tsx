@@ -61,6 +61,7 @@ const AddEducation = ({ setEdit }: PageProps) => {
 
       form.reset({ ...education[+educationIdx], startDate, endDate } as any)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form, educationIdx])
 
   const handelSubmit = (data: any) => {

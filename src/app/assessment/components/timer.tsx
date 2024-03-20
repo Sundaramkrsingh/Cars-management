@@ -31,6 +31,16 @@ const Timer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStage, reset])
 
+  useEffect(() => {
+    const chatBody = document.getElementById("chat-body")
+
+    if (chatBody && currentStage === "post-q") {
+      chatBody.classList.add("post-q-scroll")
+    } else {
+      chatBody && chatBody.classList.remove("post-q-scroll")
+    }
+  }, [currentStage])
+
   function getBackgroundColor(sec: number) {
     return sec <= 5
       ? "bg-jelly-bean"

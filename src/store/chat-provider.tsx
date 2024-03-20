@@ -10,6 +10,7 @@ export type Chat = {
   activeQState: string[]
   inQAnswerVisibility: boolean
   questionCount: number
+  seriesType: "trait" | "default"
 }
 
 const initialState: Chat = {
@@ -18,6 +19,7 @@ const initialState: Chat = {
   activeQState: [],
   inQAnswerVisibility: true,
   questionCount: 1,
+  seriesType: "default",
 }
 
 const createStore = (chat: Chat) =>
@@ -30,6 +32,7 @@ const createStore = (chat: Chat) =>
       inQAnswerVisibility: Chat["inQAnswerVisibility"]
     ) => void
     setQuestionCount: (questionCount: Chat["questionCount"]) => void
+    setSeriesType: (seriesType: Chat["seriesType"]) => void
   }>((set) => ({
     chat,
     setCurrentStage(currentStage: Chat["currentStage"]) {
@@ -60,6 +63,15 @@ const createStore = (chat: Chat) =>
       set((prev) => ({
         ...prev,
         chat: { ...prev.chat, questionCount },
+      }))
+    },
+    setSeriesType: (seriesType: Chat["seriesType"]) => {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          seriesType,
+        },
       }))
     },
   }))

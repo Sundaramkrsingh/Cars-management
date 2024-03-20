@@ -1,4 +1,4 @@
-export type Options = "A" | "B" | "C" | "D"
+export type Options = string
 
 export type Validity = "correct" | "wrong" | "default"
 

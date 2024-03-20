@@ -69,6 +69,7 @@
 @layer base {
   * {
     @apply border-border;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -165,5 +166,9 @@
     left: 0;
     position: absolute;
     left: 90%;
+  }
+
+  .post-q-scroll {
+    scroll-padding-top: 50px;
   }
 }
