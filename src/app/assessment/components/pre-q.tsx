@@ -10,6 +10,7 @@ import Default from "./questions-series/default"
 import Trait from "./questions-series/trait"
 import TransitionWrapper from "./transition-wrapper"
 import { cn } from "@/lib/utils"
+import InfoDrawer from "./info-drawer"
 
 export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
   const {
@@ -60,7 +61,7 @@ export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
       show={showPreQ}
       id={`pre-q-${questionnaire}`}
     >
-      <Icons.info className="text-philippine-silver w-4 h-4 mb-2 cursor-pointer" />
+      <InfoDrawer />
       <QuestionWrapper>
         <CurrentQuestion questionnaire={questionnaire} />
       </QuestionWrapper>
