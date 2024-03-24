@@ -7,12 +7,27 @@ const useTimeManager = () => {
   const router = useRouter()
 
   const {
-    chat: { activeQuestionnaire, questionCount },
+    chat: { activeQuestionnaire, questionCount, powerUp },
     setCurrentStage,
     setActiveQState,
     setInQAnswerVisibility,
     setActiveQuestionnaire,
   } = useChat()((state) => state)
+
+  const baseInQTime = 20
+
+  const inQTimeManager = (powerUp: string | null) => {
+    switch (powerUp) {
+      case "PLUS_4_SECONDS":
+        return baseInQTime + 4
+      case "PLUS_8_SECONDS":
+        return baseInQTime + 8
+      default:
+        return baseInQTime
+    }
+  }
+
+  let inQInitialTime = inQTimeManager(powerUp)
 
   return {
     "pre-q": {
@@ -24,7 +39,7 @@ const useTimeManager = () => {
       },
     },
     "in-q": {
-      initialTime: 20,
+      initialTime: inQInitialTime,
       onTimeOut: () => {
         setActiveQState(`post-q-${activeQuestionnaire}`)
         router.push(`#post-q-${activeQuestionnaire}`)

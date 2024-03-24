@@ -10,7 +10,7 @@ type Stat = {
 
 type ProgressBar = {
   progress: number
-  stage: string
+  stage?: string
 }
 
 type SummaryCardProps = {
@@ -24,17 +24,19 @@ type SummaryCardProps = {
 const ProgressBar = ({ stage, progress }: ProgressBar) => {
   return (
     <div className="mb-6 relative mt-2 w">
-      <div
-        style={{
-          left: `${progress - 3}%`,
-        }}
-        className={cn("absolute z-10 top-[-15px] flex justify-center")}
-      >
-        <Icons.hexagon />
-        <p className="absolute top-3 font-semibold text-sm text-white">
-          {stage}
-        </p>
-      </div>
+      {stage && (
+        <div
+          style={{
+            left: `${progress - 3}%`,
+          }}
+          className={cn("absolute z-10 top-[-15px] flex justify-center")}
+        >
+          <Icons.hexagon />
+          <p className="absolute top-3 font-semibold text-sm text-white">
+            {stage}
+          </p>
+        </div>
+      )}
       <Progress
         indicatorClass="bg-celadon-green"
         className="bg-aero-blue rounded-sm"
