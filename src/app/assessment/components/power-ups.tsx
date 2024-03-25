@@ -1,5 +1,6 @@
 "use client"
 
+import { useChat } from "@/store/chat-provider"
 import { useState } from "react"
 import DiceDialog from "./dice-dialog"
 import PowerUpCard from "./power-up-card"
@@ -7,6 +8,8 @@ import PreQHeading from "./pre-q-heading"
 
 const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
   const [active, setActive] = useState<number | string | undefined>()
+
+  const { setPowerUp } = useChat()((state) => state)
 
   const commonPowerUpProps = {
     activeCard: active,
@@ -24,6 +27,7 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
           description="+4 Seconds"
           icon="power4"
           id={1}
+          onClick={() => setPowerUp("PLUS_4_SECONDS")}
           {...commonPowerUpProps}
         />
         <PowerUpCard
@@ -31,6 +35,7 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
           description="+8 Seconds"
           icon="power8"
           id={2}
+          onClick={() => setPowerUp("PLUS_8_SECONDS")}
           {...commonPowerUpProps}
         />
 
@@ -40,6 +45,7 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
           icon="power2x"
           state="in-active"
           id={3}
+          onClick={() => setPowerUp("TWICE_UP")}
           {...commonPowerUpProps}
         />
         <PowerUpCard
@@ -47,6 +53,7 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
           description="Thrice Up"
           icon="power3x"
           id={4}
+          onClick={() => setPowerUp("THRICE_UP")}
           {...commonPowerUpProps}
         />
         <DiceDialog
@@ -58,6 +65,7 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
             description="Dice Up"
             icon="dice"
             id={5}
+            onClick={() => setPowerUp("DICE_UP")}
             {...commonPowerUpProps}
           />
         </DiceDialog>

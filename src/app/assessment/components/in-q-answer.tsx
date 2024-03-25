@@ -11,12 +11,18 @@ type InQAnswerProps = {
   setAnswerBarVisibility: Dispatch<SetStateAction<boolean>>
   setActiveOption: Dispatch<SetStateAction<string | undefined>>
   activeOption: string | undefined
-  options: { label: string; value: string }[]
+  options: { id: string; label: string; value: string }[]
   setValidity: Dispatch<SetStateAction<Validity>>
   optionsCategory: OptionCatagories
   setAnsDialogueMargin: Dispatch<SetStateAction<boolean>>
-  setAnswer: Dispatch<SetStateAction<Answer>>
+  setAnswer: Dispatch<SetStateAction<Answer | undefined>>
   questionnaire: number
+  correctAnswer: string
+  answerValidity: Validity
+  setShowDoubleEdgeAba: Dispatch<SetStateAction<boolean>>
+  attempt: number
+  setAttempt: Dispatch<SetStateAction<number>>
+  validityRef: Readonly<React.RefObject<Validity>>
   answer?: Answer
   labelVariant?: string
 }
@@ -62,7 +68,13 @@ const InQAnswer = ({
   optionsCategory,
   setAnsDialogueMargin,
   questionnaire,
+  correctAnswer,
+  setShowDoubleEdgeAba,
+  attempt,
+  setAttempt,
   labelVariant = "alphabetic",
+  validityRef,
+  setAnswerBarVisibility,
 }: InQAnswerProps) => {
   const isPartial = optionsCategory === "partial"
 
@@ -77,8 +89,12 @@ const InQAnswer = ({
 
   const router = useRouter()
 
-  const { setActiveQState, setInQAnswerVisibility, setCurrentStage } =
-    useChat()((state) => state)
+  const {
+    chat: { wildCard },
+    setActiveQState,
+    setInQAnswerVisibility,
+    setCurrentStage,
+  } = useChat()((state) => state)
 
   const handelClick = (value: Options) => {
     setActiveOption(value)
@@ -87,8 +103,9 @@ const InQAnswer = ({
   const show = (answer: Answer) => {
     setTimeout(() => {
       setValidity(
-        answer?.selectedOption?.label === "Delhi" ? "correct" : "wrong"
+        answer?.selectedOption?.id === correctAnswer ? "correct" : "wrong"
       )
+
       setAnsDialogueMargin(false)
       setActiveQState(`post-q-${questionnaire}`)
       router.push(`#post-q-${questionnaire}`)
@@ -122,17 +139,56 @@ const InQAnswer = ({
             ({ value }) => value === activeOption
           )?.label
 
-          if (activeOption && selectedOption) {
+          const doubleEdgeExecution = () => {
+            if (attempt === 0 && validityRef.current === "wrong") {
+              new Promise((resolve, reject) => {
+                attempt === 0 && setShowDoubleEdgeAba(true)
+
+                setAnswer(() => ({
+                  optionValue,
+                  selectedOption,
+                }))
+                setAnswerBarVisibility(false)
+                setAttempt((prev: any) => prev + 1)
+
+                setTimeout(() => {
+                  resolve(true)
+                }, 2000)
+              }).then((res) => {
+                setAnswer(undefined)
+                setShowDoubleEdgeAba(false)
+                setActiveOption(undefined)
+                setAnswerBarVisibility(true)
+              })
+            } else {
+              normalExecution()
+            }
+          }
+
+          const normalExecution = () => {
             setCurrentStage("post-q")
             setInQAnswerVisibility(false)
             setAnswer(() => ({
               optionValue,
               selectedOption,
             }))
+
             show({
               optionValue: activeOption as Options,
               selectedOption,
             })
+          }
+
+          if (activeOption && selectedOption) {
+            if (wildCard === "DOUBLE_EDGE") {
+              setAnsDialogueMargin(false)
+              setValidity(
+                selectedOption?.id === correctAnswer ? "correct" : "wrong"
+              )
+              doubleEdgeExecution()
+            } else {
+              normalExecution()
+            }
           }
         }}
       >

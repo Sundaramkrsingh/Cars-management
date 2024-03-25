@@ -29,7 +29,7 @@ const Icon = ({ isAbaHappy }: { isAbaHappy: boolean }) => (
 
 const PostQ = ({ questionnaire }: { questionnaire: number }) => {
   const {
-    chat: { activeQState, currentStage, activeQuestionnaire },
+    chat: { activeQState, currentStage, activeQuestionnaire, answers },
   } = useChat()((state) => state)
 
   const [showPostQ, setShowPostQ] = useState(false)
@@ -40,7 +40,9 @@ const PostQ = ({ questionnaire }: { questionnaire: number }) => {
     }
   }, [activeQState, questionnaire, showPostQ])
 
-  const isAbaHappy = postQConfig.score !== 0
+  const answerStatus = answers[questionnaire as keyof typeof answers]
+
+  const isAbaHappy = answerStatus === "correct"
 
   return (
     <TransitionWrapper show={showPostQ} id={`post-q-${questionnaire}`}>
@@ -53,7 +55,11 @@ const PostQ = ({ questionnaire }: { questionnaire: number }) => {
         )}
       >
         <Icon isAbaHappy={isAbaHappy} />
-        <PostQHeader score={postQConfig.score} />
+        <PostQHeader
+          isAbaHappy={isAbaHappy}
+          answerStatus={answerStatus}
+          score={postQConfig.score}
+        />
         <PostQCard {...postQConfig.infoCard} />
       </QuestionWrapper>
       {currentStage === "post-q" && (

@@ -11,6 +11,21 @@ export type Chat = {
   inQAnswerVisibility: boolean
   questionCount: number
   seriesType: "trait" | "default"
+  powerUp:
+    | "PLUS_4_SECONDS"
+    | "PLUS_8_SECONDS"
+    | "TWICE_UP"
+    | "THRICE_UP"
+    | "DICE_UP"
+    | null
+  wildCard:
+    | "ASK_ABA"
+    | "BETTER_HALF"
+    | "CHOSEN_ONE"
+    | "DOUBLE_EDGE"
+    | "TIME_MACHINE"
+    | null
+  answers: {}
 }
 
 const initialState: Chat = {
@@ -20,6 +35,9 @@ const initialState: Chat = {
   inQAnswerVisibility: true,
   questionCount: 1,
   seriesType: "default",
+  powerUp: null,
+  wildCard: null,
+  answers: {},
 }
 
 const createStore = (chat: Chat) =>
@@ -33,6 +51,11 @@ const createStore = (chat: Chat) =>
     ) => void
     setQuestionCount: (questionCount: Chat["questionCount"]) => void
     setSeriesType: (seriesType: Chat["seriesType"]) => void
+    setPowerUp: (powerUp: Chat["powerUp"]) => void
+    setWildCard: (wildCard: Chat["wildCard"]) => void
+    setAnswersValidity: (answers: {
+      [key: number]: "default" | "wrong" | "correct"
+    }) => void
   }>((set) => ({
     chat,
     setCurrentStage(currentStage: Chat["currentStage"]) {
@@ -71,6 +94,35 @@ const createStore = (chat: Chat) =>
         chat: {
           ...prev.chat,
           seriesType,
+        },
+      }))
+    },
+    setPowerUp: (powerUp: Chat["powerUp"]) => {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          powerUp,
+        },
+      }))
+    },
+    setWildCard: (wildCard: Chat["wildCard"]) => {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          wildCard,
+        },
+      }))
+    },
+    setAnswersValidity(answer: {
+      [key: number]: "correct" | "wrong" | "default"
+    }) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          answers: { ...prev.chat.answers, ...answer },
         },
       }))
     },
