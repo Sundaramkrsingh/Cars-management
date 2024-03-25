@@ -1,0 +1,20 @@
+name: DEV WORKFLOW
+on:
+  push:
+    branches: develop
+
+jobs:
+  Deploy-EC2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Convert SSH private key to PEM
+        run: |
+          echo "${{ secrets.PEM_KEY }}" | tr -d '\r' > id_rsa
+          openssl rsa -in id_rsa -outform PEM -out cicd.pem
+
+      - name: SSH into EC2 instance
+        run: |
+          chmod 700 cicd.pem
+          ssh -i cicd.pem -o StrictHostKeyChecking=no ubuntu@${{ vars.PUBLIC_IP }} "sudo systemctl restart pwa-ui.service"
