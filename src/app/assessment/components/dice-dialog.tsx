@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 import { useChat } from "@/store/chat-provider"
+import Dice from "./dice"
+import { useState } from "react"
 
 const DiceDialog = ({
   children,
@@ -22,6 +24,8 @@ const DiceDialog = ({
     chat: { activeQuestionnaire, currentStage },
   } = useChat()((state) => state)
 
+  const [val, setVal] = useState()
+
   const disable =
     currentStage === "pre-q" && activeQuestionnaire === questionnaire
 
@@ -34,12 +38,15 @@ const DiceDialog = ({
         {children}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
-        <div className="flex justify-center items-center gap-1">
+        <div className="flex items-center justify-center mb-5">
+          <Dice setDiceVal={setVal} />
+        </div>
+        <div className="flex justify-center items-center gap-1 mt-12">
           <p className="text-dark-charcoal text-center">
             Your score will be multiplied by
           </p>
           <div className="rounded-[5px] bg-magic-mint font-medium h-[20px] flex justify-center items-center p-[2px]">
-            x4
+            x<span>{val}</span>
           </div>
         </div>
 
