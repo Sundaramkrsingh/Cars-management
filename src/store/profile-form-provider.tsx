@@ -63,6 +63,8 @@ type BasicInformation = {
   address?: string
 }
 
+type WorkGoal = string[]
+
 export type ProfileFromData = {
   profileEdit: ProfileEdit
   experience: Experience[]
@@ -71,6 +73,7 @@ export type ProfileFromData = {
   education: Education[]
   awards: Awards[]
   basicInformation: BasicInformation
+  workGoals: WorkGoal
 }
 
 const initialState: ProfileFromData = {
@@ -81,6 +84,7 @@ const initialState: ProfileFromData = {
   education: [],
   awards: [],
   basicInformation: {},
+  workGoals: ["Volunteer Work", "Competitive Exams", "Job Opportunities"],
 }
 
 const createStore = (profileFormData: ProfileFromData) =>
@@ -111,6 +115,8 @@ const createStore = (profileFormData: ProfileFromData) =>
     removeAward: (idx: number) => void
 
     setBasicInfo: (data: BasicInformation) => void
+
+    setWorkGoal: (data: string[]) => void
   }>((set) => ({
     profileFormData,
     setProfileFormData(data: ProfileFromData) {
@@ -267,6 +273,15 @@ const createStore = (profileFormData: ProfileFromData) =>
     setBasicInfo(data: BasicInformation) {
       set((prev) => ({
         profileFormData: { ...prev.profileFormData, basicInformation: data },
+      }))
+    },
+
+    setWorkGoal(data: string[]) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          workGoals: data,
+        },
       }))
     },
   }))

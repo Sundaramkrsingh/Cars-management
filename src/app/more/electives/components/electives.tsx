@@ -1,9 +1,7 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState } from "react"
 import ElectiveCard from "./elective-card"
-import { Icons } from "@/components/icons"
-import Link from "next/link"
 
 const electiveConfig = [
   {
@@ -36,6 +34,12 @@ const electiveConfig = [
   },
 ]
 
+type Proficiency = {
+  heading: string
+  subHeading: string
+  proficiencies: string[]
+}[]
+
 const Elective = ({
   proficiencies: skills,
   heading,
@@ -57,16 +61,10 @@ const Elective = ({
   )
 }
 
-const Electives = () => {
+const Electives = ({ electiveData }: { electiveData: Proficiency }) => {
   return (
-    <div className="flex flex-col gap-[18px] justify-center items-end mt-4 pb-5">
-      <Link
-        href="/more/profile/filter?details=elective"
-        className="absolute top-3 cursor-pointer right-5"
-      >
-        <Icons.electiveFilter />
-      </Link>
-      {electiveConfig.map((elective, idx) => {
+    <div className="flex flex-col gap-[18px] justify-center items-end mt-5 pb-5">
+      {electiveData.map((elective, idx) => {
         return (
           <Elective
             key={`elective_${idx}`}

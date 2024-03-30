@@ -6,7 +6,7 @@ export const profileSectionConfig = {
 
 export const moreOptionsConfig = [
   { label: "Refer your friends", href: "#", icon: "gift" },
-  { label: "My Electives", href: "#", icon: "checkCircle" },
+  { label: "My Electives", href: "/more/electives", icon: "checkCircle" },
   { label: "Settings", href: "#", icon: "settings" },
   { label: "Help", href: "#", icon: "help" },
   { label: "Legal", href: "#", icon: "info" },

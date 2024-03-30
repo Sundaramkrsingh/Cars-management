@@ -56,6 +56,8 @@ const Profile = ({ children }: LayoutProps) => {
       ? "Edit basic information"
       : "Add basic Information",
 
+    "modify-work-goals": "What’s your goal?",
+
     default: "My profile",
   }
 
@@ -84,10 +86,24 @@ const Filter = ({ children }: LayoutProps) => {
   return (
     <>
       <div className="h-[65px] flex items-center gap-2 text-black p-5">
-        <Link href="/more/profile?details=elective">
+        <Link href="/more/electives">
           <Icons.leftArrow className="w-7 h-7" />
         </Link>
         <h1 className="font-medium text-lg">Filter</h1>
+      </div>
+      {children}
+    </>
+  )
+}
+
+const Electives = ({ children }: LayoutProps) => {
+  return (
+    <>
+      <div className="h-[65px] flex items-center gap-2 text-black p-5">
+        <Link href="/more">
+          <Icons.leftArrow className="w-7 h-7" />
+        </Link>
+        <h1 className="font-medium text-lg">My electives</h1>
       </div>
       {children}
     </>
@@ -98,8 +114,9 @@ function LayoutManager({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const layoutMap = {
-    "/more/profile/filter": Filter,
+    "/more/electives/filter": Filter,
     "/more/profile": Profile,
+    "/more/electives": Electives,
     "/more": More,
   }
 
