@@ -4,6 +4,7 @@ import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
 import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
+import FeedbackDrawer from "./feedback-drawer"
 
 const PostQAnswer = ({ questionnaire }: { questionnaire: number }) => {
   const router = useRouter()
@@ -13,27 +14,26 @@ const PostQAnswer = ({ questionnaire }: { questionnaire: number }) => {
     setActiveQuestionnaire,
     setActiveQState,
     setCurrentStage,
+    setFeedback,
   } = useChat()((state) => state)
 
   return (
     <div className="w-answer absolute bottom-5 justify-between flex z-10">
       <div className="h-14 w-[236px] flex gap-[2px]">
-        <button
-          onClick={() => {}}
-          className={cn(
-            "h-full w-1/4 bg-moonstone-blue flex justify-center items-center text-xl text-dark-slate-gray transition-all duration-500 rounded-l-2xl"
-          )}
-        >
-          <Icons.like />
-        </button>
-        <button
-          onClick={() => {}}
-          className={cn(
-            "h-full w-1/4 bg-moonstone-blue flex justify-center items-center text-xl text-dark-slate-gray transition-all duration-500 rounded-r-2xl"
-          )}
-        >
-          <Icons.disLike />
-        </button>
+        <FeedbackDrawer
+          onClick={() => {
+            setFeedback({ intent: "positive" })
+          }}
+          className={cn("rounded-l-2xl")}
+          icon="like"
+        />
+        <FeedbackDrawer
+          onClick={() => {
+            setFeedback({ intent: "negative" })
+          }}
+          className={cn("rounded-r-2xl")}
+          icon="disLike"
+        />
       </div>
 
       <button
