@@ -61,7 +61,7 @@ const SummaryRenderer = ({ data }: RendererProps) => {
                       key={`${val}_${idx}`}
                       className={cn(
                         "h-8 text-white font-semibold rounded-[4px] bg-celadon-green flex items-center px-3 text-nowrap",
-                        `w-[${w}%]`
+                        `w-[33%]`
                       )}
                     >
                       {val}
@@ -80,7 +80,7 @@ const SummaryRenderer = ({ data }: RendererProps) => {
                             key={`${itm}_${idx}`}
                             className={cn(
                               "h-8 rounded-[4px] flex items-center px-3 text-nowrap",
-                              `w-[${w}%]`,
+                              `w-[33%]`,
                               rowIdx % 2 === 0
                                 ? "bg-aero-blue"
                                 : "bg-light-cyan"
@@ -129,15 +129,17 @@ const ReportDrawer = ({
         <Icons.info className="w-[14px] h-[14px] text-granite-gray cursor-pointer" />
       </DrawerTrigger>
       <DrawerContent className="border-none bg-white flex flex-col items-center w-full">
-        <DrawerHeader className="text-left w-full">
-          <DrawerTitle className="text-[28px] font-semibold mb-2 text-black text-left">
-            {heading[variant]}
-          </DrawerTitle>
-          <DrawerDescription className="text-dark-charcoal text-left">
-            {subHeading[variant]}
-          </DrawerDescription>
-        </DrawerHeader>
-        <Renderer {...content[variant]} />
+        <div className="max-h-[90vh] overflow-auto no-scrollbar">
+          <DrawerHeader className="text-left w-full">
+            <DrawerTitle className="text-[28px] font-semibold mb-2 text-black text-left">
+              {heading[variant]}
+            </DrawerTitle>
+            <DrawerDescription className="text-dark-charcoal text-left">
+              {subHeading[variant]}
+            </DrawerDescription>
+          </DrawerHeader>
+          <Renderer {...content[variant]} />
+        </div>
       </DrawerContent>
     </Drawer>
   )
