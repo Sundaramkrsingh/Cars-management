@@ -1,6 +1,5 @@
 "use client"
 
-import Card from "./card"
 import {
   ChartData,
   Chart as ChartJS,
@@ -12,6 +11,7 @@ import {
   Tooltip,
 } from "chart.js"
 import { Radar } from "react-chartjs-2"
+import Card from "./card"
 
 ChartJS.register(
   RadialLinearScale,
@@ -27,6 +27,7 @@ type FacetsScoreCardProps = {
   subHeading: string
   info?: string
   facetsScoreGraphConfig: ChartData<"radar", (number | null)[], unknown>
+  variant: "tier1" | "tier2" | "tier3"
 }
 
 const FacetsScoreCard = ({
@@ -34,9 +35,15 @@ const FacetsScoreCard = ({
   subHeading,
   info,
   facetsScoreGraphConfig,
+  variant,
 }: FacetsScoreCardProps) => {
   return (
-    <Card heading={heading} subHeading={subHeading} info={info}>
+    <Card
+      heading={heading}
+      subHeading={subHeading}
+      info={info}
+      variant={variant}
+    >
       <Radar data={facetsScoreGraphConfig} />
     </Card>
   )
