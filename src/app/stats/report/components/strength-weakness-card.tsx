@@ -4,6 +4,7 @@ import { Icons } from "@/components/icons"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
+import ReportDrawer from "./report-drawer"
 
 type ProgressRendererProps = {
   progress: number
@@ -69,9 +70,7 @@ const StrengthWeaknessCard = ({
         </p>
         <div className="flex gap-1 items-center mb-4">
           <p className="text-black text-lg font-medium ">{subHeading}</p>
-          {info && (
-            <Icons.info className="w-[14px] h-[14px] text-granite-gray cursor-pointer" />
-          )}
+          {info && <ReportDrawer type="tier" variant="tier2" />}
         </div>
         <div>
           <div className={cn("flex flex-col gap-5")}>
