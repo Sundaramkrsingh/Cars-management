@@ -97,6 +97,9 @@ const config = {
         "imperial-red": "#EF233C",
         charcoal: "#344054",
         "blue-sapphire": "#075B70",
+        water: "#CAFAFE",
+        azure: "#F3FFFD",
+        "light-cyan": "#DAFEF7",
       },
       borderRadius: {
         lg: "var(--radius)",

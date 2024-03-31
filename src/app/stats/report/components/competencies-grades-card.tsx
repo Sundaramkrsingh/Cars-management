@@ -1,6 +1,5 @@
-import React from "react"
-import Card from "./card"
 import { cn } from "@/lib/utils"
+import Card from "./card"
 
 type CompetenceChipProps = {
   variant: string
@@ -18,6 +17,7 @@ type CompetenciesGradesCardProps = {
   subHeading: string
   info?: string
   competenceInfo: CompetenceProps[]
+  variant: "tier1" | "tier2" | "tier3"
 }
 
 const CompetenceChip = ({ variant, label }: CompetenceChipProps) => {
@@ -59,9 +59,15 @@ const CompetenciesGradesCard = ({
   subHeading,
   info,
   competenceInfo,
+  variant,
 }: CompetenciesGradesCardProps) => {
   return (
-    <Card heading={heading} subHeading={subHeading} info={info}>
+    <Card
+      heading={heading}
+      subHeading={subHeading}
+      info={info}
+      variant={variant}
+    >
       {competenceInfo.map(({ ...rest }, idx) => (
         <Competence
           key={`card-${idx}`}

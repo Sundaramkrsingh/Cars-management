@@ -13,11 +13,14 @@ import SummaryCard from "./components/summary-card"
 export default async function Report() {
   return (
     <div className="text-black flex flex-col gap-5 bg-alice-blue pb-[70px]">
-      <SummaryCard {...progressionSummaryConfig} />
-      <SummaryCard {...performanceSummaryConfig} />
-      <FacetsScoreCard {...facetsScoreCardConfig} />
+      <SummaryCard variant="progression" {...progressionSummaryConfig} />
+      <SummaryCard variant="performance" {...performanceSummaryConfig} />
+      <FacetsScoreCard variant="tier1" {...facetsScoreCardConfig} />
       <StrengthWeaknessCard {...strengthWeaknessConfig} />
-      <CompetenciesGradesCard {...competenciesGradesCardConfig} />
+      <CompetenciesGradesCard
+        variant="tier3"
+        {...competenciesGradesCardConfig}
+      />
     </div>
   )
 }
