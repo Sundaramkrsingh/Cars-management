@@ -13,3 +13,4 @@ export type EditVariants =
   | "resume"
   | "basic-information"
   | "add-basic-information"
+  | "modify-work-goals"
