@@ -96,6 +96,9 @@ const config = {
         "english-vermillion": "#D04949",
         "imperial-red": "#EF233C",
         charcoal: "#344054",
+        water: "#CAFAFE",
+        azure: "#F3FFFD",
+        "light-cyan": "#DAFEF7",
       },
       borderRadius: {
         lg: "var(--radius)",
