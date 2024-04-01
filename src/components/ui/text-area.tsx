@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import * as React from "react"
-import { UseFormReturn } from "react-hook-form"
+import { RegisterOptions, UseFormReturn } from "react-hook-form"
 import { Icons } from "../icons"
 import {
   Form,
@@ -15,11 +15,18 @@ export interface TextAreaProps
   extends Omit<React.HTMLAttributes<HTMLTextAreaElement>, "form"> {
   name: string
   form: UseFormReturn<any>
-  label: string
+  label?: string
   disabled?: boolean
   placeholder?: string
   description?: string
   textArea?: boolean
+  icon?: boolean
+  rules?:
+    | Omit<
+        RegisterOptions<any, string>,
+        "disabled" | "setValueAs" | "valueAsNumber" | "valueAsDate"
+      >
+    | undefined
 }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
@@ -33,6 +40,8 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       label,
       disabled = false,
       textArea = false,
+      icon = true,
+      rules,
       ...rest
     },
     ref
@@ -47,9 +56,10 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
         <FormField
           control={form.control}
           name={name}
+          rules={rules}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{label}</FormLabel>
+              {label && <FormLabel>{label}</FormLabel>}
               <FormControl>
                 <>
                   <textarea
@@ -66,12 +76,15 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
                     {...rest}
                     {...field}
                   />
-                  {!disabled && field.value && !form.formState.errors[name] && (
-                    <Icons.vectorCross
-                      onClick={() => setValue(name, "")}
-                      className="cursor-pointer absolute top-[34px] right-[14px]"
-                    />
-                  )}
+                  {!disabled &&
+                    field.value &&
+                    icon &&
+                    !form.formState.errors[name] && (
+                      <Icons.vectorCross
+                        onClick={() => setValue(name, "")}
+                        className="cursor-pointer absolute top-[34px] right-[14px]"
+                      />
+                    )}
                 </>
               </FormControl>
               {description && (

@@ -26,6 +26,10 @@ export type Chat = {
     | "TIME_MACHINE"
     | null
   answers: {}
+  feedback: {
+    intent?: "positive" | "negative" | "none"
+    comment?: string | null
+  }
 }
 
 const initialState: Chat = {
@@ -38,6 +42,10 @@ const initialState: Chat = {
   powerUp: null,
   wildCard: null,
   answers: {},
+  feedback: {
+    intent: "none",
+    comment: null,
+  },
 }
 
 const createStore = (chat: Chat) =>
@@ -56,6 +64,7 @@ const createStore = (chat: Chat) =>
     setAnswersValidity: (answers: {
       [key: number]: "default" | "wrong" | "correct"
     }) => void
+    setFeedback: (data: Chat["feedback"]) => void
   }>((set) => ({
     chat,
     setCurrentStage(currentStage: Chat["currentStage"]) {
@@ -123,6 +132,16 @@ const createStore = (chat: Chat) =>
         chat: {
           ...prev.chat,
           answers: { ...prev.chat.answers, ...answer },
+        },
+      }))
+    },
+
+    setFeedback(data) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          feedback: { ...prev, ...data },
         },
       }))
     },

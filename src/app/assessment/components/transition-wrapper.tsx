@@ -33,9 +33,9 @@ const TransitionWrapper = ({
       {!show && activeQState.includes(id) && <ChatLoading load={load} />}
       <div
         className={cn(
-          className,
           "transition-all duration-500",
-          show ? "opacity-100 visible" : "opacity-0 invisible absolute top-0"
+          show ? "opacity-100 visible" : "opacity-0 invisible absolute top-0",
+          className
         )}
       >
         {children}
