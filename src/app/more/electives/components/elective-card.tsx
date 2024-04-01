@@ -103,7 +103,7 @@ const ElectiveCard = ({
   return (
     <div className="w-full p-5 bg-white rounded-[10px]">
       <div className="flex justify-between items-center">
-        <p className="font-medium text-xl">{heading}</p>
+        <p className="font-medium text-xl text-black">{heading}</p>
         <ElectiveDrawer
           heading={heading}
           note="Username can only be changed in 272 days2"
@@ -115,9 +115,6 @@ const ElectiveCard = ({
           />
         </ElectiveDrawer>
       </div>
-      <p className="text-sm font-medium uppercase text-dark-charcoal">
-        {subHeading}
-      </p>
 
       <div className="mt-3 flex gap-2 flex-wrap">
         {proficiencies.map((proficiency, idx) => (

@@ -531,3 +531,32 @@ export const BasicInformation = ({ onClick }: CommonCardProps) => {
     </EditWrapperCard>
   )
 }
+
+export const WorkGoals = ({ onClick }: CommonCardProps) => {
+  const {
+    profileFormData: { workGoals },
+  } = useProfileFromData()((state) => state)
+
+  return (
+    <div className="w-full p-5 bg-white rounded-[10px]">
+      <div className="flex justify-between items-center">
+        <p className="font-medium text-xl text-black">What’s your goal?</p>
+        <Icons.rightArrow
+          onClick={() => onClick("modify-work-goals")}
+          className="w-5 h-5 cursor-pointer"
+        />
+      </div>
+
+      <div className="mt-3 flex gap-2 flex-wrap">
+        {workGoals.map((workGoal, idx) => (
+          <div
+            className="bg-azureish-white py-[2px] px-[6px] rounded-sm"
+            key={`${workGoal}_${idx}`}
+          >
+            <p className="text-eagle-green text-sm">{workGoal}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}

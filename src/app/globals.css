@@ -137,7 +137,7 @@
 
   .bg-more {
     background:
-      url("/bg-more-profile.svg") no-repeat left top,
+      url("/bg-more-profile.svg") no-repeat,
       linear-gradient(84.15deg, #00667f 22.27%, #37c8ab 178.89%);
   }
 

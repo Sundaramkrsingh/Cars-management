@@ -96,6 +96,7 @@ const config = {
         "english-vermillion": "#D04949",
         "imperial-red": "#EF233C",
         charcoal: "#344054",
+        "blue-sapphire": "#075B70",
         water: "#CAFAFE",
         azure: "#F3FFFD",
         "light-cyan": "#DAFEF7",

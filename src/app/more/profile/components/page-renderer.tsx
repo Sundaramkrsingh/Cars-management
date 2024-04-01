@@ -13,6 +13,7 @@ import Awards from "./awards"
 import BasicInformation from "./basic-information"
 import Education from "./education"
 import Licenses from "./licenses"
+import ModifyGoals from "./modify-goals"
 import ProfileEdit from "./profile-edit"
 import ProfileTab from "./profile-tab"
 import Projects from "./projects"
@@ -46,6 +47,8 @@ const PageRenderer = () => {
 
     "basic-information": BasicInformation,
     "add-basic-information": AddBasicInformation,
+
+    "modify-work-goals": ModifyGoals,
 
     profile: ProfileEdit,
     resume: Resume,
