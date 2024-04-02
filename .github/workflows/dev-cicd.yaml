@@ -1,7 +1,11 @@
 name: DEV WORKFLOW
 on:
   push:
-    branches: develop
+    branches: [develop]
+    
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
 
 jobs:
   Deploy-EC2:
@@ -9,12 +13,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Convert SSH private key to PEM
-        run: |
-          echo "${{ secrets.PEM_KEY }}" | tr -d '\r' > id_rsa
-          openssl rsa -in id_rsa -outform PEM -out cicd.pem
 
-      - name: SSH into EC2 instance
+      - name: Configure AWS credentials
+        id: config-aws-creds
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::975050331604:role/github-oidc
+          aws-region: us-east-1
+          role-session-name: beztCICDSession
+          mask-aws-account-id: 'no'
+          
+      - name: AWS SSM Send-Command
         run: |
-          chmod 700 cicd.pem
-          ssh -i cicd.pem -o StrictHostKeyChecking=no ubuntu@${{ vars.PUBLIC_IP }} "sudo systemctl restart pwa-ui.service"
+            aws ssm send-command --document-name "AWS-RunShellScript" --targets "Key=InstanceIds,Values=i-03474c5909cd8f6d3" --parameters commands=["sudo systemctl restart pwa-ui.service"]
