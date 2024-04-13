@@ -2,13 +2,13 @@ import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { TextArea } from "@/components/ui/text-area"
 import { userBasicInformationSchema } from "@/lib/validations/add-basic-information"
+import { useBasicInfo } from "@/query/profile"
 import { useProfileFromData } from "@/store/profile-form-provider"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import type { PageProps } from "../../type"
-import { useBasicInfo } from "@/query/profile"
 
 const AddBasicInformation = ({ setEdit }: PageProps) => {
   const {
