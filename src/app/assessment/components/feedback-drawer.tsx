@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/drawer"
 import { TextArea } from "@/components/ui/text-area"
 import { cn } from "@/lib/utils"
+import { useAddFeedback } from "@/query/assessment"
 import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -26,9 +27,12 @@ const FeedbackDrawer = ({
   const {
     chat: {
       feedback: { comment, intent },
+      activeQuestionnaire,
     },
     setFeedback,
   } = useChat()((state) => state)
+
+  const { addFeedback } = useAddFeedback()
 
   const router = useRouter()
 
@@ -76,6 +80,11 @@ const FeedbackDrawer = ({
           <Button
             onClick={() => {
               setFeedback({ intent, ...feedbackForm.getValues() })
+              addFeedback.mutateAsync({
+                isPositive: intent === "positive",
+                comment: feedbackForm.getValues().comment,
+                questionId: activeQuestionnaire + 1, // to be changed later own with question id
+              })
               router.push("#feedback")
             }}
             className={cn(
