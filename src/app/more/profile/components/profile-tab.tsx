@@ -55,7 +55,7 @@ const ProfileTab = ({ setEdit, profile }: ProfileProps) => {
               <Education {...commonProps} />
               <Awards {...commonProps} />
               <Resume />
-              <WorkGoals {...commonProps} />
+              {/* <WorkGoals {...commonProps} /> */}
               <BasicInformation {...commonProps} />
             </div>
           )}
