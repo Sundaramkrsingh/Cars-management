@@ -25,4 +25,4 @@ jobs:
           
       - name: AWS SSM Send-Command
         run: |
-            aws ssm send-command --document-name "AWS-RunShellScript" --targets "Key=InstanceIds,Values=${{ secrets.INSTANCE_ID }}" --parameters commands=["sudo systemctl restart pwa-ui.service"]
+            aws ssm send-command --document-name "AWS-RunShellScript" --targets "Key=InstanceIds,Values=${{ secrets.STAGING_INSTANCE_ID }}" --parameters commands=["sudo systemctl restart pwa-ui.service"]
