@@ -175,4 +175,15 @@
   .bg-ask-aba {
     background: linear-gradient(187.03deg, #84e6bb -46.84%, #006680 96.79%);
   }
+
+  .bg-splash {
+    background:
+      url("/splash.svg") no-repeat 100% 100%,
+      linear-gradient(
+        179.64deg,
+        #014455 27.27%,
+        #298f96 116.82%,
+        rgba(0, 102, 127, 0) 159.43%
+      );
+  }
 }
