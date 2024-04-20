@@ -175,4 +175,9 @@
   .bg-ask-aba {
     background: linear-gradient(187.03deg, #84e6bb -46.84%, #006680 96.79%);
   }
+
+  .h-user-info {
+    padding-bottom: 20px;
+    min-height: calc(100vh - 65px);
+  }
 }

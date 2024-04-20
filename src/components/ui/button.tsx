@@ -11,7 +11,7 @@ const Button = ({ label, onClick, className, ...rest }: ButtonProps) => {
   return (
     <button
       className={cn(
-        "bg-eagle-green rounded-[8px] font-medium text-white h-12",
+        "bg-eagle-green rounded-[8px] font-medium text-white h-12 disabled:opacity-70",
         className
       )}
       onClick={onClick}
