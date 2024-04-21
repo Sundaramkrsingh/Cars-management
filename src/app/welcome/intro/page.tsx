@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import Autoplay from "embla-carousel-autoplay"
 import React from "react"
 import InfoCard from "./components/info-card"
+import { useRouter } from "next/navigation"
 
 const config = [
   {
@@ -31,6 +32,8 @@ const config = [
 ]
 
 const Intro = () => {
+  const router = useRouter()
+
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
@@ -84,7 +87,11 @@ const Intro = () => {
       </div>
 
       <div className="p-5">
-        <Button className="w-full" label="Next" />
+        <Button
+          onClick={() => router.push("/sign-up")}
+          className="w-full"
+          label="Next"
+        />
       </div>
     </div>
   )
