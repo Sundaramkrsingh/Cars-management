@@ -180,4 +180,15 @@
     padding-bottom: 20px;
     min-height: calc(100vh - 65px);
   }
+
+  .bg-splash {
+    background:
+      url("/splash.svg") no-repeat 100% 100%,
+      linear-gradient(
+        179.64deg,
+        #014455 27.27%,
+        #298f96 116.82%,
+        rgba(0, 102, 127, 0) 159.43%
+      );
+  }
 }
