@@ -7,8 +7,8 @@ const Default = ({ questionnaire }: QuestionProps) => {
   return (
     <>
       <Foresight />
-      <PowerUps questionnaire={questionnaire} />
-      <WildCards questionnaire={questionnaire} />
+      {/* <PowerUps questionnaire={questionnaire} />
+      <WildCards questionnaire={questionnaire} /> */}
     </>
   )
 }
