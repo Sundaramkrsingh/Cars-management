@@ -27,18 +27,36 @@ const Icon = ({ isAbaHappy }: { isAbaHappy: boolean }) => (
   </>
 )
 
-const PostQ = ({ questionnaire }: { questionnaire: number }) => {
+const PostQ = ({
+  questionnaire,
+  triviaContent,
+  ...rest
+}: {
+  questionnaire: number
+  triviaContent: string
+}) => {
   const {
     chat: {
       activeQState,
       currentStage,
       activeQuestionnaire,
       answers,
-      feedback: { comment },
+      feedback,
+      questionCount,
     },
   } = useChat()((state) => state)
 
   const [showPostQ, setShowPostQ] = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
+
+  useEffect(() => {
+    if (
+      feedback?.[activeQuestionnaire] &&
+      activeQuestionnaire === questionnaire
+    ) {
+      setShowFeedback(true)
+    }
+  }, [activeQuestionnaire, feedback, questionnaire])
 
   useEffect(() => {
     if (activeQState.includes(`post-q-${questionnaire}`)) {
@@ -55,12 +73,13 @@ const PostQ = ({ questionnaire }: { questionnaire: number }) => {
       <TransitionWrapper show={showPostQ} id={`post-q-${questionnaire}`}>
         <QuestionWrapper
           feedback
+          questionnaire={questionnaire}
           className={cn(
             "mt-11  overflow-visible",
             activeQuestionnaire === questionnaire &&
-              currentStage === "post-q" &&
-              !comment &&
-              "mb-[200px]"
+              !showFeedback &&
+              "mb-[200px]",
+            questionnaire + 1 === questionCount && !showFeedback && "mb-[200px]"
           )}
         >
           <Icon isAbaHappy={isAbaHappy} />
@@ -69,17 +88,21 @@ const PostQ = ({ questionnaire }: { questionnaire: number }) => {
             answerStatus={answerStatus}
             score={postQConfig.score}
           />
-          <PostQCard {...postQConfig.infoCard} />
+          <PostQCard
+            {...{ ...postQConfig.infoCard, description: triviaContent }}
+          />
         </QuestionWrapper>
         {currentStage === "post-q" && (
           <PostQAnswer questionnaire={questionnaire} />
         )}
       </TransitionWrapper>
-      {comment && (
+      {showFeedback && (
         <div
-          id="feedback"
+          id={`feedback-${questionnaire}`}
           className={cn(
-            "!mt-10 w-full flex justify-end my-5 transition-all duration-500 mb-[200px]"
+            "!mt-10 w-full flex justify-end my-5 transition-all duration-500 ",
+            activeQuestionnaire === questionnaire && "mb-[200px]",
+            questionnaire + 1 === questionCount && !showFeedback && "mb-[200px]"
           )}
         >
           <div

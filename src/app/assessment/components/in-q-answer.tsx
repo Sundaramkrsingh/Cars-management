@@ -90,7 +90,7 @@ const InQAnswer = ({
   const router = useRouter()
 
   const {
-    chat: { wildCard },
+    chat: { wildCard, activeQuestionnaire },
     setActiveQState,
     setInQAnswerVisibility,
     setCurrentStage,
@@ -126,74 +126,76 @@ const InQAnswer = ({
           />
         ))}
       </div>
-      <button
-        className={cn(
-          "h-14 w-14 play-button z-20",
-          !activeOption && "!bg-chinese-silver"
-        )}
-        onClick={() => {
-          const selectedOption =
-            options[options.findIndex(({ value }) => value === activeOption)]
+      {questionnaire === activeQuestionnaire && (
+        <button
+          className={cn(
+            "h-14 w-14 play-button z-20",
+            !activeOption && "!bg-chinese-silver"
+          )}
+          onClick={() => {
+            const selectedOption =
+              options[options.findIndex(({ value }) => value === activeOption)]
 
-          const optionValue = optionEngine.find(
-            ({ value }) => value === activeOption
-          )?.label
+            const optionValue = optionEngine.find(
+              ({ value }) => value === activeOption
+            )?.label
 
-          const doubleEdgeExecution = () => {
-            if (attempt === 0 && validityRef.current === "wrong") {
-              new Promise((resolve, reject) => {
-                attempt === 0 && setShowDoubleEdgeAba(true)
+            const doubleEdgeExecution = () => {
+              if (attempt === 0 && validityRef.current === "wrong") {
+                new Promise((resolve, reject) => {
+                  attempt === 0 && setShowDoubleEdgeAba(true)
 
-                setAnswer(() => ({
-                  optionValue,
-                  selectedOption,
-                }))
-                setAnswerBarVisibility(false)
-                setAttempt((prev: any) => prev + 1)
+                  setAnswer(() => ({
+                    optionValue,
+                    selectedOption,
+                  }))
+                  setAnswerBarVisibility(false)
+                  setAttempt((prev: any) => prev + 1)
 
-                setTimeout(() => {
-                  resolve(true)
-                }, 2000)
-              }).then((res) => {
-                setAnswer(undefined)
-                setShowDoubleEdgeAba(false)
-                setActiveOption(undefined)
-                setAnswerBarVisibility(true)
+                  setTimeout(() => {
+                    resolve(true)
+                  }, 2000)
+                }).then((res) => {
+                  setAnswer(undefined)
+                  setShowDoubleEdgeAba(false)
+                  setActiveOption(undefined)
+                  setAnswerBarVisibility(true)
+                })
+              } else {
+                normalExecution()
+              }
+            }
+
+            const normalExecution = () => {
+              setCurrentStage("post-q")
+              setInQAnswerVisibility(false)
+              setAnswer(() => ({
+                optionValue,
+                selectedOption,
+              }))
+
+              show({
+                optionValue: activeOption as Options,
+                selectedOption,
               })
-            } else {
-              normalExecution()
             }
-          }
 
-          const normalExecution = () => {
-            setCurrentStage("post-q")
-            setInQAnswerVisibility(false)
-            setAnswer(() => ({
-              optionValue,
-              selectedOption,
-            }))
-
-            show({
-              optionValue: activeOption as Options,
-              selectedOption,
-            })
-          }
-
-          if (activeOption && selectedOption) {
-            if (wildCard === "DOUBLE_EDGE") {
-              setAnsDialogueMargin(false)
-              setValidity(
-                selectedOption?.id === correctAnswer ? "correct" : "wrong"
-              )
-              doubleEdgeExecution()
-            } else {
-              normalExecution()
+            if (activeOption && selectedOption) {
+              if (wildCard === "DOUBLE_EDGE") {
+                setAnsDialogueMargin(false)
+                setValidity(
+                  selectedOption?.id === correctAnswer ? "correct" : "wrong"
+                )
+                doubleEdgeExecution()
+              } else {
+                normalExecution()
+              }
             }
-          }
-        }}
-      >
-        {!activeOption ? <Icons.disabledLock /> : <Icons.lockAnswer />}
-      </button>
+          }}
+        >
+          {!activeOption ? <Icons.disabledLock /> : <Icons.lockAnswer />}
+        </button>
+      )}
     </div>
   )
 }

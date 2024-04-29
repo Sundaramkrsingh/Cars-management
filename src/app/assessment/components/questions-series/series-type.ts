@@ -1,4 +1,7 @@
 export type QuestionProps = {
-  questionnaire: number
+  questionnaire?: number
   ad?: boolean
+  avgTime?: string
+  accuracy?: string
+  timeLimit?: string
 }

@@ -50,7 +50,7 @@ const useTimeManager = () => {
     "post-q": {
       initialTime: 15,
       onTimeOut: () => {
-        if (activeQuestionnaire < questionCount) {
+        if (activeQuestionnaire < questionCount - 1) {
           setActiveQState(`pre-q-${1 + activeQuestionnaire}`)
           setActiveQuestionnaire(1 + activeQuestionnaire)
           setCurrentStage("pre-q")

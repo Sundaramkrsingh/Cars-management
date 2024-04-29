@@ -1,12 +1,17 @@
 "use client"
 
-import { Foresight, PowerUps, WildCards } from "../../components"
+import { Foresight } from "../../components"
 import type { QuestionProps } from "./series-type"
 
-const Default = ({ questionnaire }: QuestionProps) => {
+const Default = ({
+  questionnaire,
+  avgTime,
+  accuracy,
+  timeLimit,
+}: QuestionProps) => {
   return (
     <>
-      <Foresight />
+      <Foresight avgTime={avgTime} accuracy={accuracy} timeLimit={timeLimit} />
       {/* <PowerUps questionnaire={questionnaire} />
       <WildCards questionnaire={questionnaire} /> */}
     </>

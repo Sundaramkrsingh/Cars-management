@@ -45,15 +45,17 @@ const alphabeticOptionMap = {
   3: "D",
 }
 
-const InQ = ({ questionnaire }: { questionnaire: number }) => {
+const InQ = ({ questionnaire, ...rest }: { questionnaire: number }) => {
   const {
-    chat: { activeQState, currentStage, wildCard },
+    chat: { activeQState, currentStage, wildCard, activeQuestionnaire },
     setAnswersValidity,
   } = useChat()((state) => state)
 
+  const { answer: ans, options: opt, text: question } = rest as any
+
   const [showInQ, setShowInQ] = useState(false)
   const [answerBarVisibility, setAnswerBarVisibility] = useState<boolean>(true)
-  const [answer, setAnswer] = useState<Answer>()
+  const [answer, setAnswer] = useState<Answer | undefined>(ans)
   const [activeOption, setActiveOption] = useState<string>()
   const [answerValidity, setAnswerValidity, validityRef] =
     useStateRef<Validity>("default")
@@ -69,7 +71,7 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
       label: string
       value: string
     }[]
-  >(questionConfig.options)
+  >(opt)
   const [showDoubleEdgeAba, setShowDoubleEdgeAba] = useState<boolean>(false)
   const [attempt, setAttempt] = useState<number>(0)
 
@@ -79,15 +81,10 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
     "chosen-one": ChosenOne,
   }
 
-  const indexOfCorrect = options.findIndex(
-    ({ id }) => id === questionConfig.answer
-  )
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const indexOfCorrect = options.findIndex(({ id }) => id === answer)
 
   const wildCardActionsDefaultConfig = () => {
     setOptionsCategory("full")
-    setOptions(questionConfig.options)
     setQuestionType("mcq")
   }
 
@@ -104,9 +101,7 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
 
     switch (wildCard) {
       case "BETTER_HALF":
-        const newOptions = options.filter(
-          ({ id }) => id === questionConfig.answer
-        )
+        const newOptions = options.filter(({ id }) => id === answer)
 
         if (indexOfCorrect < 3) {
           newOptions.push(options[indexOfCorrect + 1])
@@ -146,15 +141,23 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
     }
   }, [activeQState, questionnaire])
 
+  const currentQuestion =
+    activeQuestionnaire === questionnaire && currentStage === "in-q"
+
   return (
     <TransitionWrapper show={showInQ} id={`in-q-${questionnaire}`}>
       <QuestionWrapper
         className={cn(
           "mt-5",
-          currentStage === "in-q" && ansDialogueMargin && "mb-[200px]"
+          currentQuestion && ansDialogueMargin && "mb-[200px]"
         )}
       >
-        <Question questionConfig={questionConfig} options={options} />
+        <Question
+          questionConfig={questionConfig}
+          questionnaire={questionnaire}
+          question={question}
+          options={options}
+        />
       </QuestionWrapper>
       {wildCard === "ASK_ABA" && (
         <WildCardAskAba
@@ -163,11 +166,11 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
               indexOfCorrect as keyof typeof alphabeticOptionMap
             ]
           }
-          className={cn(currentStage === "in-q" && "mt-[-175px]")}
+          className={cn(currentQuestion && "mt-[-175px]")}
         />
       )}
       <AnswerDialogue
-        className={cn(currentStage === "in-q" && "mb-[200px]")}
+        className={cn(currentQuestion && "mb-[200px]")}
         {...answer}
         validity={answerValidity}
       />
@@ -175,12 +178,10 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
         showDoubleEdgeAba &&
         answerValidity === "wrong" && (
           <WildCardDoubleEdge
-            className={cn(
-              currentStage === "in-q" && "mb-[200px] z-50 mt-[-175px]"
-            )}
+            className={cn(currentQuestion && "mb-[200px] z-50 mt-[-175px]")}
           />
         )}
-      {currentStage === "in-q" && answerBarVisibility && (
+      {currentQuestion && answerBarVisibility && (
         <InQAnswer
           setAnswer={setAnswer}
           setActiveOption={setActiveOption}
@@ -192,7 +193,7 @@ const InQ = ({ questionnaire }: { questionnaire: number }) => {
           answer={answer}
           questionnaire={questionnaire}
           setAnswerBarVisibility={setAnswerBarVisibility}
-          correctAnswer={questionConfig.answer}
+          correctAnswer={answer as string}
           answerValidity={answerValidity}
           setShowDoubleEdgeAba={setShowDoubleEdgeAba}
           attempt={attempt}

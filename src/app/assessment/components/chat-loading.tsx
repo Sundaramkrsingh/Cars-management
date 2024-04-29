@@ -7,7 +7,7 @@ const ChatLoading = ({ load }: { load: boolean }) => {
   return (
     <QuestionWrapper
       className={cn(
-        "transition-all duration-500 w-[57px] flex space-x-2 justify-center items-center h-10 p-0",
+        "mt-5 transition-all duration-500 w-[57px] flex space-x-2 justify-center items-center h-10 p-0 mb-[300px]",
         load ? "opacity-100 visible" : "opacity-0 invisible absolute top-0"
       )}
     >
