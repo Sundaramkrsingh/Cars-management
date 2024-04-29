@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer"
 import { TextArea } from "@/components/ui/text-area"
 import { cn } from "@/lib/utils"
-import { useAddFeedback } from "@/query/assessment"
+import { useAddFeedback } from "@/query/feedback"
 import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -25,10 +25,7 @@ const FeedbackDrawer = ({
   className: string
 }) => {
   const {
-    chat: {
-      feedback: { comment, intent },
-      activeQuestionnaire,
-    },
+    chat: { feedback, activeQuestionnaire },
     setFeedback,
   } = useChat()((state) => state)
 
@@ -38,7 +35,6 @@ const FeedbackDrawer = ({
 
   const feedbackForm = useForm({
     mode: "onSubmit",
-    defaultValues: comment as any,
   })
 
   const {
@@ -46,6 +42,8 @@ const FeedbackDrawer = ({
   } = feedbackForm
 
   const Icon = Icons[icon]
+
+  const intent = feedback?.[activeQuestionnaire]?.intent
 
   return (
     <Drawer>
@@ -79,13 +77,19 @@ const FeedbackDrawer = ({
         <DrawerClose>
           <Button
             onClick={() => {
-              setFeedback({ intent, ...feedbackForm.getValues() })
+              setFeedback(
+                {
+                  intent,
+                  comment: feedbackForm.getValues().comment,
+                },
+                activeQuestionnaire
+              )
               addFeedback.mutateAsync({
                 isPositive: intent === "positive",
                 comment: feedbackForm.getValues().comment,
                 questionId: activeQuestionnaire + 1, // to be changed later own with question id
               })
-              router.push("#feedback")
+              router.push(`#feedback-${activeQuestionnaire}`)
             }}
             className={cn(
               "cursor-pointer bg-eucalyptus w-full",

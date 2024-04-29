@@ -1,18 +1,23 @@
 "use client"
 
-import { Icons } from "@/components/icons"
+import { cn } from "@/lib/utils"
 import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import AssessmentButton from "./assessment-button"
+import InfoDrawer from "./info-drawer"
 import QuestionWrapper from "./question-wrapper"
 import Default from "./questions-series/default"
 import Trait from "./questions-series/trait"
 import TransitionWrapper from "./transition-wrapper"
-import { cn } from "@/lib/utils"
-import InfoDrawer from "./info-drawer"
 
-export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
+export const PreQ = ({
+  questionnaire,
+  ...rest
+}: {
+  questionnaire: number
+  type?: string
+}) => {
   const {
     chat: { activeQuestionnaire, currentStage, activeQState, seriesType },
     setCurrentStage,
@@ -62,8 +67,14 @@ export const PreQ = ({ questionnaire }: { questionnaire: number }) => {
       id={`pre-q-${questionnaire}`}
     >
       <InfoDrawer />
-      <QuestionWrapper>
-        <CurrentQuestion questionnaire={questionnaire} />
+      <QuestionWrapper
+        className={cn(
+          currentStage === "pre-q" &&
+            questionnaire === activeQuestionnaire &&
+            "mb-[200px]"
+        )}
+      >
+        <CurrentQuestion questionnaire={questionnaire} {...rest} />
       </QuestionWrapper>
       {currentStage === "pre-q" && <AssessmentButton onClick={handelClick} />}
     </TransitionWrapper>

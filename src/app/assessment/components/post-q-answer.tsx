@@ -22,14 +22,14 @@ const PostQAnswer = ({ questionnaire }: { questionnaire: number }) => {
       <div className="h-14 w-[236px] flex gap-[2px]">
         <FeedbackDrawer
           onClick={() => {
-            setFeedback({ intent: "positive" })
+            setFeedback({ intent: "positive" }, activeQuestionnaire)
           }}
           className={cn("rounded-l-2xl")}
           icon="like"
         />
         <FeedbackDrawer
           onClick={() => {
-            setFeedback({ intent: "negative" })
+            setFeedback({ intent: "negative" }, activeQuestionnaire)
           }}
           className={cn("rounded-r-2xl")}
           icon="disLike"
@@ -39,6 +39,7 @@ const PostQAnswer = ({ questionnaire }: { questionnaire: number }) => {
       <button
         className={cn("h-14 w-14 play-button z-20")}
         onClick={() => {
+          console.log("clicked")
           if (activeQuestionnaire < questionCount) {
             setActiveQState(`pre-q-${1 + activeQuestionnaire}`)
             setActiveQuestionnaire(1 + activeQuestionnaire)

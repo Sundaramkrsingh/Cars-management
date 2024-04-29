@@ -1,11 +1,17 @@
 import { Separator } from "@/components/ui/separator"
-import React from "react"
+import { useChat } from "@/store/chat-provider"
 
-const Mcq = ({ questionConfig, options }: any) => {
+const Mcq = ({ question, options, questionnaire }: any) => {
+  const {
+    chat: { questionCount },
+    setCurrentStage,
+    setActiveQState,
+  } = useChat()((state) => state)
+
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm text-platinum">{`Q ${questionConfig.questionNumber} / ${questionConfig.questionCount}`}</p>
-      <p className="font-medium">{questionConfig.question}</p>
+      <p className="text-sm text-platinum">{`Q ${questionnaire + 1} / ${questionCount}`}</p>
+      <p className="font-medium">{question}</p>
       <div className="">
         {options.map(({ label, value }: any, idx: number) => {
           return (

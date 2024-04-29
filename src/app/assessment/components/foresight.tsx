@@ -1,8 +1,9 @@
 import { Icons } from "@/components/icons"
 import ForSight from "./foresight-card"
 import PreQHeading from "./pre-q-heading"
+import { QuestionProps } from "./questions-series/series-type"
 
-const Foresight = () => {
+const Foresight = ({ avgTime, accuracy, timeLimit }: QuestionProps) => {
   return (
     <div>
       <PreQHeading heading="FORESIGHTS" />
@@ -22,13 +23,13 @@ const Foresight = () => {
         </div>
       </div>
       <div className="flex justify-between items-center h-8">
-        <ForSight description="Avg. time" stats="9.3 sec">
+        <ForSight description="Avg. time" stats={avgTime}>
           <Icons.clock className="text-rackley w-6 h-6" />
         </ForSight>
-        <ForSight description="Accuracy" stats="98%">
+        <ForSight description="Accuracy" stats={accuracy}>
           <Icons.target className="text-rackley w-6 h-6 stroke-rackley" />
         </ForSight>
-        <ForSight description="Time limit" stats="20 sec">
+        <ForSight description="Time limit" stats={timeLimit}>
           <Icons.timeLimit className="w-6 h-6 fill-rackley stroke-rackley" />
         </ForSight>
       </div>

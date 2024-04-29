@@ -27,9 +27,12 @@ export type Chat = {
     | null
   answers: {}
   feedback: {
-    intent?: "positive" | "negative" | "none"
-    comment?: string | null
+    [key: number]: {
+      intent?: "positive" | "negative" | "none"
+      comment?: { [key: number]: string | null }
+    }
   }
+  questions: []
 }
 
 const initialState: Chat = {
@@ -42,10 +45,8 @@ const initialState: Chat = {
   powerUp: null,
   wildCard: null,
   answers: {},
-  feedback: {
-    intent: "none",
-    comment: null,
-  },
+  feedback: {},
+  questions: [],
 }
 
 const createStore = (chat: Chat) =>
@@ -64,7 +65,14 @@ const createStore = (chat: Chat) =>
     setAnswersValidity: (answers: {
       [key: number]: "default" | "wrong" | "correct"
     }) => void
-    setFeedback: (data: Chat["feedback"]) => void
+    setFeedback: (
+      data: {
+        intent?: "positive" | "negative" | "none"
+        comment?: { [key: number]: string | null }
+      },
+      question: number
+    ) => void
+    setQuestions: (questions: Chat["questions"]) => void
   }>((set) => ({
     chat,
     setCurrentStage(currentStage: Chat["currentStage"]) {
@@ -136,12 +144,22 @@ const createStore = (chat: Chat) =>
       }))
     },
 
-    setFeedback(data) {
+    setFeedback(data, question) {
       set((prev) => ({
         ...prev,
         chat: {
           ...prev.chat,
-          feedback: { ...prev, ...data },
+          feedback: { [question]: { ...data } },
+        },
+      }))
+    },
+
+    setQuestions(questions) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          questions: [...prev.chat.questions, ...questions],
         },
       }))
     },

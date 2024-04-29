@@ -3,7 +3,7 @@ const ForesightCard = ({
   children,
   stats,
 }: {
-  stats: string
+  stats?: string
   description: string
   children: React.ReactNode
 }) => {
