@@ -1,7 +1,7 @@
 name: STAGING WORKFLOW
 on:
   push:
-    branches: [feature/add-tag-releases]
+    branches: [main]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -20,7 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           
   Deploy-EC2:
-    if: ${{ github.event_name == 'push' }}
+    needs: Publish-Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
