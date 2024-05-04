@@ -12,10 +12,10 @@ import StrengthWeaknessCard from "./components/strength-weakness-card"
 import SummaryCard from "./components/summary-card"
 import { useFacetsReports } from "@/query/facets-reports"
 
-export default function Report() {
-  const { reportsData } = useReportsData()((state) => state)
+export default async function Report() {
+  // const { reportsData } = useReportsData()((state) => state)
 
-  useFacetsReports()
+  // useFacetsReports()
 
   return (
     <div className="text-black flex flex-col gap-5 bg-alice-blue pb-[70px]">
