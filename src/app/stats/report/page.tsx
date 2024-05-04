@@ -1,3 +1,4 @@
+import { useReportsData } from "@/store/reports-provider"
 import CompetenciesGradesCard from "./components/competencies-grades-card"
 import {
   competenciesGradesCardConfig,
@@ -9,8 +10,13 @@ import {
 import FacetsScoreCard from "./components/facets-score-card"
 import StrengthWeaknessCard from "./components/strength-weakness-card"
 import SummaryCard from "./components/summary-card"
+import { useFacetsReports } from "@/query/facets-reports"
 
 export default async function Report() {
+  const { reportsData } = useReportsData()((state) => state)
+
+  useFacetsReports()
+
   return (
     <div className="text-black flex flex-col gap-5 bg-alice-blue pb-[70px]">
       <SummaryCard variant="progression" {...progressionSummaryConfig} />

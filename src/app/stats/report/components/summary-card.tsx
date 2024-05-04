@@ -3,6 +3,7 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import React from "react"
 import ReportDrawer from "./report-drawer"
+import { useFacetsReports } from "@/query/facets-reports"
 
 type Stat = {
   value: string
