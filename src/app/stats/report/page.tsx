@@ -1,3 +1,5 @@
+"use client"
+
 import { useReportsData } from "@/store/reports-provider"
 import CompetenciesGradesCard from "./components/competencies-grades-card"
 import {
@@ -12,7 +14,7 @@ import StrengthWeaknessCard from "./components/strength-weakness-card"
 import SummaryCard from "./components/summary-card"
 import { useFacetsReports } from "@/query/facets-reports"
 
-export default async function Report() {
+export default function Report() {
   const { reportsData } = useReportsData()((state) => state)
 
   useFacetsReports()

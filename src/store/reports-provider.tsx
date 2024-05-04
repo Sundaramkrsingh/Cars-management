@@ -4,27 +4,27 @@ import { createContext, useContext, useState } from "react"
 import { create } from "zustand"
 
 export type ProgressionSummary = {
-  currentStage?: string
-  questionAttempted?: number
-  currentSession?: number
-  totalSession?: number
-  totalProgress?: number
+  currentStage: string
+  questionAttempted: number
+  currentSession: number
+  totalSession: number
+  totalProgress: number
 }
 
 export type PerformanceSummary = {
-  currentGrade?: string
-  percentile?: number
-  netScore?: number
-  currentAccuracy?: number
-  nextGrade?: string
-  nextGradeAccuracy?: number
+  currentGrade: string
+  percentile: number
+  netScore: number
+  currentAccuracy: number
+  nextGrade: string
+  nextGradeAccuracy: number
 }
 
 export type ScoreSummary = {
   tier1: {
     name: string
     score?: number
-    grade?: string | "NA"
+    grade: string | "NA"
   }[]
 }
 
@@ -95,7 +95,7 @@ export const useReportsData = () => {
   if (!ReportsDataContext) {
     throw new Error("useReportsData must be used within a ReportsDataProvider")
   }
-  return useContext(ReportsDataContext)
+  return useContext(ReportsDataContext)!
 }
 
 const ReportsDataProvider = ({
