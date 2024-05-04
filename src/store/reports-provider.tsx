@@ -95,7 +95,7 @@ export const useReportsData = () => {
   if (!ReportsDataContext) {
     throw new Error("useReportsData must be used within a ReportsDataProvider")
   }
-  return useContext(ReportsDataContext)
+  return useContext(ReportsDataContext)!
 }
 
 const ReportsDataProvider = ({

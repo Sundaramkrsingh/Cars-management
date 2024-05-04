@@ -12,7 +12,7 @@ import StrengthWeaknessCard from "./components/strength-weakness-card"
 import SummaryCard from "./components/summary-card"
 import { useFacetsReports } from "@/query/facets-reports"
 
-export default async function Report() {
+export default function Report() {
   const { reportsData } = useReportsData()((state) => state)
 
   useFacetsReports()
