@@ -43,6 +43,7 @@ const PostQ = ({
       answers,
       feedback,
       questionCount,
+      score,
     },
   } = useChat()((state) => state)
 
@@ -86,7 +87,7 @@ const PostQ = ({
           <PostQHeader
             isAbaHappy={isAbaHappy}
             answerStatus={answerStatus}
-            score={postQConfig.score}
+            score={score[questionnaire] || 0}
           />
           <PostQCard
             {...{ ...postQConfig.infoCard, description: triviaContent }}

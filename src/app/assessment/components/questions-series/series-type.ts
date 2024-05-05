@@ -1,7 +1,12 @@
 export type QuestionProps = {
-  questionnaire?: number
+  questionnaire: number
   ad?: boolean
-  avgTime?: string
-  accuracy?: string
-  timeLimit?: string
+  foresight: {
+    avgTime: string
+    accuracy: string
+    timeLimit: string
+    tier1: string
+    tier2: string
+    tier3: string
+  }
 }
