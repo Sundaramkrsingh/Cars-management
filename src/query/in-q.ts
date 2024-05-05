@@ -75,7 +75,6 @@ export const useInQuestion = () => {
 
   useEffect(() => {
     if (getInQuestions.isSuccess) {
-      console.log(getInQuestions.data)
       setQuestions(getInQuestions.data)
     }
   }, [getInQuestions.data, getInQuestions.isSuccess, setQuestions])
