@@ -11,6 +11,7 @@ const Timer = () => {
 
   const {
     chat: { currentStage },
+    setTimeConsumed,
   } = useChat()((state) => state)
 
   const [currentTimeStage, setCurrentTimeStage] = useState(
@@ -40,6 +41,10 @@ const Timer = () => {
       chatBody && chatBody.classList.remove("post-q-scroll")
     }
   }, [currentStage])
+
+  useEffect(() => {
+    setTimeConsumed(currentTimeStage.initialTime - sec, currentStage)
+  }, [currentStage, currentTimeStage.initialTime, sec, setTimeConsumed])
 
   function getBackgroundColor(sec: number) {
     return sec <= 5

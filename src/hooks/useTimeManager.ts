@@ -1,5 +1,6 @@
 "use client"
 
+import { usePostAnswer } from "@/query/in-q"
 import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 
@@ -12,7 +13,12 @@ const useTimeManager = () => {
     setActiveQState,
     setInQAnswerVisibility,
     setActiveQuestionnaire,
+    setTimeConsumed,
   } = useChat()((state) => state)
+
+  const {
+    postAns: { mutateAsync, data: ansResp },
+  } = usePostAnswer()
 
   const baseInQTime = 20
 
@@ -33,6 +39,7 @@ const useTimeManager = () => {
     "pre-q": {
       initialTime: 15,
       onTimeOut: () => {
+        setTimeConsumed("time-out", "pre-q")
         setActiveQState(`in-q-${activeQuestionnaire}`)
         router.push(`#in-q-${activeQuestionnaire}`)
         setCurrentStage("in-q")
@@ -41,6 +48,13 @@ const useTimeManager = () => {
     "in-q": {
       initialTime: inQInitialTime,
       onTimeOut: () => {
+        setTimeConsumed("time-out", "in-q")
+        mutateAsync({
+          currentQuestionNo: activeQuestionnaire + 1,
+          timeSpent: -1,
+          isQuestionSkipped: true,
+          questionId: activeQuestionnaire + 1,
+        })
         setActiveQState(`post-q-${activeQuestionnaire}`)
         router.push(`#post-q-${activeQuestionnaire}`)
         setCurrentStage("post-q")
@@ -51,6 +65,7 @@ const useTimeManager = () => {
       initialTime: 15,
       onTimeOut: () => {
         if (activeQuestionnaire < questionCount - 1) {
+          setTimeConsumed("time-out", "post-q")
           setActiveQState(`pre-q-${1 + activeQuestionnaire}`)
           setActiveQuestionnaire(1 + activeQuestionnaire)
           setCurrentStage("pre-q")
