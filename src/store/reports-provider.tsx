@@ -51,14 +51,7 @@ const initialReportsData: ReportsData = {
     nextGradeAccuracy: 0,
   },
   scoreSummary: {
-    tier1: [
-      { name: "Flair Series", score: 0, grade: "" },
-      { name: "Asset Series", score: 0, grade: "" },
-      { name: "Craft Series", score: 0, grade: "" },
-      { name: "Extra Series", score: 0, grade: "" },
-      { name: "Trait Series", grade: "NA" },
-      { name: "Skill Series", score: 0, grade: "" },
-    ],
+    tier1: [{ name: "", score: 0, grade: "" }],
   },
 }
 

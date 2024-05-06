@@ -53,9 +53,9 @@ export const useFacetsReports = () => {
     if (reports.isSuccess) {
       const { progression, performance, score } = reports.data as any
 
-      setProgressionSummary({ ...progression })
-      setPerformanceSummary({ ...performance })
-      setScoreSummary({ ...score })
+      setProgressionSummary({ ...progression.data.data })
+      setPerformanceSummary({ ...performance.data.data })
+      setScoreSummary({ ...score.data.data })
     }
   }, [
     reports.isSuccess,
