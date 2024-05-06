@@ -3,7 +3,8 @@
 import dataProvider from "@/dataProvider"
 import { useChat } from "@/store/chat-provider"
 import { useUser } from "@/store/user-provider"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { AxiosResponse } from "axios"
 import { useEffect } from "react"
 
 let fetcher = dataProvider("userInstance")
@@ -23,7 +24,29 @@ const useChatInfo = () => {
 }
 
 const getQuestions = (userId: string | number) => {
-  return fetcher.get(`/questions`)
+  return fetcher.get(`/core/${userId}`)
+}
+
+const postAnswer: (
+  userId: number | string,
+  data: {
+    questionId: number
+    currentQuestionNo: number
+    timeSpent: number
+    isQuestionSkipped: boolean
+    answer?: string
+  }
+) => Promise<
+  AxiosResponse<
+    {
+      data: {
+        inQ: { questionId: number; isCorrect: boolean; score: number }
+      }
+    },
+    any
+  >
+> = (userId, data) => {
+  return fetcher.post(`/core/${userId}/answer`, data)
 }
 
 export const useInQuestion = () => {
@@ -36,41 +59,46 @@ export const useInQuestion = () => {
     queryKey: getQuestionsKey(),
     queryFn: () => getQuestions(userId),
     select: (data) =>
-      (data.data.data as any)?.map((itm: any) => ({
-        preQ: {
-          avgTime: itm?.avgTime,
-          accuracy: itm?.accuracy,
-          timeLimit: itm?.timeLimit,
-          type: itm?.type,
-          isActive: itm?.isActive,
-          isPublished: itm?.isPublished,
-          tags: itm?.tags,
-          dynamicDL: itm?.dynamicDL,
-          staticDL: itm?.staticDL,
-          tier3Id: itm?.tier3Id,
-          tier2Id: itm?.tier2Id,
-          tier1Id: itm?.tier1Id,
-        },
-        inQ: {
-          ...itm?.mCQQA,
-          options: itm.mCQQA.options.map(({ id, text, position }: any) => ({
+      data.data.data.core?.map((itm: any) => ({
+        ...itm,
+        inq: {
+          ...itm?.inq,
+          options: itm.inq.options.map(({ id, text, position }: any) => ({
             label: text,
             value: text,
             id,
             position,
           })),
         },
-        postQ: {
-          triviaContent: itm?.mCQQA?.triviaContent,
-        },
       })),
   })
 
   useEffect(() => {
     if (getInQuestions.isSuccess) {
-      setQuestions(getInQuestions?.data)
+      setQuestions(getInQuestions.data)
     }
-  }, [getInQuestions?.data, getInQuestions.isSuccess, setQuestions])
+  }, [getInQuestions.data, getInQuestions.isSuccess, setQuestions])
 
   return { getInQuestions }
+}
+
+export const usePostAnswer = () => {
+  const { id: userId } = useDetails()
+
+  const postAnswerKey = () => ["answer"]
+
+  const postAns = useMutation({
+    mutationKey: postAnswerKey(),
+    mutationFn: (data: {
+      questionId: number
+      currentQuestionNo: number
+      timeSpent: number
+      isQuestionSkipped: boolean
+      answer?: string
+    }) => postAnswer(userId, data),
+  })
+
+  return {
+    postAns,
+  }
 }

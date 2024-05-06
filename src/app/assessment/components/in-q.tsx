@@ -51,11 +51,11 @@ const InQ = ({ questionnaire, ...rest }: { questionnaire: number }) => {
     setAnswersValidity,
   } = useChat()((state) => state)
 
-  const { answer: ans, options: opt, text: question } = rest as any
+  const { answer: ans, options: opt, question } = rest as any
 
   const [showInQ, setShowInQ] = useState(false)
   const [answerBarVisibility, setAnswerBarVisibility] = useState<boolean>(true)
-  const [answer, setAnswer] = useState<Answer | undefined>(ans)
+  const [answer, setAnswer] = useState<Answer | undefined>(undefined)
   const [activeOption, setActiveOption] = useState<string>()
   const [answerValidity, setAnswerValidity, validityRef] =
     useStateRef<Validity>("default")

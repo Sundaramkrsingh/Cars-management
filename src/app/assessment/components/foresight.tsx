@@ -3,7 +3,14 @@ import ForSight from "./foresight-card"
 import PreQHeading from "./pre-q-heading"
 import { QuestionProps } from "./questions-series/series-type"
 
-const Foresight = ({ avgTime, accuracy, timeLimit }: QuestionProps) => {
+const Foresight = ({
+  avgTime,
+  accuracy,
+  timeLimit,
+  tier1,
+  tier2,
+  tier3,
+}: QuestionProps["foresight"]) => {
   return (
     <div>
       <PreQHeading heading="FORESIGHTS" />
@@ -14,11 +21,11 @@ const Foresight = ({ avgTime, accuracy, timeLimit }: QuestionProps) => {
         <div className="flex flex-col gap-2 text-sm font-medium">
           <div className="flex gap-2 items-center">
             <Icons.rightArrow className="w-3 h-3" />
-            <p>Attitude Essentials</p>
+            <p>{tier1}</p>
           </div>
           <div className="flex gap-2 items-center">
             <Icons.rightArrow className="w-3 h-3" />
-            <p>Integrity & Ethics</p>
+            <p>{tier2}</p>
           </div>
         </div>
       </div>

@@ -23,13 +23,15 @@ export default function Chat() {
   return (
     <>
       <PreQChip />
-      {questions.map(({ preQ, inQ, postQ }: any, index) => (
-        <div key={index}>
-          <PreQ {...preQ} questionnaire={index} />
-          <InQ {...inQ} questionnaire={index} />
-          <PostQ {...postQ} questionnaire={index} />
-        </div>
-      ))}
+      {questions.map(({ preq: preQ, inq: inQ, postQ }: any, index) => {
+        return (
+          <div key={index}>
+            <PreQ {...preQ} questionnaire={index} />
+            <InQ {...inQ} questionnaire={index} />
+            <PostQ {...postQ} questionnaire={index} />
+          </div>
+        )
+      })}
     </>
   )
 }
