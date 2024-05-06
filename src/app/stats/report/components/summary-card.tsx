@@ -3,6 +3,7 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import React from "react"
 import ReportDrawer from "./report-drawer"
+import { useFacetsReports } from "@/query/facets-reports"
 
 type Stat = {
   value: string
@@ -53,7 +54,7 @@ const ProgressBar = ({ description, progress }: ProgressBarProps) => {
 
 const StatsRenderer = ({ value, title }: Stat) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col ">
       <p className="text-dark-charcoal text-xs">{title}</p>
       <p className="text-smoky-black font-medium">{value}</p>
     </div>
@@ -80,7 +81,7 @@ const SummaryCard = ({
 
       <div className="p-[18px] rounded-b-[10px] overflow-hidden bg-azure">
         <ProgressBar progress={progress} description={description} />
-        <div className="flex gap-8">
+        <div className="flex gap-8 ">
           {stats.map(({ ...rest }, idx) => (
             <StatsRenderer key={idx} {...rest} />
           ))}
