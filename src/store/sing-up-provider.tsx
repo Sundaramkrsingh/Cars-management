@@ -24,7 +24,6 @@ const createStore = (userDetails: UserSignInInfo) =>
         ...prev,
         userDetails: { ...prev.userDetails, mobile: data },
       }))
-      console.log(userDetails)
     },
     setUserOtp(data: UserSignInInfo["smsOtp"]) {
       set((prev) => ({

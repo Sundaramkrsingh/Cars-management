@@ -48,7 +48,6 @@ const Otp = ({ setActiveScreen, phone }: ScreenProps) => {
     }
     const SignInUserRes = await signInUserDtls.mutateAsync(singInDtl)
     const userInfo = SignInUserRes?.data?.data?.userInfo
-    console.log(userInfo)
     setUser({ id: userInfo?.id })
     router.push("/onboarding")
   }

@@ -18,7 +18,7 @@ import {
 
 type ProfileProps = PageProps & {}
 
-const ProfileTab = ({ setEdit, profile }: ProfileProps) => {
+const ProfileTab = ({ setEdit, profile, getResume }: ProfileProps) => {
   const handelEditClick = (card: EditVariants) => {
     setEdit(card)
   }
@@ -54,7 +54,7 @@ const ProfileTab = ({ setEdit, profile }: ProfileProps) => {
               <Licenses {...commonProps} />
               <Education {...commonProps} />
               <Awards {...commonProps} />
-              <Resume />
+              <Resume getResume={getResume} />
               {/* <WorkGoals {...commonProps} /> */}
               <BasicInformation {...commonProps} />
             </div>

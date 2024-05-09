@@ -3,6 +3,8 @@ import { AxiosResponse } from "axios"
 import { Options } from "nuqs"
 
 export type PageProps = {
+  getImage?: UseQueryResult<AxiosResponse<any, any>, Error>
+  getResume?: UseQueryResult<AxiosResponse<any, any>, Error>
   setEdit: <Shallow>(
     value: string | ((old: string | null) => string | null) | null,
     options?: Options<Shallow> | undefined

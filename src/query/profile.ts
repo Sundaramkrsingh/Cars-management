@@ -8,6 +8,7 @@ import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 
 let fetcher = dataProvider("userInstance")
+let formTypeFetcher = dataProvider("userInstanceFormType")
 
 const profileDataManager = (profileData: any) => {
   const profileEdit = {
@@ -17,9 +18,11 @@ const profileDataManager = (profileData: any) => {
     bio: profileData?.bio,
     email: profileData?.email,
     avatar: {
-      initials: "",
+      initials: getFirstNameLastNameInitials(
+        profileData?.firstName,
+        profileData?.lastName
+      ),
       bgColor: "",
-      src: profileData?.avatar,
     },
   }
 
@@ -78,6 +81,22 @@ const profileDataManager = (profileData: any) => {
 
 const getProfile = (id: string | number) => {
   return fetcher.get(`profiles/${id}`)
+}
+
+const getProfileImage = (id: string | number) => {
+  return fetcher.get(`profiles/${id}/profile-image`)
+}
+
+const deleteProfileImg = (id: string | number) => {
+  return fetcher.delete(`profiles/${id}/profile-image`)
+}
+
+const getResume = (id: string | number) => {
+  return fetcher.get(`profiles/${id}/profile-resume`)
+}
+
+const deleteResume = (id: string | number) => {
+  return fetcher.delete(`profiles/${id}/profile-resume`)
 }
 
 const postWorkExp = ({ id, data }: { id: string | number; data: any }) => {
@@ -195,29 +214,90 @@ const patchBasicInfo = ({ id, data }: { id: string | number; data: any }) => {
   return fetcher.patch(`/profiles/${id}/basic`, data)
 }
 
+const postProfileImage = ({ id, data }: { id: string | number; data: any }) => {
+  return formTypeFetcher.put(`/profiles/${id}/profile-image`, data)
+}
+
+const postResume = ({ id, data }: { id: string | number; data: any }) => {
+  return formTypeFetcher.put(`/profiles/${id}/upload-resume`, data)
+}
+
 const useDetails = () => {
   const {
     user: { id },
   } = useUser()((state) => state)
 
-  const { setProfileFormData, profileFormData } = useProfileFromData()(
-    (state) => state
-  )
+  const {
+    setProfileFormData,
+    profileFormData,
+    setProfileImageData,
+    setResumeData,
+    setResumeName,
+  } = useProfileFromData()((state) => state)
 
-  return { id, setProfileFormData, profileFormData }
+  return {
+    id,
+    setProfileFormData,
+    profileFormData,
+    setProfileImageData,
+    setResumeData,
+    setResumeName,
+  }
 }
 
 export const useProfile = () => {
-  const { id, setProfileFormData } = useDetails()
+  const {
+    id,
+    setProfileFormData,
+    setProfileImageData,
+    setResumeData,
+    setResumeName,
+  } = useDetails()
 
   const getProfileKey = () => ["profile"]
+  const getProfileImageKey = () => ["profile-image"]
+  const getResumeKey = () => ["resume-key"]
+  const deleteProfileImage = () => ["delete-profile-img"]
+  //fetch Image Url
+  const getImage = useQuery({
+    queryKey: getProfileImageKey(),
+    queryFn: () => getProfileImage(id),
+  })
+  const getResumeDtls = useQuery({
+    queryKey: getResumeKey(),
+    queryFn: () => getResume(id),
+  })
 
   const profile = useQuery({
     queryKey: getProfileKey(),
     queryFn: () => getProfile(id),
   })
 
+  const deleteProfileImgReq = useMutation({
+    mutationKey: deleteProfileImage(),
+    mutationFn: () => deleteProfileImg(id),
+  })
+
   const profileData = profile?.data?.data?.data
+  let profileImage: string = ""
+  if (profileData?.avatar) {
+    if (getImage?.isSuccess) {
+      profileImage = getImage?.data?.data?.data?.userAvatar
+    }
+  }
+  let userResumeData: string = ""
+  let userResumeName: string = ""
+
+  if (getResumeDtls?.isSuccess) {
+    const resumeUrl = getResumeDtls?.data?.data?.data?.userResume
+    const resumeFilN = getResumeDtls?.data?.data?.data?.resumeFileName
+    const setResumeDataInfo = {
+      resumeDownloadUrl: resumeUrl,
+      resumeName: resumeFilN,
+    }
+    userResumeName = getResumeDtls?.data?.data?.data?.resumeFileName
+    userResumeData = getResumeDtls?.data?.data?.data?.userResume
+  }
 
   useEffect(() => {
     const {
@@ -241,9 +321,23 @@ export const useProfile = () => {
         licenses,
       } as any)
     }
-  }, [profile.isSuccess, profileData, setProfileFormData])
+    if (profileImage) {
+      setProfileImageData(profileImage)
+    }
 
-  return { profile }
+    if (userResumeData) {
+      setResumeName(userResumeName)
+      setResumeData(userResumeData)
+    }
+  }, [
+    profile.isSuccess,
+    profileData,
+    profileImage,
+    setProfileFormData,
+    userResumeData,
+  ])
+
+  return { profile, getImage, getResumeDtls, deleteProfileImgReq }
 }
 
 export const useBasicInfo = () => {
@@ -377,6 +471,16 @@ export const useEducation = () => {
   return { addEducation, editEducation, deleteEdu }
 }
 
+const getFirstNameLastNameInitials = (firstName: string, lastName = "") => {
+  if (!firstName) {
+    return ""
+  }
+  const firstNameInitial = firstName[0].toUpperCase()
+  return lastName
+    ? `${firstNameInitial}${lastName[0].toUpperCase()}`
+    : firstNameInitial
+}
+
 export const useAward = () => {
   const { id } = useDetails()
   const router = useRouter()
@@ -404,4 +508,33 @@ export const useAward = () => {
   })
 
   return { addAward, editAward, deleteAwa }
+}
+
+export const useProfileAvatar = () => {
+  const { id } = useDetails()
+  const uploadProfileImgKey = () => ["upload-profile"]
+
+  const uploadProfileImg = useMutation({
+    mutationKey: uploadProfileImgKey(),
+    mutationFn: (data) => postProfileImage({ id, data }),
+  })
+
+  return { uploadProfileImg }
+}
+
+export const useResume = () => {
+  const { id } = useDetails()
+  const uploadResumeKey = () => ["upload-resume"]
+  const deleteResumeKey = () => ["delete-resume"]
+
+  const uploadResume = useMutation({
+    mutationKey: uploadResumeKey(),
+    mutationFn: (data) => postResume({ id, data }),
+  })
+
+  const deleteResumeDtls = useMutation({
+    mutationKey: deleteResumeKey(),
+    mutationFn: () => deleteResume(id),
+  })
+  return { uploadResume, deleteResumeDtls }
 }
