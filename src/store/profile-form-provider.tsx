@@ -10,9 +10,9 @@ type ProfileEdit = {
   bio?: string
   email?: string
   avatar?: {
-    initials: string
-    bgColor: string
-    src: null
+    initials?: string
+    bgColor?: string
+    src?: null | string
   }
 }
 
@@ -62,6 +62,10 @@ type BasicInformation = {
   dob?: string
   address?: string
 }
+export type ResumeInformation = {
+  resumeDownloadUrl?: string | null
+  resumeName?: string | null
+}
 
 type WorkGoal = string[]
 
@@ -72,6 +76,7 @@ export type ProfileFromData = {
   licenses: Licenses[]
   education: Education[]
   awards: Awards[]
+  resume: ResumeInformation
   basicInformation: BasicInformation
   workGoals: WorkGoal
 }
@@ -83,6 +88,7 @@ const initialState: ProfileFromData = {
   licenses: [],
   education: [],
   awards: [],
+  resume: {},
   basicInformation: {},
   workGoals: ["Volunteer Work", "Competitive Exams", "Job Opportunities"],
 }
@@ -117,11 +123,44 @@ const createStore = (profileFormData: ProfileFromData) =>
     setBasicInfo: (data: BasicInformation) => void
 
     setWorkGoal: (data: string[]) => void
+    setProfileImageData: (data: string) => void
+    setResumeData: (data: string) => void
+    setResumeName: (data: string) => void
   }>((set) => ({
     profileFormData,
     setProfileFormData(data: ProfileFromData) {
       set((prev) => ({
         profileFormData: { ...prev.profileFormData, ...data },
+      }))
+    },
+
+    setProfileImageData(data: string) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          profileEdit: {
+            ...prev.profileFormData.profileEdit,
+            avatar: { ...prev.profileFormData.profileEdit.avatar, src: data },
+          },
+        },
+      }))
+    },
+
+    setResumeData(data: string) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          resume: { ...prev.profileFormData.resume, resumeDownloadUrl: data },
+        },
+      }))
+    },
+
+    setResumeName(data: string) {
+      set((prev) => ({
+        profileFormData: {
+          ...prev.profileFormData,
+          resume: { ...prev.profileFormData.resume, resumeName: data },
+        },
       }))
     },
 

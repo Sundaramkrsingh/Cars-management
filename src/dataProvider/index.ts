@@ -1,8 +1,11 @@
 import { AxiosRequestConfig } from "axios"
 import userInstance from "./axios"
 
+const userInstanceFormType = userInstance
+userInstanceFormType.defaults.headers["Content-Type"] = "multipart/form-data"
 const InstanceTypeMapping = {
   userInstance,
+  userInstanceFormType,
 } as const
 
 type InstanceTypes = keyof typeof InstanceTypeMapping

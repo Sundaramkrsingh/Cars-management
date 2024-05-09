@@ -27,7 +27,7 @@ const Default = ({ setEdit, ...rest }: PageProps) => (
 const PageRenderer = () => {
   const [edit, setEdit] = useQueryState("edit")
 
-  const { profile } = useProfile()
+  const { profile, getImage, getResumeDtls } = useProfile()
 
   const pageMap = {
     "work-experience": WorkExperience,
@@ -57,7 +57,14 @@ const PageRenderer = () => {
 
   const Page = pageMap[edit as keyof typeof pageMap] || pageMap["default"]
 
-  return <Page profile={profile} setEdit={setEdit} />
+  return (
+    <Page
+      profile={profile}
+      setEdit={setEdit}
+      getImage={getImage}
+      getResume={getResumeDtls}
+    />
+  )
 }
 
 export default PageRenderer
