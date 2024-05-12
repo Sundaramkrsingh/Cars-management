@@ -80,7 +80,7 @@ const profileDataManager = (profileData: any) => {
 }
 
 const getProfile = (id: string | number) => {
-  return fetcher.get(`profiles/${id}`)
+  return fetcher.get(`profiles/profile/${id}`)
 }
 
 const getProfileImage = (id: string | number) => {
