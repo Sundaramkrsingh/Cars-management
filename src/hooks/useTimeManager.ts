@@ -37,7 +37,7 @@ const useTimeManager = () => {
 
   return {
     "pre-q": {
-      initialTime: 15,
+      initialTime: 10,
       onTimeOut: () => {
         setTimeConsumed("time-out", "pre-q")
         setActiveQState(`in-q-${activeQuestionnaire}`)
