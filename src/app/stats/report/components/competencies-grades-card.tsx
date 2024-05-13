@@ -2,8 +2,8 @@ import { cn } from "@/lib/utils"
 import Card from "./card"
 
 type CompetenceChipProps = {
-  variant: string
   label: string
+  variant: string
 }
 
 type CompetenceProps = {
