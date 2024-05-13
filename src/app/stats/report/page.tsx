@@ -2,10 +2,7 @@
 
 import { useReportsData } from "@/store/reports-provider"
 import CompetenciesGradesCard from "./components/competencies-grades-card"
-import {
-  competenciesGradesCardConfig,
-  strengthWeaknessConfig,
-} from "./components/constants"
+import { strengthWeaknessConfig } from "./components/constants"
 import FacetsScoreCard from "./components/facets-score-card"
 import StrengthWeaknessCard from "./components/strength-weakness-card"
 import SummaryCard from "./components/summary-card"
