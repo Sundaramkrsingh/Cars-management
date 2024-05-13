@@ -8,7 +8,7 @@ const useTimeManager = () => {
   const router = useRouter()
 
   const {
-    chat: { activeQuestionnaire, questionCount, powerUp },
+    chat: { activeQuestionnaire, questionCount, powerUp, questions },
     setCurrentStage,
     setActiveQState,
     setInQAnswerVisibility,
@@ -37,7 +37,7 @@ const useTimeManager = () => {
 
   return {
     "pre-q": {
-      initialTime: 15,
+      initialTime: 10,
       onTimeOut: () => {
         setTimeConsumed("time-out", "pre-q")
         setActiveQState(`in-q-${activeQuestionnaire}`)
@@ -50,10 +50,11 @@ const useTimeManager = () => {
       onTimeOut: () => {
         setTimeConsumed("time-out", "in-q")
         mutateAsync({
+          answer: "",
           currentQuestionNo: activeQuestionnaire + 1,
-          timeSpent: -1,
+          timeSpent: 0,
           isQuestionSkipped: true,
-          questionId: activeQuestionnaire + 1,
+          questionId: questions[activeQuestionnaire]?.inq?.questionId,
         })
         setActiveQState(`post-q-${activeQuestionnaire}`)
         router.push(`#post-q-${activeQuestionnaire}`)

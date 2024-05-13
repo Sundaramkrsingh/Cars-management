@@ -18,9 +18,6 @@ const validateTokenUrl = "admin/validate-reset-token"
 
 const userInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
 })
 
 let isRefreshing = false

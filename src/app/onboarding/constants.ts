@@ -1,102 +1,102 @@
 export const hearAboutOptions = [
   {
-    label: "Family/Friends",
-    value: "Family/Friends",
+    name: "Family/Friends",
+    id: "Family/Friends",
   },
   {
-    label: "Search Engine",
-    value: "Search Engine",
+    name: "Search Engine",
+    id: "Search Engine",
   },
   {
-    label: "Social Media",
-    value: "Social Media",
+    name: "Social Media",
+    id: "Social Media",
   },
   {
-    label: "Word of Mouth",
-    value: "Word of Mouth",
+    name: "Word of Mouth",
+    id: "Word of Mouth",
   },
   {
-    label: "TV Commercials",
-    value: "TV Commercials",
+    name: "TV Commercials",
+    id: "TV Commercials",
   },
   {
-    label: "Events / Conferences",
-    value: "Events / Conferences",
+    name: "Events / Conferences",
+    id: "Events / Conferences",
   },
 ]
 
 export const roleOptions = [
   {
-    label: "Student",
-    value: "Student",
+    name: "Student",
+    id: "Student",
   },
   {
-    label: "Working",
-    value: "Working",
+    name: "Working",
+    id: "Working",
   },
   {
-    label: "Exploring Opportunities",
-    value: "Exploring Opportunities",
+    name: "Exploring Opportunities",
+    id: "Exploring Opportunities",
   },
 ]
 
 export const goalOptions = [
   {
-    label: "Job Opportunities",
-    value: "Job Opportunities",
+    name: "Job Opportunities",
+    id: "Job Opportunities",
   },
   {
-    label: "Paid Interships",
-    value: "Paid Interships",
+    name: "Paid Interships",
+    id: "Paid Interships",
   },
   {
-    label: "Freelancing Gigs",
-    value: "Freelancing Gigs",
+    name: "Freelancing Gigs",
+    id: "Freelancing Gigs",
   },
   {
-    label: "Expternship Gigs",
-    value: "Expternship Gigs",
+    name: "Expternship Gigs",
+    id: "Expternship Gigs",
   },
   {
-    label: "Self Assessment",
-    value: "Self Assessment",
+    name: "Self Assessment",
+    id: "Self Assessment",
   },
   {
-    label: "Competitive Exams",
-    value: "Competitive Exams",
+    name: "Competitive Exams",
+    id: "Competitive Exams",
   },
   {
-    label: "Volunteer Work",
-    value: "Volunteer Work",
+    name: "Volunteer Work",
+    id: "Volunteer Work",
   },
   {
-    label: "Higher-Ed Abroad",
-    value: "Higher-Ed Abroad",
+    name: "Higher-Ed Abroad",
+    id: "Higher-Ed Abroad",
   },
   {
-    label: "Networking Events",
-    value: "Networking Events",
+    name: "Networking Events",
+    id: "Networking Events",
   },
   {
-    label: "Peer Benchmark",
-    value: "Peer Benchmark",
+    name: "Peer Benchmark",
+    id: "Peer Benchmark",
   },
 ]
 
-export const userInfoConfig = [
-  {
+export const userInfoConfig = {
+  hear: {
     title: "How did you hear about us?",
     category: "hear",
     options: hearAboutOptions,
   },
-  {
+  role: {
     title: "Current Role?",
     category: "role",
     options: roleOptions,
   },
-  {
+  goal: {
     title: "What’s your goal?",
     category: "goal",
     options: goalOptions,
   },
-]
+}

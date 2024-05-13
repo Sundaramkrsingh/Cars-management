@@ -4,11 +4,11 @@ import dataProvider from "@/dataProvider"
 import { useProfileFromData } from "@/store/profile-form-provider"
 import { useUser } from "@/store/user-provider"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 let fetcher = dataProvider("userInstance")
-let formTypeFetcher = dataProvider("userInstanceFormType")
+let formTypeFetcher = dataProvider("userInstance", "multipart/form-data")
 
 const profileDataManager = (profileData: any) => {
   const profileEdit = {

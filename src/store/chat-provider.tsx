@@ -33,13 +33,18 @@ export type Chat = {
       comment?: { [key: number]: string | null }
     }
   }
-  questions: []
+  questions: {
+    inq: {
+      questionId: number
+    }
+  }[]
   timeConsumed: {
     "pre-q": number | "time-out"
     "in-q": number | "time-out"
     "post-q": number | "time-out"
   }
   score: { [key: string | number]: number }
+  assessmentMetaData: any
 }
 
 const initialState: Chat = {
@@ -60,6 +65,7 @@ const initialState: Chat = {
     "post-q": 0,
   },
   score: {},
+  assessmentMetaData: {},
 }
 
 const createStore = (chat: Chat) =>
@@ -86,6 +92,7 @@ const createStore = (chat: Chat) =>
       question: number
     ) => void
     setQuestions: (questions: Chat["questions"]) => void
+    setAssessmentMetaData: (data: any) => void
     setTimeConsumed: (
       time: number | "time-out",
       stage: QuestionVariants
@@ -203,6 +210,19 @@ const createStore = (chat: Chat) =>
           score: {
             ...prev.chat.score,
             ...score,
+          },
+        },
+      }))
+    },
+
+    setAssessmentMetaData(data) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          assessmentMetaData: {
+            ...prev.chat.assessmentMetaData,
+            ...data,
           },
         },
       }))

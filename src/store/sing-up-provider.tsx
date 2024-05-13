@@ -5,11 +5,16 @@ import { create } from "zustand"
 export type UserSignInInfo = {
   mobile: string
   smsOtp: number
+  options: {
+    id: string
+    name: string
+  }[]
 }
 
 const initialState: UserSignInInfo = {
   mobile: "",
   smsOtp: 0,
+  options: [],
 }
 
 const createStore = (userDetails: UserSignInInfo) =>
@@ -17,6 +22,7 @@ const createStore = (userDetails: UserSignInInfo) =>
     userDetails: UserSignInInfo
     setUserMobileNo: (data: UserSignInInfo["mobile"]) => void
     setUserOtp: (data: UserSignInInfo["smsOtp"]) => void
+    setOptions: (data: UserSignInInfo["options"]) => void
   }>((set) => ({
     userDetails,
     setUserMobileNo(data: UserSignInInfo["mobile"]) {
@@ -30,6 +36,18 @@ const createStore = (userDetails: UserSignInInfo) =>
         ...prev,
         userDetails: { ...prev.userDetails, smsOtp: data },
       }))
+    },
+
+    setOptions(data: UserSignInInfo["options"]) {
+      set((prev) => ({
+        ...prev,
+        userDetails: {
+          ...prev.userDetails,
+          options: data,
+        },
+      }))
+
+      console.log()
     },
   }))
 

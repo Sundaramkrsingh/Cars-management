@@ -1,7 +1,8 @@
 "use client"
 
 import dataProvider from "@/dataProvider"
-import { useMutation } from "@tanstack/react-query"
+import { useUser } from "@/store/user-provider"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 let fetcher = dataProvider("userInstance")
 
@@ -19,6 +20,22 @@ const singIn = ({
   data: { phoneNumber: string; smsOtp: number }
 }) => {
   return fetcher.post(`/auth/sign-in`, data)
+}
+
+const getGoals = () => {
+  return fetcher.get(`profiles/goals`)
+}
+
+const patchGoals = ({ id, data }: { id: string | number; data: any }) => {
+  return fetcher.patch(`/profiles/${id}/goal`, data)
+}
+
+const useDetails = () => {
+  const {
+    user: { id },
+  } = useUser()((state) => state)
+
+  return { id }
 }
 
 export const useSignUp = () => {
@@ -41,4 +58,23 @@ export const useSignUp = () => {
       singIn({ data }),
   })
   return { signUpUserDts, sendOptDetails, signInUserDtls }
+}
+
+export const useGoals = () => {
+  const { id } = useDetails()
+
+  const getGoalsKey = () => ["goals"]
+  const patchGoalsExpKey = () => ["edit-goals"]
+
+  const getAllGoals = useQuery({
+    queryKey: getGoalsKey(),
+    queryFn: () => getGoals(),
+  })
+
+  const editGoals = useMutation({
+    mutationKey: patchGoalsExpKey(),
+    mutationFn: (data: any) => patchGoals({ data, id }),
+  })
+
+  return { getAllGoals, editGoals }
 }
