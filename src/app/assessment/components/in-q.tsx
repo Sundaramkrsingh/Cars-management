@@ -199,6 +199,7 @@ const InQ = ({ questionnaire, ...rest }: { questionnaire: number }) => {
           attempt={attempt}
           setAttempt={setAttempt}
           validityRef={validityRef}
+          {...rest}
         />
       )}
     </TransitionWrapper>

@@ -76,10 +76,13 @@ const InQAnswer = ({
   labelVariant = "alphabetic",
   validityRef,
   setAnswerBarVisibility,
+  ...rest
 }: InQAnswerProps) => {
   const {
     postAns: { mutateAsync },
   } = usePostAnswer()
+
+  const { questionId } = rest as any
 
   const isPartial = optionsCategory === "partial"
 
@@ -116,7 +119,7 @@ const InQAnswer = ({
         currentQuestionNo: questionnaire + 1,
         timeSpent: timeConsumed["in-q"] as number,
         isQuestionSkipped: false,
-        questionId: questionnaire + 1,
+        questionId,
       }).then((resp) => {
         setValidity(resp.data.data.inQ.isCorrect ? "correct" : "wrong")
         setScore({ [questionnaire]: resp.data.data.inQ.score })
