@@ -1,15 +1,15 @@
 import { AxiosRequestConfig } from "axios"
 import userInstance from "./axios"
 
-const userInstanceFormType = userInstance
-userInstanceFormType.defaults.headers["Content-Type"] = "multipart/form-data"
 const InstanceTypeMapping = {
   userInstance,
-  userInstanceFormType,
 } as const
 
 type InstanceTypes = keyof typeof InstanceTypeMapping
-const fetcher = (instanceType: InstanceTypes) => {
+const fetcher = (
+  instanceType: InstanceTypes,
+  contentType = "application/json"
+) => {
   const axios = InstanceTypeMapping[instanceType]
 
   return {
@@ -33,7 +33,11 @@ const fetcher = (instanceType: InstanceTypes) => {
      * @returns Promise
      */
     post: async (url: string, data: any, params = {}) => {
-      const config: AxiosRequestConfig = {}
+      const config: AxiosRequestConfig = {
+        headers: {
+          "Content-Type": contentType,
+        },
+      }
 
       return axios
         .request({
@@ -56,12 +60,19 @@ const fetcher = (instanceType: InstanceTypes) => {
      * @returns Promise
      */
     put: async (url: string, data: any, params = {}) => {
+      const config: AxiosRequestConfig = {
+        headers: {
+          "Content-Type": contentType,
+        },
+      }
+
       return axios
         .request({
           url,
           method: "PUT",
           data,
           params,
+          ...config,
         })
         .then((response) => {
           return response
@@ -76,12 +87,19 @@ const fetcher = (instanceType: InstanceTypes) => {
      * @returns Promise
      */
     patch: async (url: string, data: any, params = {}) => {
+      const config: AxiosRequestConfig = {
+        headers: {
+          "Content-Type": contentType,
+        },
+      }
+
       return axios
         .request({
           url,
           method: "PATCH",
           data,
           params,
+          ...config,
         })
         .then((response) => {
           return response

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 let fetcher = dataProvider("userInstance")
-let formTypeFetcher = dataProvider("userInstanceFormType")
+let formTypeFetcher = dataProvider("userInstance", "multipart/form-data")
 
 const profileDataManager = (profileData: any) => {
   const profileEdit = {
