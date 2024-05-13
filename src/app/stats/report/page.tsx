@@ -54,7 +54,6 @@ export default function Report() {
       },
     ],
   }
-
   const scoreSummary = {
     heading: "Tier 1",
     subHeading: "FACETS Score",
@@ -74,6 +73,12 @@ export default function Report() {
       ],
     },
   }
+  const competenciesGradesSummary = {
+    heading: "Tier 3",
+    subHeading: "Competencies & Grades",
+    info: "info",
+    competenceInfo: reportsData.competencyAndGrades.tier3,
+  }
 
   return (
     <div className="text-black flex flex-col gap-5 bg-alice-blue pb-[70px]">
@@ -81,6 +86,8 @@ export default function Report() {
         <div className="flex flex-col gap-5">
           <Skeleton className="h-[200px] w-full rounded-xl" />{" "}
           <Skeleton className="h-[200px] w-full rounded-xl" />{" "}
+          <Skeleton className="h-[415px] w-full rounded-xl" />{" "}
+          <Skeleton className="h-[415px] w-full rounded-xl" />{" "}
           <Skeleton className="h-[415px] w-full rounded-xl" />
         </div>
       ) : (
@@ -97,16 +104,15 @@ export default function Report() {
               <SummaryCard variant="progression" {...progressionSummary} />
               <SummaryCard variant="performance" {...performanceSummary} />
               <FacetsScoreCard variant="tier1" {...scoreSummary} />{" "}
+              <StrengthWeaknessCard {...strengthWeaknessConfig} />
+              <CompetenciesGradesCard
+                variant="tier3"
+                {...competenciesGradesSummary}
+              />
             </>
           )}
         </>
       )}
-
-      <StrengthWeaknessCard {...strengthWeaknessConfig} />
-      <CompetenciesGradesCard
-        variant="tier3"
-        {...competenciesGradesCardConfig}
-      />
     </div>
   )
 }

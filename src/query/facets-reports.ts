@@ -20,42 +20,65 @@ const getScoreSummary = (userId: string | number) => {
   return fetcher.get(`/reports/${userId}/score-summary`)
 }
 
+const getCompetencyAndGradesSummary = (userId: string | number) => {
+  return fetcher.get(`/reports/${userId}/competencies-grades-summary`)
+}
+
 const useReportDetails = () => {
   const {
     user: { id },
   } = useUser()((state) => state)
 
-  const { setPerformanceSummary, setProgressionSummary, setScoreSummary } =
-    useReportsData()((state) => state)
+  const {
+    setPerformanceSummary,
+    setProgressionSummary,
+    setScoreSummary,
+    setCompetencyAndGrades,
+  } = useReportsData()((state) => state)
 
-  return { id, setPerformanceSummary, setProgressionSummary, setScoreSummary }
+  return {
+    id,
+    setPerformanceSummary,
+    setProgressionSummary,
+    setScoreSummary,
+    setCompetencyAndGrades,
+  }
 }
 
 export const useFacetsReports = () => {
-  const { id, setPerformanceSummary, setProgressionSummary, setScoreSummary } =
-    useReportDetails()
+  const {
+    id,
+    setPerformanceSummary,
+    setProgressionSummary,
+    setScoreSummary,
+    setCompetencyAndGrades,
+  } = useReportDetails()
 
   const getReportKey = () => ["reports"]
 
   const reports = useQuery({
     queryKey: getReportKey(),
     queryFn: async () => {
-      const [progression, performance, score] = await Promise.all([
-        getProgressionSummary(id),
-        getPerformanceSummary(id),
-        getScoreSummary(id),
-      ])
-      return { progression, performance, score }
+      const [progression, performance, score, competenciesandgrade] =
+        await Promise.all([
+          getProgressionSummary(id),
+          getPerformanceSummary(id),
+          getScoreSummary(id),
+          getCompetencyAndGradesSummary(id),
+        ])
+      return { progression, performance, score, competenciesandgrade }
     },
   })
 
   useEffect(() => {
     if (reports.isSuccess) {
-      const { progression, performance, score } = reports.data as any
+      const { progression, performance, score, competenciesandgrade } =
+        reports.data as any
 
       setProgressionSummary({ ...progression.data.data })
       setPerformanceSummary({ ...performance.data.data })
       setScoreSummary({ ...score.data.data })
+      setCompetencyAndGrades({ ...competenciesandgrade.data.data })
     }
   }, [
     reports.isSuccess,
@@ -63,6 +86,7 @@ export const useFacetsReports = () => {
     setPerformanceSummary,
     setProgressionSummary,
     setScoreSummary,
+    setCompetencyAndGrades,
   ])
 
   return { reports }

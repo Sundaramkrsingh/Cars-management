@@ -28,10 +28,23 @@ export type ScoreSummary = {
   }[]
 }
 
+export type GradeTypes = {
+  label: string
+  variant: string
+}
+
+export type CompetencyAndGrades = {
+  tier3: {
+    title: string
+    data: Array<GradeTypes>
+  }[]
+}
+
 export type ReportsData = {
   progressionSummary: ProgressionSummary
   performanceSummary: PerformanceSummary
   scoreSummary: ScoreSummary
+  competencyAndGrades: CompetencyAndGrades
 }
 
 const initialReportsData: ReportsData = {
@@ -53,6 +66,14 @@ const initialReportsData: ReportsData = {
   scoreSummary: {
     tier1: [{ name: "", score: 0, grade: "" }],
   },
+  competencyAndGrades: {
+    tier3: [
+      {
+        title: "",
+        data: [{ label: "", variant: "" }],
+      },
+    ],
+  },
 }
 
 const createStore = (initialData: ReportsData) =>
@@ -61,6 +82,7 @@ const createStore = (initialData: ReportsData) =>
     setProgressionSummary: (data: ProgressionSummary) => void
     setPerformanceSummary: (data: PerformanceSummary) => void
     setScoreSummary: (data: ScoreSummary) => void
+    setCompetencyAndGrades: (data: CompetencyAndGrades) => void
   }>((set) => ({
     reportsData: initialData,
     setProgressionSummary(data: ProgressionSummary) {
@@ -76,6 +98,11 @@ const createStore = (initialData: ReportsData) =>
     setScoreSummary(data: ScoreSummary) {
       set((state) => ({
         reportsData: { ...state.reportsData, scoreSummary: data },
+      }))
+    },
+    setCompetencyAndGrades(data: CompetencyAndGrades) {
+      set((state) => ({
+        reportsData: { ...state.reportsData, competencyAndGrades: data },
       }))
     },
   }))
