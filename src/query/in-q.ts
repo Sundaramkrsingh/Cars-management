@@ -51,33 +51,44 @@ const postAnswer: (
 
 export const useInQuestion = () => {
   const { id: userId } = useDetails()
-  const { setQuestions, chat } = useChatInfo()
+  const { setQuestions, setAssessmentMetaData, chat } = useChatInfo()
 
   const getQuestionsKey = () => ["questions"]
 
   const getInQuestions = useQuery({
     queryKey: getQuestionsKey(),
     queryFn: () => getQuestions(userId),
-    select: (data) =>
-      data.data.data.core?.map((itm: any) => ({
-        ...itm,
-        inq: {
-          ...itm?.inq,
-          options: itm.inq.options.map(({ id, text, position }: any) => ({
-            label: text,
-            value: text,
-            id,
-            position,
-          })),
-        },
-      })),
+    select: (data) => data.data.data,
   })
 
   useEffect(() => {
     if (getInQuestions.isSuccess) {
-      setQuestions(getInQuestions.data)
+      const { core, ...rest } = getInQuestions.data
+
+      console.log({ core, rest })
+
+      setQuestions(
+        core?.map((itm: any) => ({
+          ...itm,
+          inq: {
+            ...itm?.inq,
+            options: itm.inq.options.map(({ id, text, position }: any) => ({
+              label: text,
+              value: text,
+              id,
+              position,
+            })),
+          },
+        }))
+      )
+      setAssessmentMetaData(rest)
     }
-  }, [getInQuestions.data, getInQuestions.isSuccess, setQuestions])
+  }, [
+    getInQuestions.data,
+    getInQuestions.isSuccess,
+    setAssessmentMetaData,
+    setQuestions,
+  ])
 
   return { getInQuestions }
 }
