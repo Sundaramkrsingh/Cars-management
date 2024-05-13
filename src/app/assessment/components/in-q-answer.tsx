@@ -109,6 +109,7 @@ const InQAnswer = ({
   const show = (answer: Answer) => {
     setTimeout(() => {
       mutateAsync({
+        answer: "",
         ...(answer?.selectedOption?.id && {
           answer: answer?.selectedOption?.id,
         }),

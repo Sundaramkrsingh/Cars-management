@@ -4,8 +4,8 @@ import dataProvider from "@/dataProvider"
 import { useProfileFromData } from "@/store/profile-form-provider"
 import { useUser } from "@/store/user-provider"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 let fetcher = dataProvider("userInstance")
 let formTypeFetcher = dataProvider("userInstanceFormType")
@@ -80,7 +80,7 @@ const profileDataManager = (profileData: any) => {
 }
 
 const getProfile = (id: string | number) => {
-  return fetcher.get(`profiles/${id}`)
+  return fetcher.get(`profiles/profile/${id}`)
 }
 
 const getProfileImage = (id: string | number) => {

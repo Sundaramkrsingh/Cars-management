@@ -1,3 +1,4 @@
+import UserInfoProvider from "@/store/sing-up-provider"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -11,8 +12,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="bg-alice-blue w-[380px] no-scrollbar h-screen mx-auto relative z-1 overflow-y-scroll">
-      <div>{children}</div>
-    </div>
+    <UserInfoProvider>
+      <div className="bg-alice-blue w-[380px] no-scrollbar h-screen mx-auto relative z-1 overflow-y-scroll">
+        <div>{children}</div>
+      </div>
+    </UserInfoProvider>
   )
 }
