@@ -17,7 +17,7 @@ const createStore = (user: User) =>
   }>((set) => ({
     user,
     setUser(data: User) {
-      set((prev) => ({ ...prev, ...data }))
+      set((prev) => ({ ...prev, user: data }))
     },
   }))
 

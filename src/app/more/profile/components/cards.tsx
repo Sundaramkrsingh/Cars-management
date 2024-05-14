@@ -7,6 +7,10 @@ import type { EditVariants } from "../type"
 import EditWrapperCard from "./edit-wrapper-card"
 import { Options } from "nuqs"
 import { useProfileFromData } from "@/store/profile-form-provider"
+import { useResume } from "@/query/profile"
+import EditResumeDrawer from "./resume-edit-drawer"
+import { AxiosResponse } from "axios"
+import { UseQueryResult } from "@tanstack/react-query"
 
 type CommonCardProps = {
   onClick: (card: EditVariants) => void
@@ -429,45 +433,109 @@ export const Awards = ({ onClick, setEdit }: CommonCardProps) => {
   )
 }
 
-export const Resume = () => {
-  const [file, setFile] = useState<File>()
-  const fileInputRef = useRef(null)
+interface ImageProps {
+  getResume?: UseQueryResult<AxiosResponse<any, any>, Error>
+}
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+export const Resume: React.FC<ImageProps> = ({ getResume }) => {
+  const [file, setFile] = useState<File | null>()
+  const fileInputRef = useRef(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const {
+    profileFormData: { resume },
+    setResumeData,
+    setResumeName,
+  } = useProfileFromData()((state) => state)
+
+  const { resumeDownloadUrl, resumeName } = resume
+
+  const { uploadResume, deleteResumeDtls } = useResume()
+  const supportedFileType = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ]
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0])
+      const selectResume = e.target.files?.[0]
+      if (!selectResume) {
+        return
+      }
+      if (!supportedFileType.includes(selectResume?.type)) {
+        setErrorMessage("Please upload file in PDF or Doc format")
+        setFile(null)
+        return
+      } else {
+        setErrorMessage(null)
+        setFile(e.target.files?.[0] || null)
+        const formData = new FormData()
+        formData.append("file", selectResume)
+        await uploadResume.mutateAsync(formData as any)
+        const x = await getResume?.refetch()
+      }
     }
   }
-
+  const handleDeleteButton = async () => {
+    deleteResumeDtls.mutateAsync()
+    setResumeData("")
+    setResumeName("")
+  }
   const handleButtonClick = () => {
     ;(fileInputRef?.current as HTMLInputElement | null)?.click()
   }
-
+  resume
   return (
-    <EditWrapperCard heading="Resume">
-      <input
-        className="hidden"
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-      />
-      <button
-        className="h-20 border-dashed border border-philippine-silver rounded-xl p-5"
-        onClick={handleButtonClick}
-      >
-        <div className="flex justify-between items-center h-full">
-          <div className="text-left">
-            <p className="font-medium text-smoky-black">Upload your resume</p>
-            <p className="text-dark-charcoal font-medium text-sm">
-              File format: PDF, Doc
-            </p>
+    <>
+      {resumeDownloadUrl ? (
+        <div className="bg-white relative p-5 card-shadow flex flex-col w-full rounded-[10px]">
+          <div className="flex justify-between items-center w-full mb-4">
+            <p className="text-[20px] font-medium">Resume</p>
+            <EditResumeDrawer
+              resume={resume}
+              fileInputRef={fileInputRef}
+              handleButtonClick={handleButtonClick}
+              handleFileChange={handleFileChange}
+              handleDeleteButton={handleDeleteButton}
+            />
           </div>
-          <div className="w-12 h-12 rounded-xl text-white bg-celadon-green flex items-center justify-center">
-            <Icons.upload />
+          {/* <EditAvatarDrawer setError={setErrorMessage} /> */}
+          <div className="flex flex-start gap-2">
+            <Icons.resume fill="primary-DEFAULT" /> <p>{resumeName}</p>
           </div>
         </div>
-      </button>
-    </EditWrapperCard>
+      ) : (
+        <EditWrapperCard heading="Resume">
+          <input
+            className="hidden"
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
+          <button
+            className={`h-20 border-dashed border ${errorMessage ? "border-red-500" : "border-philippine-silver"}  rounded-xl p-5`}
+            onClick={handleButtonClick}
+          >
+            <div className="flex justify-between items-center h-full">
+              <div className="text-left">
+                <p className="font-medium text-smoky-black">
+                  Upload your resume
+                </p>
+                <p className="text-dark-charcoal font-medium text-sm">
+                  File format: PDF, Doc
+                </p>
+              </div>
+              <div className="w-12 h-12 rounded-xl text-white bg-celadon-green flex items-center justify-center">
+                <Icons.upload />
+              </div>
+            </div>
+          </button>
+          {errorMessage && <p className="text-red-400">{errorMessage}</p>}
+        </EditWrapperCard>
+      )}
+    </>
   )
 }
 export const BasicInformation = ({ onClick }: CommonCardProps) => {

@@ -74,7 +74,7 @@ export const PreQ = ({
             "mb-[200px]"
         )}
       >
-        <CurrentQuestion questionnaire={questionnaire} {...rest} />
+        <CurrentQuestion questionnaire={questionnaire} {...(rest as any)} />
       </QuestionWrapper>
       {currentStage === "pre-q" && <AssessmentButton onClick={handelClick} />}
     </TransitionWrapper>

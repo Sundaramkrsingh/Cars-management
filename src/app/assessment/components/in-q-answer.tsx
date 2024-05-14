@@ -6,6 +6,7 @@ import { useChat } from "@/store/chat-provider"
 import { useRouter } from "next/navigation"
 import { Dispatch, SetStateAction } from "react"
 import type { Answer, OptionCatagories, Options, Validity } from "../type"
+import { usePostAnswer } from "@/query/in-q"
 
 type InQAnswerProps = {
   setAnswerBarVisibility: Dispatch<SetStateAction<boolean>>
@@ -75,7 +76,14 @@ const InQAnswer = ({
   labelVariant = "alphabetic",
   validityRef,
   setAnswerBarVisibility,
+  ...rest
 }: InQAnswerProps) => {
+  const {
+    postAns: { mutateAsync },
+  } = usePostAnswer()
+
+  const { questionId } = rest as any
+
   const isPartial = optionsCategory === "partial"
 
   const labelType = isPartial
@@ -90,10 +98,11 @@ const InQAnswer = ({
   const router = useRouter()
 
   const {
-    chat: { wildCard, activeQuestionnaire },
+    chat: { wildCard, activeQuestionnaire, timeConsumed },
     setActiveQState,
     setInQAnswerVisibility,
     setCurrentStage,
+    setScore,
   } = useChat()((state) => state)
 
   const handelClick = (value: Options) => {
@@ -102,9 +111,19 @@ const InQAnswer = ({
 
   const show = (answer: Answer) => {
     setTimeout(() => {
-      setValidity(
-        answer?.selectedOption?.id === correctAnswer ? "correct" : "wrong"
-      )
+      mutateAsync({
+        answer: "",
+        ...(answer?.selectedOption?.id && {
+          answer: answer?.selectedOption?.id,
+        }),
+        currentQuestionNo: questionnaire + 1,
+        timeSpent: timeConsumed["in-q"] as number,
+        isQuestionSkipped: false,
+        questionId,
+      }).then((resp) => {
+        setValidity(resp.data.data.inQ.isCorrect ? "correct" : "wrong")
+        setScore({ [questionnaire]: resp.data.data.inQ.score })
+      })
 
       setAnsDialogueMargin(false)
       setActiveQState(`post-q-${questionnaire}`)

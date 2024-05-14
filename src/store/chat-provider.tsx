@@ -1,5 +1,6 @@
 "use client"
 import { createContext, useContext, useState } from "react"
+import { number, string } from "zod"
 import { create } from "zustand"
 
 type QuestionVariants = "pre-q" | "in-q" | "post-q"
@@ -32,7 +33,18 @@ export type Chat = {
       comment?: { [key: number]: string | null }
     }
   }
-  questions: []
+  questions: {
+    inq: {
+      questionId: number
+    }
+  }[]
+  timeConsumed: {
+    "pre-q": number | "time-out"
+    "in-q": number | "time-out"
+    "post-q": number | "time-out"
+  }
+  score: { [key: string | number]: number }
+  assessmentMetaData: any
 }
 
 const initialState: Chat = {
@@ -47,6 +59,13 @@ const initialState: Chat = {
   answers: {},
   feedback: {},
   questions: [],
+  timeConsumed: {
+    "pre-q": 0,
+    "in-q": 0,
+    "post-q": 0,
+  },
+  score: {},
+  assessmentMetaData: {},
 }
 
 const createStore = (chat: Chat) =>
@@ -73,6 +92,12 @@ const createStore = (chat: Chat) =>
       question: number
     ) => void
     setQuestions: (questions: Chat["questions"]) => void
+    setAssessmentMetaData: (data: any) => void
+    setTimeConsumed: (
+      time: number | "time-out",
+      stage: QuestionVariants
+    ) => void
+    setScore: (score: { [key: string | number]: number }) => void
   }>((set) => ({
     chat,
     setCurrentStage(currentStage: Chat["currentStage"]) {
@@ -160,6 +185,45 @@ const createStore = (chat: Chat) =>
         chat: {
           ...prev.chat,
           questions: [...prev.chat.questions, ...questions],
+        },
+      }))
+    },
+
+    setTimeConsumed(time, stage) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          timeConsumed: {
+            ...prev.chat.timeConsumed,
+            [stage]: time,
+          },
+        },
+      }))
+    },
+
+    setScore(score) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          score: {
+            ...prev.chat.score,
+            ...score,
+          },
+        },
+      }))
+    },
+
+    setAssessmentMetaData(data) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          assessmentMetaData: {
+            ...prev.chat.assessmentMetaData,
+            ...data,
+          },
         },
       }))
     },
