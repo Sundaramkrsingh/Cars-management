@@ -6,11 +6,11 @@ import { Dispatch, SetStateAction } from "react"
 
 type UserInfoProps = {
   title: string
-  selections: { [key: string]: string[] }
+  selections: { [key: string]: string | string[] | null }
   category: string
   setSelections: Dispatch<
     SetStateAction<{
-      [key: string]: string[]
+      [key: string]: string[] | string | null
     }>
   >
   options:
@@ -20,6 +20,7 @@ type UserInfoProps = {
       }[]
     | undefined
   onClick: () => void
+  selectOne?: boolean
 }
 
 const UserInfo = ({
@@ -28,35 +29,59 @@ const UserInfo = ({
   setSelections,
   onClick,
   category,
-  options = [],
+  selectOne = true,
 }: UserInfoProps) => {
+  const {
+    userDetails: { options },
+  } = useUserDetails()((state) => state)
+
+  console.log(typeof selections[category])
+
   return (
     <div className="flex flex-col h-user-info justify-between">
       <div className="flex flex-col gap-2">
         <p className="text-2xl font-semibold text-dark-charcoal mb-5 mt-3">
           {title}
         </p>
-        {options?.map(({ name, id }, index) => (
+        {options[category]?.map(({ name, id }, index) => (
           <div
             onClick={() => {
-              const categorySelections = selections[category] || []
+              let categorySelections = selections[category] || []
 
-              categorySelections?.includes(id)
-                ? setSelections((prev) => ({
-                    ...prev,
-                    [category]: (prev[category] || []).filter(
-                      (itm) => itm !== id
-                    ),
-                  }))
-                : setSelections((prev) => ({
-                    ...prev,
-                    [category]: [...(prev[category] || []), id],
-                  }))
+              if (selectOne) {
+                categorySelections = selections[category] || ""
+
+                categorySelections === id
+                  ? setSelections((prev) => ({
+                      ...prev,
+                      [category]: null,
+                    }))
+                  : setSelections((prev) => ({
+                      ...prev,
+                      [category]: name,
+                    }))
+              } else {
+                categorySelections?.includes(id)
+                  ? setSelections((prev) => ({
+                      ...prev,
+                      [category]: ((prev[category] as []) || []).filter(
+                        (itm) => itm !== id
+                      ),
+                    }))
+                  : setSelections((prev) => ({
+                      ...prev,
+                      [category]: [...((prev[category] as []) || []), id],
+                    }))
+              }
             }}
             key={index}
             className={cn(
               "transition-all duration-200 card-shadow cursor-pointer flex px-4 h-12 rounded-[10px] items-center justify-between text-lg font-semibold",
-              selections[category]?.includes(id)
+              (
+                typeof selections[category] === "string"
+                  ? selections[category] === name
+                  : selections[category]?.includes(id)
+              )
                 ? "bg-celadon-green text-white"
                 : "bg-white text-eagle-green"
             )}
@@ -64,7 +89,11 @@ const UserInfo = ({
             <p>{name}</p>
 
             <div className="w-5 h-5">
-              {selections[category]?.includes(id) ? (
+              {(
+                typeof selections[category] === "string"
+                  ? selections[category] === name
+                  : selections[category]?.includes(id)
+              ) ? (
                 <Icons.selected className="cursor-pointer" />
               ) : (
                 <Icons.addItem className="cursor-pointer" />
@@ -77,7 +106,7 @@ const UserInfo = ({
       <Button
         label="Continue"
         onClick={onClick}
-        disabled={!selections[category]?.length}
+        disabled={!selections[category]}
         className="w-full"
       />
     </div>

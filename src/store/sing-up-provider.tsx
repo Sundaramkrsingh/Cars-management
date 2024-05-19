@@ -6,15 +6,17 @@ export type UserSignInInfo = {
   mobile: string
   smsOtp: number
   options: {
-    id: string
-    name: string
-  }[]
+    [key: string]: {
+      id: string
+      name: string
+    }[]
+  }
 }
 
 const initialState: UserSignInInfo = {
   mobile: "",
   smsOtp: 0,
-  options: [],
+  options: {},
 }
 
 const createStore = (userDetails: UserSignInInfo) =>
@@ -43,7 +45,10 @@ const createStore = (userDetails: UserSignInInfo) =>
         ...prev,
         userDetails: {
           ...prev.userDetails,
-          options: data,
+          options: {
+            ...prev.userDetails.options,
+            ...data,
+          },
         },
       }))
 
