@@ -100,6 +100,7 @@ const config = {
         water: "#CAFAFE",
         azure: "#F3FFFD",
         "light-cyan": "#DAFEF7",
+        "rich-black": "#033947",
       },
       borderRadius: {
         lg: "var(--radius)",
