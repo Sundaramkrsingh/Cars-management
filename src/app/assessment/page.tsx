@@ -18,8 +18,6 @@ export default function Chat() {
     setQuestionCount(questions.length)
   }, [questions, setQuestionCount])
 
-  useInQuestion()
-
   return (
     <>
       <PreQChip />

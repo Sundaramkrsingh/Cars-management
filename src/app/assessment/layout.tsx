@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ChatProvider>
+    <>
       <div className="fixed bg-white top-0 left-0 right-0 h-[111px] z-0" />
       <div className="bg-white w-[380px] no-scrollbar mx-auto relative z-1">
         <Header />
@@ -24,6 +24,6 @@ export default function RootLayout({
           {children}
         </div>
       </div>
-    </ChatProvider>
+    </>
   )
 }
