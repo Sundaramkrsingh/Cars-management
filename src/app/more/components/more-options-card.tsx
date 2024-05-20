@@ -1,6 +1,7 @@
 import { Icons } from "@/components/icons"
 import Link from "next/link"
 import { moreOptionsConfig } from "./constants"
+import ReferDrawer from "./refer-drawer"
 
 type Options = {
   href: string
@@ -17,19 +18,30 @@ const MoreOptionsCard = () => {
           const Icon = Icons[icon as keyof typeof Icons]
 
           return (
-            <Link
-              key={idx}
-              href={href}
-              className="flex gap-[10px] w-fit items-center font-medium text-granite-gray"
-            >
-              <Icon className="w-[18px] h-[18px]" />
-              {label}
-              {isNew && (
-                <div className="rounded-[4px] bg-pale-blue text-sm text-eagle-green px-1 font-normal">
-                  New
-                </div>
+            <>
+              {idx == 0 ? (
+                <ReferDrawer>
+                  <div className="flex gap-[10px] w-fit items-center font-medium text-granite-gray">
+                    <Icon className="w-[18px] h-[18px]" />
+                    {label}
+                  </div>
+                </ReferDrawer>
+              ) : (
+                <Link
+                  key={idx}
+                  href={href}
+                  className="flex gap-[10px] w-fit items-center font-medium text-granite-gray"
+                >
+                  <Icon className="w-[18px] h-[18px]" />
+                  {label}
+                  {isNew && (
+                    <div className="rounded-[4px] bg-pale-blue text-sm text-eagle-green px-1 font-normal">
+                      New
+                    </div>
+                  )}
+                </Link>
               )}
-            </Link>
+            </>
           )
         }
       )}
