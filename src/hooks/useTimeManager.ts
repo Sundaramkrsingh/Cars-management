@@ -14,6 +14,7 @@ const useTimeManager = () => {
     setInQAnswerVisibility,
     setActiveQuestionnaire,
     setTimeConsumed,
+    setPostAssessmentStatus,
   } = useChat()((state) => state)
 
   const {

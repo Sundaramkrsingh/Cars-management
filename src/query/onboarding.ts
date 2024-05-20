@@ -30,6 +30,22 @@ const patchGoals = ({ id, data }: { id: string | number; data: any }) => {
   return fetcher.patch(`/profiles/${id}/goal`, data)
 }
 
+const getHearAboutUs = () => {
+  return fetcher.get(`/profiles/hear-about-us`)
+}
+
+const patchHearAboutUs = ({ id, data }: { id: string | number; data: any }) => {
+  return fetcher.post(`/profiles/${id}/hear-about-us`, data)
+}
+
+const getRoles = () => {
+  return fetcher.get(`/profiles/current-role`)
+}
+
+const patchRoles = ({ id, data }: { id: string | number; data: any }) => {
+  return fetcher.put(`/profiles/${id}/current-role`, data)
+}
+
 const useDetails = () => {
   const {
     user: { id },
@@ -77,4 +93,42 @@ export const useGoals = () => {
   })
 
   return { getAllGoals, editGoals }
+}
+
+export const useHearAboutUs = () => {
+  const { id } = useDetails()
+
+  const getHearAboutUsKey = () => ["hear-about-us"]
+  const patchHearAboutUsKey = () => ["edit-hear-about-us"]
+
+  const getAllHearAboutUs = useQuery({
+    queryKey: getHearAboutUsKey(),
+    queryFn: () => getHearAboutUs(),
+  })
+
+  const editHearAboutUs = useMutation({
+    mutationKey: patchHearAboutUsKey(),
+    mutationFn: (data: any) => patchHearAboutUs({ data, id }),
+  })
+
+  return { getAllHearAboutUs, editHearAboutUs }
+}
+
+export const useCurrentRoles = () => {
+  const { id } = useDetails()
+
+  const getRolesKey = () => ["roles"]
+  const patchRolesExpKey = () => ["edit-roles"]
+
+  const getAllRoles = useQuery({
+    queryKey: getRolesKey(),
+    queryFn: () => getRoles(),
+  })
+
+  const editCurrentRoles = useMutation({
+    mutationKey: patchRolesExpKey(),
+    mutationFn: (data: any) => patchRoles({ data, id }),
+  })
+
+  return { getAllRoles, editCurrentRoles }
 }

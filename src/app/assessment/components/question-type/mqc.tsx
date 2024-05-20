@@ -17,7 +17,7 @@ const Mcq = ({ question, options, questionnaire }: any) => {
           return (
             <div key={idx}>
               <div className="flex items-center">
-                <div className="mr-2 rounded-lg bg-aero-blue text-foreground w-6 h-6 flex justify-center items-center">
+                <div className="mr-2 rounded-lg bg-aero-blue text-foreground min-w-6 min-h-6 flex justify-center items-center">
                   {String.fromCharCode("A".charCodeAt(0) + idx)}
                 </div>
                 <p className="text-sm font-medium">{label}</p>

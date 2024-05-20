@@ -2,7 +2,7 @@
 
 import { Icons } from "@/components/icons"
 import { Progress } from "@/components/ui/progress"
-import { useGoals } from "@/query/onboarding"
+import { useCurrentRoles, useGoals, useHearAboutUs } from "@/query/onboarding"
 import { useUserDetails } from "@/store/sing-up-provider"
 import { useEffect, useMemo, useState } from "react"
 import ProfileInfo from "./components/profile-info"
@@ -14,23 +14,26 @@ type OptionManager = {
 }
 
 const Onboarding = () => {
-  const { getAllGoals, editGoals } = useGoals()
+  const { editGoals, getAllGoals } = useGoals()
+  const { editHearAboutUs, getAllHearAboutUs } = useHearAboutUs()
+  const { editCurrentRoles, getAllRoles } = useCurrentRoles()
 
-  const {
-    setOptions,
-    userDetails: { options },
-  } = useUserDetails()((state) => state)
+  const { setOptions } = useUserDetails()((state) => state)
 
   const [progress, setProgress] = useState<number>(0)
-  const [selections, setSelections] = useState<{ [key: string]: string[] }>({})
+  const [selections, setSelections] = useState<{
+    [key: string]: string[] | string | null
+  }>({})
   const [activeCategory, setActiveCategory] = useState<string>("hear")
 
   const handleClick = {
     hear: () => {
+      editHearAboutUs.mutateAsync({ hearAboutUs: `${selections["hear"]}` })
       setActiveCategory("role")
       setProgress(25)
     },
     role: () => {
+      editCurrentRoles.mutateAsync({ role: selections["role"] })
       setActiveCategory("goal")
       setProgress(55)
     },
@@ -41,18 +44,19 @@ const Onboarding = () => {
     },
   }
 
-  const optionManager: OptionManager = useMemo(
-    () => ({
-      hear: () => setOptions(hearAboutOptions),
-      role: () => setOptions(roleOptions),
-      goal: () => setOptions(getAllGoals?.data?.data.data),
-    }),
-    [getAllGoals?.data?.data, setOptions]
-  )
-
   useEffect(() => {
-    optionManager[activeCategory]?.()
-  }, [activeCategory, optionManager])
+    setOptions({
+      hear: getAllHearAboutUs?.data?.data?.data,
+    })
+    setOptions({ role: getAllRoles?.data?.data?.data })
+    setOptions({ goal: getAllGoals?.data?.data?.data })
+  }, [
+    getAllGoals?.data?.data?.data,
+    getAllHearAboutUs?.data?.data?.data,
+    getAllRoles?.data?.data?.data,
+    getAllRoles?.data?.data?.data.data,
+    setOptions,
+  ])
 
   const backBtnManager = {
     hear: () => {
@@ -95,7 +99,7 @@ const Onboarding = () => {
           }
           selections={selections}
           setSelections={setSelections}
-          options={options}
+          selectOne={activeCategory !== "goal"}
         />
       )}
     </div>

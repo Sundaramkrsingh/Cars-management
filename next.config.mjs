@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       "avatars.githubusercontent.com",
       "profile-images-test-bucket.s3.us-east-1.amazonaws.com",
+      "dv-abouv-profile-imgs.s3.us-east-1.amazonaws.com",
     ],
   },
 }
