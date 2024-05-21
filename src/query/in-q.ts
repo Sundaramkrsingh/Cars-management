@@ -65,8 +65,6 @@ export const useInQuestion = () => {
     if (getInQuestions.isSuccess) {
       const { core, ...rest } = getInQuestions.data
 
-      console.log({ core, rest })
-
       setQuestions(
         core?.map((itm: any) => ({
           ...itm,

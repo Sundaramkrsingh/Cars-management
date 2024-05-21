@@ -39,7 +39,6 @@ const PostQAnswer = ({ questionnaire }: { questionnaire: number }) => {
       <button
         className={cn("h-14 w-14 play-button z-20")}
         onClick={() => {
-          console.log("clicked")
           if (activeQuestionnaire < questionCount) {
             setActiveQState(`pre-q-${1 + activeQuestionnaire}`)
             setActiveQuestionnaire(1 + activeQuestionnaire)
