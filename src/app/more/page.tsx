@@ -1,5 +1,6 @@
 import MoreOptionsCard from "./components/more-options-card"
 import ProfileSection from "./components/profile-section"
+import ReferDrawer from "./components/refer-drawer"
 import SocialNavbar from "./components/social-media-nav"
 
 export default async function More() {
