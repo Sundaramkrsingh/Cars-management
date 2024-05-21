@@ -110,6 +110,43 @@ const Electives = ({ children }: LayoutProps) => {
   )
 }
 
+const Help = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Legal = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Facets = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Stage = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Grade = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Trumps = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Report = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const ProgressionSummary = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const PerformanceSummary = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const FACETSScore = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const StrengthsWeaknesses = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const CompetenciesGrades = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+
 function LayoutManager({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
@@ -118,6 +155,18 @@ function LayoutManager({ children }: { children: React.ReactNode }) {
     "/more/profile": Profile,
     "/more/electives": Electives,
     "/more": More,
+    "/more/help": Help,
+    "/more/legal": Legal,
+    "/more/help/facets": Facets,
+    "/more/help/stage": Stage,
+    "/more/help/grade": Grade,
+    "/more/help/trumps": Trumps,
+    "/more/help/report": Report,
+    "/more/help/report/progression-summary": ProgressionSummary,
+    "/more/help/report/performance-summary": PerformanceSummary,
+    "/more/help/report/facets-score": FACETSScore,
+    "/more/help/report/strengths-weaknesses": StrengthsWeaknesses,
+    "/more/help/report/competencies-grades": CompetenciesGrades,
   }
 
   const CurrentLayout = layoutMap[pathname as keyof typeof layoutMap]

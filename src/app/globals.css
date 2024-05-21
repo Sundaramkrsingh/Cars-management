@@ -201,4 +201,12 @@
       rgba(217, 217, 217, 0.88) 100.58%
     );
   }
+
+  .bg-help-footer {
+    background: linear-gradient(180deg, #bdd9de -30%, #278990, #014455);
+  }
+
+  .card-shadow {
+    box-shadow: 0px 4px 18.8px 0px #8080801f;
+  }
 }
