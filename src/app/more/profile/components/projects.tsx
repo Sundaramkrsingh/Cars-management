@@ -34,7 +34,7 @@ const Projects = ({ setEdit }: PageProps) => {
               href={link}
               className="flex gap-2 items-center text-skobeloff font-semibold mt-1"
             >
-              <p className=""> Link to credential</p>
+              <p className="">Link to Project</p>
               <Icons.rightArrow className="w-4 h-4" />
             </Link>
           </EditWrapperCard>

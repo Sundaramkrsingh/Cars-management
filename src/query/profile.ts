@@ -375,7 +375,7 @@ export const useWorkExperience = () => {
     mutationKey: removeWorkExpKey(),
     mutationFn: (data) => deleteWorkExp({ id, data }),
     onSuccess: () => {
-      router.push("/more/profile")
+      router.push("/more/profile?edit=work-experience")
     },
   })
 
@@ -404,7 +404,7 @@ export const useProject = () => {
     mutationKey: deleteProjectKey(),
     mutationFn: (data) => deleteProject({ id, data }),
     onSuccess: () => {
-      router.push("/more/profile")
+      router.push("/more/profile?edit=projects")
     },
   })
 
@@ -435,7 +435,7 @@ export const useLicenseCertification = () => {
     mutationKey: deleteLicenseCertificationKey(),
     mutationFn: (data) => deleteLicenseCertification({ id, data }),
     onSuccess: () => {
-      router.push("/more/profile")
+      router.push("/more/profile?edit=licenses")
     },
   })
 
@@ -464,7 +464,7 @@ export const useEducation = () => {
     mutationKey: deleteEducationKey(),
     mutationFn: (data) => deleteEducation({ id, data }),
     onSuccess: () => {
-      router.push("/more/profile")
+      router.push("/more/profile?edit=education")
     },
   })
 
@@ -503,7 +503,7 @@ export const useAward = () => {
     mutationKey: deleteAwardKey(),
     mutationFn: (data) => deleteAward({ id, data }),
     onSuccess: () => {
-      router.push("/more/profile")
+      router.push("/more/profile?edit=awards")
     },
   })
 

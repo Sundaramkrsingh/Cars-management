@@ -11,6 +11,7 @@ import { useResume } from "@/query/profile"
 import EditResumeDrawer from "./resume-edit-drawer"
 import { AxiosResponse } from "axios"
 import { UseQueryResult } from "@tanstack/react-query"
+import { formatDateToDDMMYY } from "@/utils/common.utils"
 
 type CommonCardProps = {
   onClick: (card: EditVariants) => void
@@ -184,7 +185,7 @@ export const Projects = ({ onClick, setEdit }: CommonCardProps) => {
                   href={link}
                   className="flex gap-2 items-center text-skobeloff font-semibold mt-1"
                 >
-                  <p className=""> Link to credential</p>
+                  <p className=""> Link to Project</p>
                   <Icons.rightArrow className="w-4 h-4" />
                 </Link>
                 {idx !== projects.length - 1 && (
@@ -221,7 +222,7 @@ export const Licenses = ({ onClick, setEdit }: CommonCardProps) => {
   return (
     <EditWrapperCard
       onClick={() => onClick("licenses")}
-      heading="Licenses & certifications"
+      heading="Licenses & Certifications"
       endowment={
         isEmpty ? (
           <div className="bg-azureish-white px-2 py-[2px] rounded-[4px] text-sm text-eagle-green">
@@ -335,27 +336,31 @@ export const Education = ({ onClick, setEdit }: CommonCardProps) => {
     >
       {!isEmpty ? (
         <>
-          {education?.map(
-            (
-              { institution, degree, startDate: sDate, endDate: eDate },
-              idx
-            ) => {
-              const startDate = new Date(sDate)
-              const endDate = new Date(eDate)
+          {education
+            ?.slice()
+            .reverse()
+            .map(
+              (
+                { institution, degree, startDate: sDate, endDate: eDate },
+                idx
+              ) => {
+                const startDate = new Date(sDate)
+                const endDate = new Date(eDate)
+                return (
+                  <React.Fragment key={`${institution}_${idx}`}>
+                    <p className="text-smoky-black font-medium">
+                      {institution}
+                    </p>
+                    <p className="text-eerie-black text-sm">{degree}</p>
 
-              return (
-                <React.Fragment key={`${institution}_${idx}`}>
-                  <p className="text-smoky-black font-medium">{institution}</p>
-                  <p className="text-eerie-black text-sm">{degree}</p>
-
-                  <p className="text-eerie-black text-sm mt-1">{`${startDate.getFullYear()}-${endDate.getFullYear()}`}</p>
-                  {idx !== education.length - 1 && (
-                    <hr className="border-platinum my-4" />
-                  )}
-                </React.Fragment>
-              )
-            }
-          )}
+                    <p className="text-eerie-black text-sm mt-1">{`${startDate.getFullYear()}-${endDate.getFullYear()}`}</p>
+                    {idx !== education.length - 1 && (
+                      <hr className="border-platinum my-4" />
+                    )}
+                  </React.Fragment>
+                )
+              }
+            )}
         </>
       ) : (
         <div className="h-full flex items-center gap-4">
@@ -386,7 +391,7 @@ export const Awards = ({ onClick, setEdit }: CommonCardProps) => {
   return (
     <EditWrapperCard
       onClick={() => onClick("awards")}
-      heading="Awards and achievements"
+      heading="Awards and Achievements"
       endowment={
         isEmpty ? (
           <p className="bg-azureish-white min-w-20 px-2 py-[2px] rounded-[4px] text-sm text-eagle-green">
@@ -570,7 +575,7 @@ export const BasicInformation = ({ onClick }: CommonCardProps) => {
           )}
         >
           {dob
-            ? new Date(dob).toISOString().slice(0, 10)
+            ? formatDateToDDMMYY(new Date(dob).toISOString().slice(0, 10))
             : "No date of birth added"}
         </p>
       </div>
