@@ -9,19 +9,22 @@ export function dateDiffInYearsOrMonths(date1: Date, date2: Date): string {
   const startDate = new Date(date1)
   const endDate = new Date(date2)
 
-  const diffInMilliseconds = Math.abs(endDate.getTime() - startDate.getTime())
-  const millisecondsInYear = 1000 * 60 * 60 * 24 * 365
-  const millisecondsInMonth = 1000 * 60 * 60 * 24 * 30 // Approximate
+  const totalMonths = Math.abs(
+    (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+      (endDate.getMonth() - startDate.getMonth())
+  )
 
-  const diffYears = diffInMilliseconds / millisecondsInYear
-  const diffMonths = diffInMilliseconds / millisecondsInMonth
+  const years = Math.floor(totalMonths / 12)
+  const months = totalMonths % 12
 
-  if (diffYears >= 1) {
-    const years = Math.floor(diffYears)
-    return years === 1 ? `${years} year` : `${years} years`
+  const yearString =
+    years > 0 ? (years === 1 ? `${years} year` : `${years} years`) : ""
+  const monthString = months === 1 ? `${months} month` : `${months} months`
+
+  if (years > 0) {
+    return `${yearString} - ${monthString}`
   } else {
-    const months = Math.floor(diffMonths)
-    return months === 1 ? `${months} month` : `${months} months`
+    return monthString
   }
 }
 

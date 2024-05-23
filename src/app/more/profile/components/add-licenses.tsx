@@ -79,7 +79,7 @@ const AddLicenses = ({ setEdit }: PageProps) => {
       })
 
       setLicenseEdit(data, +licenses)
-      setEdit(null)
+      setEdit("licenses")
     } else {
       const mutationObj = createMutationObj(data)
 
@@ -89,7 +89,7 @@ const AddLicenses = ({ setEdit }: PageProps) => {
         setLicenses({ ...resp, ...data })
       })
 
-      setEdit(null)
+      setEdit("licenses")
     }
   }
 
