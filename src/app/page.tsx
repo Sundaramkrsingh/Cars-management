@@ -1,10 +1,12 @@
 "use client"
 
 import { Icons } from "@/components/icons"
+import MobileNavigationBar from "@/components/shared/mobile-navigation-bar"
 import Button from "@/components/ui/button"
-import { useInQuestion } from "@/query/in-q"
+import { useHome } from "@/query/in-q"
 import { useChat } from "@/store/chat-provider"
 import Link from "next/link"
+import { Avatar } from "./more/components/profile-section"
 
 const InfoCard = () => {
   const {
@@ -30,7 +32,7 @@ const InfoCard = () => {
               <>
                 <p className="font-">Day {assessmentMetaData.day}</p>
                 <div className="bg-aero-blue rounded-sm text-eagle-green px-2 text-sm">
-                  S15 G7
+                  {`${assessmentMetaData?.stage || ""} ${assessmentMetaData?.grade || ""}`}
                 </div>
               </>
             ) : (
@@ -51,20 +53,53 @@ const InfoCard = () => {
 }
 
 export default function Home() {
-  useInQuestion()
+  const {
+    chat: { assessmentMetaData },
+  } = useChat()((state) => state)
+
+  const getInitials = (name: string) =>
+    name
+      .split(" ")
+      .map((part) => part.charAt(0).toUpperCase())
+      .join("")
+
+  useHome()
 
   return (
-    <div className="bg-home w-[380px] no-scrollbar h-screen mx-auto relative z-1 overflow-y-scroll px-5 pt-8">
-      <h1 className="text-white  mb-5 text-3xl">Welcome to abouv !</h1>
-      <InfoCard />
-      <div className="flex gap-3 justify-center items-center my-5">
-        <Icons.quoteRight className="rotate-180" />
-        <p className="text-sm text-white">
-          Small steps in the right direction can turn out to be the biggest step
-          in your life
-        </p>
-        <Icons.quoteRight />
+    <div className="bg-home w-[380px] no-scrollbar h-screen mx-auto relative z-1 overflow-y-scroll">
+      <div className=" px-5 pt-8">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex gap-4">
+            <Avatar
+              avatar={{
+                initials: getInitials(
+                  assessmentMetaData?.name || "Christopher Alice"
+                ),
+              }}
+            />
+            <div>
+              <p className="font-semibold text-[22px] text-white">
+                Hey {assessmentMetaData?.name?.split(" ")?.[0] || "Christopher"}
+              </p>
+              <p className="gap-2 text-[#F2F2F2]">Welcome to abouv !</p>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <Icons.info className="stroke-white cursor-pointer" />
+            <Icons.bell className="stroke-white cursor-pointer" />
+          </div>
+        </div>
+        <InfoCard />
+        <div className="flex gap-3 justify-center items-center my-5">
+          <Icons.quoteRight className="rotate-180" />
+          <p className="text-sm text-white">
+            Small steps in the right direction can turn out to be the biggest
+            step in your life
+          </p>
+          <Icons.quoteRight />
+        </div>
       </div>
+      <MobileNavigationBar />
     </div>
   )
 }

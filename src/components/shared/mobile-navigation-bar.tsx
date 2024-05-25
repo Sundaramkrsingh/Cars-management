@@ -20,7 +20,7 @@ const MobileNavigationBar = ({
   navigationConfig = [
     { label: "Stats", icon: "stats", href: "/stats" },
     { label: "Teams", icon: "team", href: "/teams" },
-    { label: "Home", icon: "bezt", href: "/" },
+    { icon: "abouvLogo", href: "/" },
     { label: "Jobs", icon: "briefCase", href: "/jobs" },
     { label: "More", icon: "more", href: "/more" },
   ],
