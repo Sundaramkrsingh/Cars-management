@@ -18,7 +18,7 @@ const Header = () => {
           <Icons.leftArrow className="h-7 w-7 cursor-pointer text-primary" />
         </Link>
         <Link href="/">
-          <Image src="/bezt-logo.svg" height={36} width={36} alt="bezt-logo" />
+          <Image src="/abouv-logo.svg" height={36} width={36} alt="bezt-logo" />
         </Link>
         <div>
           <h1 className="text-lg font-medium text-primary relative top-[2px]">
@@ -30,7 +30,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* bottom right curve */}
       <div className="relative w-[40px] h-[40px] top-[24px]">
         <div className="absolute w-[32px] h-[32px] left-[-14px] top-[22px] rounded-full bg-background" />
         <div className="absolute bg-background w-[40px] h-[40px] bg-white rounded-full" />
