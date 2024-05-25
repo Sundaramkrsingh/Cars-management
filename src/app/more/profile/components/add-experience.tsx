@@ -75,7 +75,7 @@ const AddExperience = ({ setEdit }: PageProps) => {
         setExperienceEdit(exp, +work)
       })
 
-      setEdit(null)
+      setEdit("work-experience")
     } else {
       const mutationObj = createMutationObj(data)
 
@@ -83,7 +83,7 @@ const AddExperience = ({ setEdit }: PageProps) => {
         const resp = res.data.data
         setExperience({ ...resp, ...data })
       })
-      setEdit(null)
+      setEdit("work-experience")
     }
   }
 

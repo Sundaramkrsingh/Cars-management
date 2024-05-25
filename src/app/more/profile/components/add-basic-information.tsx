@@ -42,7 +42,7 @@ const AddBasicInformation = ({ setEdit }: PageProps) => {
         setBasicInfo(data as any)
       })
 
-    setEdit(null)
+    setEdit("basic-information")
   }
 
   return (

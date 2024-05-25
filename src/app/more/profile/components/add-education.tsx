@@ -77,7 +77,7 @@ const AddEducation = ({ setEdit }: PageProps) => {
         setEducationEdit(edu, +educationIdx)
       })
 
-      setEdit(null)
+      setEdit("education")
     } else {
       const mutationObj = createMutationObj(data)
 
@@ -87,7 +87,7 @@ const AddEducation = ({ setEdit }: PageProps) => {
         setEducation({ ...res, ...data })
       })
 
-      setEdit(null)
+      setEdit("education")
     }
   }
 

@@ -59,7 +59,7 @@ const AddAwards = ({ setEdit }: PageProps) => {
         setAwardEdit(awa, +award)
       })
 
-      setEdit(null)
+      setEdit("awards")
     } else {
       const mutationObj = createMutationObj(data)
 
@@ -69,7 +69,7 @@ const AddAwards = ({ setEdit }: PageProps) => {
         setAwards({ ...resp, ...data })
       })
 
-      setEdit(null)
+      setEdit("awards")
     }
   }
 
@@ -89,7 +89,7 @@ const AddAwards = ({ setEdit }: PageProps) => {
       )}
       <div className="flex flex-col gap-[18px]">
         <Input
-          label="Project title"
+          label="Award title"
           name="title"
           form={form}
           placeholder="Ex : Face detection model"
@@ -102,7 +102,7 @@ const AddAwards = ({ setEdit }: PageProps) => {
           textArea
         />
         <Input
-          label="Link to to project"
+          label="Link to to Credential"
           name="link"
           form={form}
           placeholder="Paste link to more details about project"

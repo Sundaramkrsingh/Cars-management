@@ -38,7 +38,7 @@ const Profile = ({ children }: LayoutProps) => {
     projects: "Projects",
     "add-projects": project ? "Edit projects" : "Add Projects",
 
-    licenses: "Licenses & certifications",
+    licenses: "Licenses & Certifications",
     "add-licenses": license
       ? "Edit licenses & certifications"
       : "Add licenses & certifications",
@@ -46,7 +46,7 @@ const Profile = ({ children }: LayoutProps) => {
     education: "Education",
     "add-education": education ? "Edit education" : "Add Education",
 
-    awards: "Awards and achievements",
+    awards: "Awards and Achievements",
     "add-awards": awards
       ? "Edit awards and achievements"
       : "Add awards and achievements",
@@ -61,9 +61,22 @@ const Profile = ({ children }: LayoutProps) => {
     default: "My profile",
   }
 
-  const url = Object.keys(navHeadingMap).includes(edit as string)
-    ? "/more/profile"
-    : "/"
+  const previousRouteMap: Record<string, string> = {
+    "add-experience": "work-experience",
+    "add-projects": "projects",
+    "add-licenses": "licenses",
+    "add-education": "education",
+    "add-awards": "awards",
+    "add-basic-information": "basic-information",
+  }
+  let url = "/"
+  if (edit && edit in previousRouteMap) {
+    url = `/more/profile?edit=${previousRouteMap[edit]}`
+  } else {
+    url = Object.keys(navHeadingMap).includes(edit as string)
+      ? "/more/profile"
+      : "/"
+  }
 
   const heading =
     navHeadingMap[edit as keyof typeof navHeadingMap] ||
