@@ -4,10 +4,11 @@ import { Icons } from "@/components/icons"
 import { Progress } from "@/components/ui/progress"
 import { useCurrentRoles, useGoals, useHearAboutUs } from "@/query/onboarding"
 import { useUserDetails } from "@/store/sing-up-provider"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
+import { toast } from "sonner"
 import ProfileInfo from "./components/profile-info"
 import UserInfo from "./components/user-info"
-import { hearAboutOptions, roleOptions, userInfoConfig } from "./constants"
+import { userInfoConfig } from "./constants"
 
 type OptionManager = {
   [key: string]: () => void
@@ -26,19 +27,34 @@ const Onboarding = () => {
   }>({})
   const [activeCategory, setActiveCategory] = useState<string>("hear")
 
+  const handleError = () => {
+    toast.error("Something went wrong, please try again")
+  }
+
   const handleClick = {
     hear: () => {
-      editHearAboutUs.mutateAsync({ hearAboutUs: `${selections["hear"]}` })
+      editHearAboutUs.mutateAsync(
+        { hearAboutUs: `${selections["hear"]}` },
+        {
+          onError: handleError,
+        }
+      )
       setActiveCategory("role")
       setProgress(25)
     },
     role: () => {
-      editCurrentRoles.mutateAsync({ role: selections["role"] })
+      editCurrentRoles.mutateAsync(
+        { role: selections["role"] },
+        { onError: handleError }
+      )
       setActiveCategory("goal")
       setProgress(55)
     },
     goal: () => {
-      editGoals.mutateAsync({ goal: selections["goal"] })
+      editGoals.mutateAsync(
+        { goal: selections["goal"] },
+        { onError: handleError }
+      )
       setActiveCategory("profile-info")
       setProgress(75)
     },

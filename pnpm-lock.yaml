@@ -68,6 +68,9 @@ dependencies:
   next:
     specifier: 14.1.0
     version: 14.1.0(react-dom@18.3.1)(react@18.3.1)
+  next-themes:
+    specifier: ^0.3.0
+    version: 0.3.0(react-dom@18.3.1)(react@18.3.1)
   nuqs:
     specifier: ^1.17.0
     version: 1.17.2(next@14.1.0)
@@ -92,6 +95,9 @@ dependencies:
   react-usestateref:
     specifier: ^1.0.8
     version: 1.0.8(react@18.3.1)
+  sonner:
+    specifier: ^1.4.41
+    version: 1.4.41(react-dom@18.3.1)(react@18.3.1)
   tailwind-merge:
     specifier: ^2.2.1
     version: 2.3.0
@@ -4108,6 +4114,19 @@ packages:
       }
     dev: true
 
+  /next-themes@0.3.0(react-dom@18.3.1)(react@18.3.1):
+    resolution:
+      {
+        integrity: sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==,
+      }
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+      react-dom: ^16.8 || ^17 || ^18
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
   /next@14.1.0(react-dom@18.3.1)(react@18.3.1):
     resolution:
       {
@@ -5054,6 +5073,19 @@ packages:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 5.0.0
     dev: true
+
+  /sonner@1.4.41(react-dom@18.3.1)(react@18.3.1):
+    resolution:
+      {
+        integrity: sha512-uG511ggnnsw6gcn/X+YKkWPo5ep9il9wYi3QJxHsYe7yTZ4+cOd1wuodOUmOpFuXL+/RE3R04LczdNCDygTDgQ==,
+      }
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
 
   /source-map-js@1.2.0:
     resolution:
