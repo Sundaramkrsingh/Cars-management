@@ -4,6 +4,7 @@ import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { userProfileInfoSchema } from "@/lib/validations/profile-info"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation"
 import React, { Dispatch, SetStateAction, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -69,6 +70,8 @@ const ProfileInfo = ({
 }: {
   setProgress: Dispatch<SetStateAction<number>>
 }) => {
+  const router = useRouter()
+
   const [userImage, setUserImage] = useState("")
 
   const form = useForm<z.infer<typeof userProfileInfoSchema>>({
@@ -135,6 +138,7 @@ const ProfileInfo = ({
             label="Continue"
             className=""
             disabled={!form.formState.isValid}
+            onClick={() => router.push("/")}
           />
         </form>
       </div>
