@@ -45,6 +45,7 @@ const postAnswer: (
     {
       data: {
         inQ: { questionId: number; isCorrect: boolean; score: number }
+        postQ: { triviaContent: string }
       }
     },
     any

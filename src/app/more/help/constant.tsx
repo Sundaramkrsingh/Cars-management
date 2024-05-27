@@ -19,6 +19,10 @@ export const helpInfo = [
     title: "My report",
     link: "/more/help/report",
   },
+  {
+    title: "Onboarding",
+    link: "#",
+  },
 ]
 
 export const facetsInfo = [

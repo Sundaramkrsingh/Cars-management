@@ -103,6 +103,7 @@ const InQAnswer = ({
     setInQAnswerVisibility,
     setCurrentStage,
     setScore,
+    setPostAssessmentContent,
   } = useChat()((state) => state)
 
   const handelClick = (value: Options) => {
@@ -123,6 +124,7 @@ const InQAnswer = ({
       }).then((resp) => {
         setValidity(resp.data.data.inQ.isCorrect ? "correct" : "wrong")
         setScore({ [questionnaire]: resp.data.data.inQ.score })
+        setPostAssessmentContent(resp.data.data.postQ.triviaContent)
       })
 
       setAnsDialogueMargin(false)
