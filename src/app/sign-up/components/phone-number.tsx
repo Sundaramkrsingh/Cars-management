@@ -3,6 +3,8 @@ import type { ScreenProps } from "../type"
 import { PhoneInput } from "./phone-input"
 import { useSignUp } from "@/query/onboarding"
 import { useUserDetails } from "@store/sing-up-provider"
+import { toast } from "sonner"
+import { AxiosError } from "axios"
 
 const PhoneNumber = ({ setActiveScreen, setPhone, phone }: ScreenProps) => {
   const useDetails = () => {
@@ -12,7 +14,15 @@ const PhoneNumber = ({ setActiveScreen, setPhone, phone }: ScreenProps) => {
   const { setUserMobileNo, setUserOtp } = useDetails()
   const { signUpUserDts, sendOptDetails } = useSignUp()
   async function handelSubmit(data: any) {
-    const createUserRes = await signUpUserDts.mutateAsync(data)
+    const createUserRes = await signUpUserDts.mutateAsync(data, {
+      onError: (error) => {
+        if ((error as AxiosError)?.response?.status === 409) {
+          toast.error("User already exists")
+        } else {
+          toast.error("Something went wrong, please try again")
+        }
+      },
+    })
 
     if (createUserRes.data.statusCode === 200) {
       const { phoneNumber: mobileNumber } = createUserRes?.data?.data?.userInfo

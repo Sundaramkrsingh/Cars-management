@@ -6,6 +6,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios"
+import { getAccessToken, setAccessToken, setRefreshToken } from "../auth-setter"
 
 type PromiseHandlers = {
   resolve: (value?: any) => void
@@ -13,7 +14,7 @@ type PromiseHandlers = {
 }
 
 const refreshUrl = "admin/refresh-token"
-const signInUrl = "admin/sign-in"
+const signInUrl = "/auth/sign-in"
 const validateTokenUrl = "admin/validate-reset-token"
 
 const userInstance = axios.create({
@@ -45,8 +46,9 @@ function processQueue(error: AxiosError, token = null) {
 }
 
 async function handleRequest(req: AxiosRequestConfig) {
+  const accessToken = await getAccessToken()
   if (req.headers) {
-    req.headers.Authorization = `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
+    req.headers.Authorization = `Bearer ${accessToken?.value}`
   }
 
   return req
@@ -60,10 +62,10 @@ function handleResponse(response: AxiosResponse<any>) {
     /**
      * set token if user is verified
      */
-    userSessionActive({
-      accessToken: response.headers["x-access-token"],
-      refreshToken: response.headers["x-refresh-token"],
-    })
+    console.log({ response: response.data.data.token })
+
+    setAccessToken(response.data.data.token)
+    setRefreshToken(response.data.data.refreshToken)
   }
 
   return response
@@ -110,9 +112,11 @@ async function handleError(
         refreshToken: localStorage.getItem(REFRESH_TOKEN),
       })
       .then(async (res) => {
-        const accessToken = res?.headers && res.headers["x-access-token"]
-        const refreshToken = res?.headers && res.headers["x-refresh-token"]
-        userSessionActive({ accessToken, refreshToken })
+        const accessToken = res?.headers && res.data.data.token
+        const refreshToken = res?.headers && res.data.data.refreshToken
+
+        setAccessToken(res.data.data.token)
+        setRefreshToken(res.data.data.refreshToken)
 
         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`
 

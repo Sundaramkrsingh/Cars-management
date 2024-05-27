@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner"
 import QueryProvider from "@/lib/providers/QueryProvider"
 import ChatProvider from "@/store/chat-provider"
 import UserProvider from "@store/user-provider"
@@ -25,6 +26,7 @@ export default function RootLayout({
             <ChatProvider>{children}</ChatProvider>
           </UserProvider>
         </QueryProvider>
+        <Toaster />
       </body>
     </html>
   )
