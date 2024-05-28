@@ -62,6 +62,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           flagComponent={FlagComponent}
           countrySelectComponent={CountrySelect}
           inputComponent={InputComponent}
+          limitMaxLength={true}
           /**
            * Handles the onChange event.
            *
