@@ -28,7 +28,7 @@ export default function Chat() {
           <div key={index}>
             <PreQ {...preQ} questionnaire={index} />
             <InQ {...inQ} questionnaire={index} />
-            <PostQ {...postQ} questionnaire={index} />
+            <PostQ questionnaire={index} />
           </div>
         )
       })}

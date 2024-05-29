@@ -79,7 +79,9 @@ export default function Home() {
             />
             <div>
               <p className="font-semibold text-[22px] text-white">
-                Hey {assessmentMetaData?.name?.split(" ")?.[0] || "Christopher"}
+                Hey{" "}
+                {assessmentMetaData?.userInfo?.name?.split(" ")?.[0] ||
+                  "Christopher"}
               </p>
               <p className="gap-2 text-[#F2F2F2]">Welcome to abouv !</p>
             </div>

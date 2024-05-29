@@ -27,14 +27,7 @@ const Icon = ({ isAbaHappy }: { isAbaHappy: boolean }) => (
   </>
 )
 
-const PostQ = ({
-  questionnaire,
-  triviaContent,
-  ...rest
-}: {
-  questionnaire: number
-  triviaContent: string
-}) => {
+const PostQ = ({ questionnaire }: { questionnaire: number }) => {
   const {
     chat: {
       activeQState,
@@ -44,6 +37,7 @@ const PostQ = ({
       feedback,
       questionCount,
       score,
+      postAssessmentContent,
     },
   } = useChat()((state) => state)
 
@@ -90,7 +84,7 @@ const PostQ = ({
             score={score[questionnaire] || 0}
           />
           <PostQCard
-            {...{ ...postQConfig.infoCard, description: triviaContent }}
+            {...{ ...postQConfig.infoCard, description: postAssessmentContent }}
           />
         </QuestionWrapper>
         {currentStage === "post-q" && (
