@@ -9,7 +9,7 @@ import { useEffect } from "react"
 let fetcher = dataProvider("userInstance")
 
 const getRankingsDetails = () => {
-  return fetcher.get(`/stat/top-ranking`)
+  return fetcher.get(`/stats/top-ranking`)
 }
 
 const useRankingsDetails = () => {
