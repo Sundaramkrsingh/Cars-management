@@ -5,7 +5,7 @@ import Link from "next/link"
 
 type RankBarProps = {
   avatar: string
-  rank: string
+  rank: number
   stars: string
   name: string
   stage: string
@@ -27,7 +27,9 @@ const RankBar = ({ avatar, rank, stars, name, stage, href }: RankBarProps) => {
             {avatar ? (
               <Image src={avatar} alt={avatar} layout="fill" />
             ) : (
-              <Icons.user />
+              <div className="justify-center items-center flex  h-full">
+                <Icons.user />
+              </div>
             )}
           </div>
           <div>

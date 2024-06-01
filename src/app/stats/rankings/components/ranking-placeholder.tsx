@@ -13,7 +13,10 @@ const RankingPlaceholder = () => {
           Invite your friends to earn exciting rewards
         </p>
       </div>
-      <button className="font-medium w-full bg-black h-12 text-white rounded-lg mt-[30px]">
+      <button
+        className="font-medium w-full bg-black h-12 text-white rounded-lg mt-[30px]"
+        disabled
+      >
         Create team
       </button>
     </div>
