@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
-import Header from "./components/header"
-import MyRank from "./components/my-rank"
+
+import RankingsDataProvider from "@/store/ranking-provider"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
   title: "Rankings",
@@ -13,10 +14,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="bg-alice-blue w-[380px] no-scrollbar h-screen mx-auto relative z-1">
-      <Header />
-      <div>{children}</div>
-      <MyRank />
-    </div>
+    <RankingsDataProvider>
+      <Suspense>
+        <div>{children}</div>
+      </Suspense>
+    </RankingsDataProvider>
   )
 }
