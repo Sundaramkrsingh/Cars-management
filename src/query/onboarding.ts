@@ -7,7 +7,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 let fetcher = dataProvider("userInstance")
 
 const postSignUp = ({ data }: { data: { phoneNumber: string } }) => {
-  return fetcher.post(`/auth/sign-up`, data)
+  return fetcher.post(`/auth/sign-up-temp`, data)
 }
 
 const sendOtp = ({ data }: { data: { phoneNumber: string } }) => {
