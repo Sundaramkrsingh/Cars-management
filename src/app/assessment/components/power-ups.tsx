@@ -24,22 +24,22 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
       <div className="grid grid-cols-6 grid-rows-2 gap-[6px]">
         <PowerUpCard
           className="col-span-3 row-span-1 p-2"
-          description="+4 Seconds"
+          description="+5 Seconds"
           icon="power4"
           id={1}
-          onClick={() => setPowerUp("PLUS_4_SECONDS")}
+          onClick={() => setPowerUp("PLUS_5_SECONDS")}
           {...commonPowerUpProps}
         />
         <PowerUpCard
           className="col-span-3 row-span-1 p-2"
-          description="+8 Seconds"
+          description="+10 Seconds"
           icon="power8"
           id={2}
-          onClick={() => setPowerUp("PLUS_8_SECONDS")}
+          onClick={() => setPowerUp("PLUS_10_SECONDS")}
           {...commonPowerUpProps}
         />
 
-        <PowerUpCard
+        {/* <PowerUpCard
           className="col-span-2 row-span-1 p-2"
           description="Twice Up"
           icon="power2x"
@@ -68,7 +68,7 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
             onClick={() => setPowerUp("DICE_UP")}
             {...commonPowerUpProps}
           />
-        </DiceDialog>
+        </DiceDialog> */}
       </div>
     </div>
   )

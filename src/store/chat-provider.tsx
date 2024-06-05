@@ -13,8 +13,8 @@ export type Chat = {
   questionCount: number
   seriesType: "trait" | "default"
   powerUp:
-    | "PLUS_4_SECONDS"
-    | "PLUS_8_SECONDS"
+    | "PLUS_5_SECONDS"
+    | "PLUS_10_SECONDS"
     | "TWICE_UP"
     | "THRICE_UP"
     | "DICE_UP"
