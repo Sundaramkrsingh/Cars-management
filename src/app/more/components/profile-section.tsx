@@ -13,7 +13,7 @@ type AvatarProps = {
   }
 }
 
-const Avatar = ({ avatar }: AvatarProps) => {
+export const Avatar = ({ avatar }: AvatarProps) => {
   return (
     <div
       className={cn(

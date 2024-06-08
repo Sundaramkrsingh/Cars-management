@@ -4,7 +4,7 @@ import React from "react"
 
 type PostQCardProps = {
   image: string
-  description: string
+  description: string | null
 }
 
 const PostQCard = ({ image, description }: PostQCardProps) => {

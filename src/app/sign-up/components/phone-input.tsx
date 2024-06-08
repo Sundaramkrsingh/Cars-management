@@ -62,6 +62,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           flagComponent={FlagComponent}
           countrySelectComponent={CountrySelect}
           inputComponent={InputComponent}
+          limitMaxLength={true}
           /**
            * Handles the onChange event.
            *
@@ -72,6 +73,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
            * @param {E164Number | undefined} value - The entered value
            */
           onChange={(value) => onChange?.((value || "") as any)}
+          defaultCountry="IN"
           {...props}
         />
       )
@@ -100,8 +102,8 @@ type CountrySelectProps = {
 }
 
 const CountrySelect = ({
-  disabled,
-  value,
+  disabled = true,
+  value = "IN",
   onChange,
   options,
 }: CountrySelectProps) => {

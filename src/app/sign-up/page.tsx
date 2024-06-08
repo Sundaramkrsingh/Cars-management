@@ -40,7 +40,7 @@ const SignUp = () => {
           className="w-7 h-7 cursor-pointer"
         />
       </div>
-      <Icons.beztLogo className="mt-16" />
+      <Icons.abouvLogo className="mt-16" />
       <CurrentScreen {...commonProps} />
     </div>
   )

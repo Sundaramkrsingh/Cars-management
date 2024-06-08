@@ -38,7 +38,7 @@ const Profile = ({ children }: LayoutProps) => {
     projects: "Projects",
     "add-projects": project ? "Edit projects" : "Add Projects",
 
-    licenses: "Licenses & certifications",
+    licenses: "Licenses & Certifications",
     "add-licenses": license
       ? "Edit licenses & certifications"
       : "Add licenses & certifications",
@@ -46,7 +46,7 @@ const Profile = ({ children }: LayoutProps) => {
     education: "Education",
     "add-education": education ? "Edit education" : "Add Education",
 
-    awards: "Awards and achievements",
+    awards: "Awards and Achievements",
     "add-awards": awards
       ? "Edit awards and achievements"
       : "Add awards and achievements",
@@ -61,9 +61,22 @@ const Profile = ({ children }: LayoutProps) => {
     default: "My profile",
   }
 
-  const url = Object.keys(navHeadingMap).includes(edit as string)
-    ? "/more/profile"
-    : "/"
+  const previousRouteMap: Record<string, string> = {
+    "add-experience": "work-experience",
+    "add-projects": "projects",
+    "add-licenses": "licenses",
+    "add-education": "education",
+    "add-awards": "awards",
+    "add-basic-information": "basic-information",
+  }
+  let url = "/"
+  if (edit && edit in previousRouteMap) {
+    url = `/more/profile?edit=${previousRouteMap[edit]}`
+  } else {
+    url = Object.keys(navHeadingMap).includes(edit as string)
+      ? "/more/profile"
+      : "/"
+  }
 
   const heading =
     navHeadingMap[edit as keyof typeof navHeadingMap] ||
@@ -110,6 +123,43 @@ const Electives = ({ children }: LayoutProps) => {
   )
 }
 
+const Help = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Legal = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Facets = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Stage = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Grade = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Trumps = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const Report = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const ProgressionSummary = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const PerformanceSummary = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const FACETSScore = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const StrengthsWeaknesses = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+const CompetenciesGrades = ({ children }: LayoutProps) => {
+  return <div>{children}</div>
+}
+
 function LayoutManager({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
@@ -118,6 +168,18 @@ function LayoutManager({ children }: { children: React.ReactNode }) {
     "/more/profile": Profile,
     "/more/electives": Electives,
     "/more": More,
+    "/more/help": Help,
+    "/more/legal": Legal,
+    "/more/help/facets": Facets,
+    "/more/help/stage": Stage,
+    "/more/help/grade": Grade,
+    "/more/help/trumps": Trumps,
+    "/more/help/report": Report,
+    "/more/help/report/progression-summary": ProgressionSummary,
+    "/more/help/report/performance-summary": PerformanceSummary,
+    "/more/help/report/facets-score": FACETSScore,
+    "/more/help/report/strengths-weaknesses": StrengthsWeaknesses,
+    "/more/help/report/competencies-grades": CompetenciesGrades,
   }
 
   const CurrentLayout = layoutMap[pathname as keyof typeof layoutMap]

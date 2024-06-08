@@ -6,12 +6,30 @@ type PostQHeaderProps = {
   answerStatus?: "correct" | "default" | "wrong"
 }
 
-const InCorrectAnswer = ({}: PostQHeaderProps) => (
-  <div className="flex gap-2 flex-col">
-    <p className="text-lg">Oops, that’s okay!</p>
-    <p className="text-3xl font-medium">Lets move on</p>
-  </div>
-)
+const InCorrectAnswer = ({
+  isAbaHappy,
+  score,
+  answerStatus,
+}: PostQHeaderProps) => {
+  const emotionManager = {
+    correct: "Woohoo you scored",
+    default: "Your ran out of time",
+    wrong: "Oops, that’s okay!",
+  }
+
+  return (
+    <div className="flex gap-2 flex-col">
+      <p className="text-lg">
+        {
+          emotionManager[
+            (answerStatus as keyof typeof emotionManager) || "wrong"
+          ]
+        }
+      </p>
+      <p className="text-[28px] font-medium text-white">Lets move on</p>
+    </div>
+  )
+}
 
 const CorrectAnswer = ({
   isAbaHappy,
@@ -52,12 +70,14 @@ const CorrectAnswer = ({
 
 const PostQHeader = ({ ...rest }: PostQHeaderProps) => {
   const isAnswerCorrect = rest?.score !== 0
-
+  console.log("isAnwser= " + isAnswerCorrect)
   return (
     <>
       {isAnswerCorrect ? (
+        // console.log("Correct");
         <CorrectAnswer {...rest} />
       ) : (
+        // console.log("Incorrect")
         <InCorrectAnswer {...rest} />
       )}
     </>

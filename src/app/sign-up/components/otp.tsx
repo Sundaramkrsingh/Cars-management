@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation"
 import { useUserDetails } from "@/store/sing-up-provider"
 import { useSignUp } from "@/query/onboarding"
 import { useUser } from "@/store/user-provider"
+import { toast } from "sonner"
+import { setAccessToken, setRefreshToken } from "@/dataProvider/auth-setter"
 
 const Otp = ({ setActiveScreen, phone }: ScreenProps) => {
   const router = useRouter()
@@ -31,7 +33,7 @@ const Otp = ({ setActiveScreen, phone }: ScreenProps) => {
   useEffect(() => {
     setTimeout(() => {
       if (!hasShownAlert && smsOtp) {
-        alert(`Verify OTP sent to ${phone}. The OTP is ${smsOtp}`)
+        toast.info(`Verify OTP sent to ${phone}. The OTP is ${smsOtp}`)
         setHasShownAlert(true)
       }
     }, 1000)
@@ -49,6 +51,8 @@ const Otp = ({ setActiveScreen, phone }: ScreenProps) => {
     const SignInUserRes = await signInUserDtls.mutateAsync(singInDtl)
     const userInfo = SignInUserRes?.data?.data?.userInfo
     setUser({ id: userInfo?.id })
+    setAccessToken(SignInUserRes?.data?.data?.token)
+    setRefreshToken(SignInUserRes?.data?.data?.refreshToken)
     router.push("/onboarding")
   }
 

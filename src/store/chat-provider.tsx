@@ -45,6 +45,8 @@ export type Chat = {
   }
   score: { [key: string | number]: number }
   assessmentMetaData: any
+  postAssessmentStatus: boolean
+  postAssessmentContent: string | null
 }
 
 const initialState: Chat = {
@@ -66,6 +68,8 @@ const initialState: Chat = {
   },
   score: {},
   assessmentMetaData: {},
+  postAssessmentStatus: false,
+  postAssessmentContent: null,
 }
 
 const createStore = (chat: Chat) =>
@@ -98,6 +102,8 @@ const createStore = (chat: Chat) =>
       stage: QuestionVariants
     ) => void
     setScore: (score: { [key: string | number]: number }) => void
+    setPostAssessmentStatus: (status: boolean) => void
+    setPostAssessmentContent: (content: string | null) => void
   }>((set) => ({
     chat,
     setCurrentStage(currentStage: Chat["currentStage"]) {
@@ -224,6 +230,26 @@ const createStore = (chat: Chat) =>
             ...prev.chat.assessmentMetaData,
             ...data,
           },
+        },
+      }))
+    },
+
+    setPostAssessmentStatus(status) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          postAssessmentStatus: status,
+        },
+      }))
+    },
+
+    setPostAssessmentContent(content) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          postAssessmentContent: content,
         },
       }))
     },

@@ -27,6 +27,10 @@ const getQuestions = (userId: string | number) => {
   return fetcher.get(`/core/${userId}`)
 }
 
+const getHomeData = (userId: string | number) => {
+  return fetcher.get(`/home/${userId}`)
+}
+
 const postAnswer: (
   userId: number | string,
   data: {
@@ -41,6 +45,7 @@ const postAnswer: (
     {
       data: {
         inQ: { questionId: number; isCorrect: boolean; score: number }
+        postQ: { triviaContent: string }
       }
     },
     any
@@ -64,8 +69,6 @@ export const useInQuestion = () => {
   useEffect(() => {
     if (getInQuestions.isSuccess) {
       const { core, ...rest } = getInQuestions.data
-
-      console.log({ core, rest })
 
       setQuestions(
         core?.map((itm: any) => ({
@@ -112,4 +115,26 @@ export const usePostAnswer = () => {
   return {
     postAns,
   }
+}
+
+export const useHome = () => {
+  const { id: userId } = useDetails()
+  const { setAssessmentMetaData } = useChatInfo()
+
+  const getHomeKey = () => ["home"]
+
+  const getHome = useQuery({
+    queryKey: getHomeKey(),
+    queryFn: () => getHomeData(userId),
+    select: (data) => data.data.data,
+  })
+
+  useEffect(() => {
+    if (getHome.isSuccess) {
+      const { assessment } = getHome.data
+      setAssessmentMetaData({ ...assessment })
+    }
+  }, [getHome.data, getHome.isSuccess, setAssessmentMetaData])
+
+  return { getHome }
 }

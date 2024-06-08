@@ -1,3 +1,5 @@
+import { title } from "process"
+
 export const profileSectionConfig = {
   name: "Maria Christopher",
   avatar: { initials: "MG", bgColor: "#F8F98F" },
@@ -8,8 +10,8 @@ export const moreOptionsConfig = [
   { label: "Refer your friends", href: "#", icon: "gift" },
   { label: "My Electives", href: "/more/electives", icon: "checkCircle" },
   { label: "Settings", href: "#", icon: "settings" },
-  { label: "Help", href: "#", icon: "help" },
-  { label: "Legal", href: "#", icon: "info" },
+  { label: "Help", href: "/more/help", icon: "help" },
+  { label: "Legal", href: "/more/legal", icon: "info" },
 ]
 
 export const socialNavConfig = [
@@ -32,5 +34,48 @@ export const profileCompletionCardsConfig = [
     icon: "profileShield",
     iconDescription: "X2",
     href: "#",
+  },
+]
+
+export const navigateInfo = [
+  {
+    title: "Legal",
+    link: "/more",
+  },
+  {
+    title: "FACETS",
+    link: "/more/help",
+  },
+  {
+    title: "Stage system",
+    link: "/more/help",
+  },
+  {
+    title: "Grade system",
+    link: "/more/help",
+  },
+  {
+    title: "Trumps",
+    link: "/more/help",
+  },
+  {
+    title: "Progression Summary",
+    link: "/more/help/report",
+  },
+  {
+    title: "Performance Summary",
+    link: "/more/help/report",
+  },
+  {
+    title: "FACETS Score",
+    link: "/more/help/report",
+  },
+  {
+    title: "Strengths & Weaknesses",
+    link: "/more/help/report",
+  },
+  {
+    title: "Competencies & Grades",
+    link: "/more/help/report",
   },
 ]

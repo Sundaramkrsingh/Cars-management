@@ -11,16 +11,10 @@ type RankerCardProps = {
   href: string
 }
 
-const RankerCard = ({
-  avatar = "/avatar.jpeg",
-  stars = "8,56,679",
-  rank = 3,
-  name = "John",
-  href = "#",
-}: RankerCardProps) => {
+const RankerCard = ({ avatar, stars, rank, name, href }: RankerCardProps) => {
   const rankManager = {
     1: "bg-pink-lace text-dark-magenta border-pink-lace fill-pink-lace",
-    2: "bg-crayola text-maroon border-crayola fil-crayola",
+    2: "bg-crayola text-maroon border-crayola fill-crayola",
     3: "bg-aero-blue text-dark-slate-gray border-aero-blue fill-aero-blue",
   }
 
@@ -50,6 +44,7 @@ const RankerCard = ({
             "bg-transparent"
           )}
         />
+
         <div className="flex gap-1 items-center mb-1">
           <p className="font-medium text-xs text-black">{rank}</p>
           <Icon />
@@ -63,13 +58,15 @@ const RankerCard = ({
           {avatar ? (
             <Image src={avatar} alt={`rank-${rank}`} layout="fill" />
           ) : (
-            <Icons.user />
+            <div className="justify-center items-center h-full flex">
+              <Icons.user />
+            </div>
           )}
         </div>
         <p className="font-medium text-sm text-black">{name}</p>
         <div
           className={cn(
-            "h-[22px] w-full flex items-center justify-center text-black text-xs font-medium",
+            "h-[22px] w-full flex items-center justify-center text-black text-xs font-medium absolute bottom-0 rounded-b-lg",
             `${rankManager[className]}`,
             rank === 1 && "mt-[10px]"
           )}

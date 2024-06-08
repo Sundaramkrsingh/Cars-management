@@ -1,4 +1,6 @@
+import { Toaster } from "@/components/ui/sonner"
 import QueryProvider from "@/lib/providers/QueryProvider"
+import ChatProvider from "@/store/chat-provider"
 import UserProvider from "@store/user-provider"
 import type { Metadata } from "next"
 import { Baloo_2 } from "next/font/google"
@@ -20,8 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={baloo.className}>
         <QueryProvider>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <ChatProvider>{children}</ChatProvider>
+          </UserProvider>
         </QueryProvider>
+        <Toaster />
       </body>
     </html>
   )

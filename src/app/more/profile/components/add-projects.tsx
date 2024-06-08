@@ -58,7 +58,7 @@ const AddProjects = ({ setEdit }: PageProps) => {
         setProjectEdit(projectData, +project)
       })
 
-      setEdit(null)
+      setEdit("projects")
     } else {
       const mutationObj = createMutationObj(data)
 
@@ -68,7 +68,7 @@ const AddProjects = ({ setEdit }: PageProps) => {
         setProject({ resp, ...data })
       })
 
-      setEdit(null)
+      setEdit("projects")
     }
   }
 
