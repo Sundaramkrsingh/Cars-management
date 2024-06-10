@@ -35,7 +35,7 @@ export default function Rankings() {
         rank: data.rank,
         avatar: data.avatarLink,
         stars: String(data.netScore),
-        name: data.fullName,
+        name: data.fullName || "unknown",
         stage: data.currentStage + data.currentGrade,
         href: "#",
       }

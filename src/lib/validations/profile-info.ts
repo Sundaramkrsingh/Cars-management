@@ -8,7 +8,7 @@ const messages = {
 export const userProfileInfoSchema = z.object({
   firstName: z.string().min(1, messages.mandatory),
   lastName: z.string().min(1, messages.mandatory),
-  pinCode: z
+  pincode: z
     .string()
     .min(6, messages.mandatory)
     .max(6, messages.exceedCharrCount),
