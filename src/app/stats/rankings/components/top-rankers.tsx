@@ -28,8 +28,8 @@ const TopRankers = ({
     return {
       rank: data.rank || 0,
       avatar: data.avatarLink,
-      stars: String(data.netScore || null),
-      name: String(data.firstName || null),
+      stars: String(data.netScore || 0),
+      name: String(data.firstName || "unknown"),
       href: "#",
     }
   })
