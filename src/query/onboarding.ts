@@ -1,8 +1,10 @@
 "use client"
 
 import dataProvider from "@/dataProvider"
+import { useProfileFromData } from "@/store/profile-form-provider"
 import { useUser } from "@/store/user-provider"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useEffect } from "react"
 
 let fetcher = dataProvider("userInstance")
 
@@ -30,6 +32,10 @@ const patchGoals = ({ id, data }: { id: string | number; data: any }) => {
   return fetcher.patch(`/profiles/${id}/goal`, data)
 }
 
+const postGoals = ({ id, data }: { id: string | number; data: any }) => {
+  return fetcher.post(`/profiles/${id}/goal`, data)
+}
+
 const getHearAboutUs = () => {
   return fetcher.get(`/profiles/hear-about-us`)
 }
@@ -38,12 +44,26 @@ const patchHearAboutUs = ({ id, data }: { id: string | number; data: any }) => {
   return fetcher.post(`/profiles/${id}/hear-about-us`, data)
 }
 
+const updateHearAboutUs = ({
+  id,
+  data,
+}: {
+  id: string | number
+  data: any
+}) => {
+  return fetcher.patch(`/profiles/${id}/hear-about-us`, data)
+}
+
 const getRoles = () => {
   return fetcher.get(`/profiles/current-role`)
 }
 
 const patchRoles = ({ id, data }: { id: string | number; data: any }) => {
   return fetcher.put(`/profiles/${id}/current-role`, data)
+}
+
+const postProfile = ({ id, data }: { id: string | number; data: any }) => {
+  return fetcher.post(`/profiles/${id}/basic`, data)
 }
 
 const useDetails = () => {
@@ -81,6 +101,7 @@ export const useGoals = () => {
 
   const getGoalsKey = () => ["goals"]
   const patchGoalsExpKey = () => ["edit-goals"]
+  const addGoals = () => ["post-goals"]
 
   const getAllGoals = useQuery({
     queryKey: getGoalsKey(),
@@ -89,10 +110,15 @@ export const useGoals = () => {
 
   const editGoals = useMutation({
     mutationKey: patchGoalsExpKey(),
-    mutationFn: (data: any) => patchGoals({ data, id }),
+    mutationFn: (data: any) => patchGoals({ id, data }),
   })
 
-  return { getAllGoals, editGoals }
+  const createGoals = useMutation({
+    mutationKey: addGoals(),
+    mutationFn: (data: any) => postGoals({ id, data }),
+  })
+
+  return { getAllGoals, editGoals, createGoals }
 }
 
 export const useHearAboutUs = () => {
@@ -100,6 +126,7 @@ export const useHearAboutUs = () => {
 
   const getHearAboutUsKey = () => ["hear-about-us"]
   const patchHearAboutUsKey = () => ["edit-hear-about-us"]
+  const updateHearAboutUsKey = () => ["update-hear-about-us"]
 
   const getAllHearAboutUs = useQuery({
     queryKey: getHearAboutUsKey(),
@@ -111,7 +138,12 @@ export const useHearAboutUs = () => {
     mutationFn: (data: any) => patchHearAboutUs({ data, id }),
   })
 
-  return { getAllHearAboutUs, editHearAboutUs }
+  const updateHearAboutUsDts = useMutation({
+    mutationKey: updateHearAboutUsKey(),
+    mutationFn: (data: any) => updateHearAboutUs({ data, id }),
+  })
+
+  return { getAllHearAboutUs, editHearAboutUs, updateHearAboutUsDts }
 }
 
 export const useCurrentRoles = () => {
@@ -131,4 +163,17 @@ export const useCurrentRoles = () => {
   })
 
   return { getAllRoles, editCurrentRoles }
+}
+
+export const useInitProfile = () => {
+  const { id } = useDetails()
+
+  const postProfileKey = () => ["post-profile"]
+
+  const createProfile = useMutation({
+    mutationKey: postProfileKey(),
+    mutationFn: (data: any) => postProfile({ id, data }),
+  })
+
+  return { createProfile }
 }

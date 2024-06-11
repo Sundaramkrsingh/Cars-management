@@ -3,10 +3,12 @@ import { Icons } from "@/components/icons"
 import Button from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { userProfileInfoSchema } from "@/lib/validations/profile-info"
+import { useInitProfile } from "@/query/onboarding"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import React, { Dispatch, SetStateAction, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { z } from "zod"
 
 const FileUpload = ({
@@ -73,6 +75,11 @@ const ProfileInfo = ({
   const router = useRouter()
 
   const [userImage, setUserImage] = useState("")
+  const { createProfile } = useInitProfile()
+
+  const handleError = () => {
+    toast.error("Something went wrong, please try again")
+  }
 
   const form = useForm<z.infer<typeof userProfileInfoSchema>>({
     mode: "onSubmit",
@@ -83,6 +90,7 @@ const ProfileInfo = ({
   const handelSubmit = (data: any) => {
     setProgress(100)
     console.log(data)
+    createProfile.mutateAsync(data, { onError: handleError })
   }
 
   return (
@@ -127,7 +135,7 @@ const ProfileInfo = ({
             />
             <Input
               label="Pin Code"
-              name="pinCode"
+              name="pincode"
               form={form}
               type="number"
               placeholder="Enter Pin code"

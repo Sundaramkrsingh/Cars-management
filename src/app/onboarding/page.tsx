@@ -15,8 +15,8 @@ type OptionManager = {
 }
 
 const Onboarding = () => {
-  const { editGoals, getAllGoals } = useGoals()
-  const { editHearAboutUs, getAllHearAboutUs } = useHearAboutUs()
+  const { editGoals, getAllGoals, createGoals } = useGoals()
+  const { getAllHearAboutUs, updateHearAboutUsDts } = useHearAboutUs()
   const { editCurrentRoles, getAllRoles } = useCurrentRoles()
 
   const { setOptions } = useUserDetails()((state) => state)
@@ -33,7 +33,7 @@ const Onboarding = () => {
 
   const handleClick = {
     hear: () => {
-      editHearAboutUs.mutateAsync(
+      updateHearAboutUsDts.mutateAsync(
         { hearAboutUs: `${selections["hear"]}` },
         {
           onError: handleError,
@@ -52,7 +52,7 @@ const Onboarding = () => {
     },
     goal: () => {
       editGoals.mutateAsync(
-        { goal: selections["goal"] },
+        { goals: selections["goal"] },
         { onError: handleError }
       )
       setActiveCategory("profile-info")

@@ -34,7 +34,7 @@ export default function Report() {
   const performanceSummary = {
     heading: "Performance summary",
     subHeading: `Get to ${reportsData.performanceSummary.nextGradeAccuracy}% accuracy for ${reportsData.performanceSummary.nextGrade}`,
-    progress: reportsData.performanceSummary.currentAccuracy,
+    progress: reportsData.performanceSummary.currentAccuracy ?? 0,
     description: "Current Accuracy",
     stats: [
       {
@@ -47,7 +47,7 @@ export default function Report() {
       },
       {
         title: "Accuracy",
-        value: `${reportsData.performanceSummary.currentAccuracy}%`,
+        value: `${reportsData.performanceSummary.currentAccuracy ?? 0}%`,
       },
     ],
   }
