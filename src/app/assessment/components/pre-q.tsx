@@ -10,18 +10,28 @@ import QuestionWrapper from "./question-wrapper"
 import Default from "./questions-series/default"
 import Trait from "./questions-series/trait"
 import TransitionWrapper from "./transition-wrapper"
+import { useAddTrumps } from "@/query/trumps"
 
 export const PreQ = ({
   questionnaire,
+  useInQuestion,
   ...rest
 }: {
   questionnaire: number
   type?: string
+  useInQuestion: any
 }) => {
   const {
-    chat: { activeQuestionnaire, currentStage, activeQState, seriesType },
+    chat: {
+      activeQuestionnaire,
+      currentStage,
+      activeQState,
+      seriesType,
+      powerUp,
+    },
     setCurrentStage,
     setActiveQState,
+    setPowerUp,
   } = useChat()((state) => state)
 
   const router = useRouter()
@@ -54,10 +64,26 @@ export const PreQ = ({
     return () => clearTimeout(timeout)
   }, [activeQState, questionnaire])
 
+  const { addTrumps } = useAddTrumps()
+
   const handelClick = () => {
     setActiveQState(`in-q-${questionnaire}`)
     router.push(`#in-q-${questionnaire}`)
     setCurrentStage("in-q")
+
+    if (powerUp == "PLUS_5_SECONDS") {
+      console.log(1)
+      addTrumps.mutate({ powerUpId: 1, questionId: 1 })
+
+      setPowerUp(null)
+    }
+
+    if (powerUp == "PLUS_10_SECONDS") {
+      console.log(2)
+      addTrumps.mutate({ powerUpId: 2, questionId: 1 })
+
+      setPowerUp(null)
+    }
   }
 
   return (

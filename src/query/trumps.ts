@@ -21,9 +21,7 @@ const postTrumpUsage = ({
   userId: string | number
   data: { powerUpId?: number; questionId: number }
 }) => {
-  const { questionId, ...rest } = data
-
-  return fetcher.post(`/${userId}/trumps`, rest)
+  return fetcher.post(`core/${userId}/trumps`, data)
 }
 
 export const useAddTrumps = () => {

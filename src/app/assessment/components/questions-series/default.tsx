@@ -3,10 +3,12 @@
 import { Foresight, PowerUps } from "../../components"
 import type { QuestionProps } from "./series-type"
 
-const Default = ({
-  questionnaire,
-  foresight: { avgTime, accuracy, timeLimit, tier1, tier2, tier3 },
-}: QuestionProps) => {
+const Default = ({ questionnaire, ...rest }: any) => {
+  const {
+    foresight: { avgTime, accuracy, timeLimit, tier1, tier2, tier3 },
+    powerUps,
+  } = rest
+
   return (
     <>
       <Foresight
@@ -17,7 +19,7 @@ const Default = ({
         tier2={tier2}
         tier3={tier3}
       />
-      <PowerUps questionnaire={questionnaire} />
+      <PowerUps questionnaire={questionnaire} powerUps={powerUps} />
       {/* <WildCards questionnaire={questionnaire} />  */}
     </>
   )

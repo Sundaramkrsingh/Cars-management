@@ -15,6 +15,7 @@ type CardProps = {
   activeCard: string | number | undefined
   questionnaire: number
   onClick?: () => void
+  powerUp?: any
 }
 
 function capitalizeFirstLetter(str: string) {
@@ -31,6 +32,7 @@ const DefaultCard = ({
   activeCard,
   questionnaire,
   onClick,
+  powerUp,
 }: CardProps) => {
   const isInActive = state === "in-active"
 
@@ -69,7 +71,7 @@ const DefaultCard = ({
         isCardClickable ? "cursor-pointer" : "cursor-default"
       )}
     >
-      {isInActive && (
+      {powerUp.status.isLocked && (
         <div className="absolute w-full h-full bg-moonstone-blue opacity-80 cursor-default" />
       )}
       <Icon className={cn(activeCard === id && "stroke-white")} />
@@ -79,7 +81,9 @@ const DefaultCard = ({
           activeCard === id && "text-white"
         )}
       >
-        {description}
+        {powerUp.status.isConsumed
+          ? `Next in ${powerUp.status.nextIn}Q`
+          : description}
       </p>
     </div>
   )

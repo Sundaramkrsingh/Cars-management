@@ -26,7 +26,11 @@ export default function Chat() {
       {questions.map(({ preq: preQ, inq: inQ, postQ }: any, index) => {
         return (
           <div key={index}>
-            <PreQ {...preQ} questionnaire={index} />
+            <PreQ
+              {...preQ}
+              questionnaire={index}
+              useInQuestion={useInQuestion}
+            />
             <InQ {...inQ} questionnaire={index} />
             <PostQ questionnaire={index} />
           </div>
