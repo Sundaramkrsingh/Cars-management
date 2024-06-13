@@ -15,9 +15,9 @@ export const moreOptionsConfig = [
 ]
 
 export const socialNavConfig = [
-  { icon: "instagram", href: "#" },
+  { icon: "instagram", href: "https://www.instagram.com/be.abouv" },
   { icon: "facebook", href: "#" },
-  { icon: "linkedin", href: "#" },
+  { icon: "linkedin", href: "https://www.linkedin.com/company/beztlabs/" },
 ]
 
 export const profileCompletionCardsConfig = [
