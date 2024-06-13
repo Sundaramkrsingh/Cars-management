@@ -27,7 +27,7 @@ const RankerCard = ({ avatar, stars, rank, name, href }: RankerCardProps) => {
       <div
         className={cn(
           "relative py-[10px] flex flex-col w-[100px] h-[115px] items-center bg-white rounded-lg",
-          rank === 1 ? "h-[125px]" : "h-[115px]"
+          rank === 1 ? "h-[128px]" : "h-[115px]"
         )}
       >
         <Icons.rankStar1
