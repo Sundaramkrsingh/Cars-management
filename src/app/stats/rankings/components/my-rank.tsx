@@ -43,7 +43,7 @@ const MyRank = () => {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <Icons.myRankStar />
+        <Icons.myRankStarnew />
         <p className="font-medium text-lg text-eerie-black">{stars}</p>
       </div>
     </div>
