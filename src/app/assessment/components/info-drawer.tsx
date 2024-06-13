@@ -42,8 +42,10 @@ const Foresight = () => {
       <div>
         <p className="font-medium text-xl mb-2">Overview</p>
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          Foresights are your prep guide before taking an assessment. They
+          highlight key points and tips to keep in mind, providing an overview
+          of question categories (Tier 2 & 3) you`ll encounter, along with the
+          key metrics we use to score your answers.
         </p>
       </div>
       <Separator className="my-5 bg-skobeloff" />
@@ -104,29 +106,32 @@ const Foresight = () => {
 const PowerUps = () => {
   const powerUpsConfig = [
     {
-      icon: "info4Plus",
-      title: "+4 seconds",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      icon: "info5Plus",
+      title: "+5 seconds",
+      description: "Get an extra 5 seconds to think through your answer.",
     },
     {
-      icon: "info8Plus",
-      title: "+8 seconds ",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      icon: "info10Plus",
+      title: "+10 seconds ",
+      description:
+        "Enjoy an additional 8 seconds to carefully consider your response.",
     },
     {
       icon: "info2X",
       title: "Twice Up",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description: "Double your time limit for each question.",
     },
     {
       icon: "info3X",
       title: "Thrice Up",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description:
+        "Triple your time, offering ample opportunity to strategize and excel in every question.",
     },
     {
       icon: "infoDice",
       title: "Dice Up",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description:
+        "Quadruple the usual time, giving you four times longer to tackle each question.",
     },
   ]
 
@@ -135,8 +140,9 @@ const PowerUps = () => {
       <div>
         <p className="font-medium text-xl mb-2">Overview</p>
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          Powerups are like extra boosts to help you choose the right answer.
+          Depending on the foresights, you can select a suitable Powerup (if
+          necessary) for your next assessment question
         </p>
       </div>
       <Separator className="my-5 bg-skobeloff" />
@@ -154,27 +160,29 @@ const WildCard = () => {
     {
       icon: "infoHalf",
       title: "Better Half",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description: "You only get two options to choose from.",
     },
     {
       icon: "infoCharts",
       title: "Chosen One ",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description:
+        "Get the percentage of each option given  by different users",
     },
     {
       icon: "infoHeart",
       title: "Double edge",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description: "You have two chances to pick the right answer.",
     },
     {
       icon: "infoTime",
       title: "Time Machine",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description: "Brings back a question that you got wrong in the past.",
     },
     {
       icon: "infoAba",
       title: "Ask ABA",
-      description: "Lorem Ipsum is simply dummy text of the printing and ",
+      description:
+        "ABA assists with your questions, but may occasionally provide incorrect answers.",
     },
   ]
 
@@ -183,8 +191,9 @@ const WildCard = () => {
       <div>
         <p className="font-medium text-xl mb-2">Overview</p>
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          Wildcards provide creative options for selecting the correct answer to
+          your question, giving you flexibility and innovation in your
+          responses.
         </p>
       </div>
       <Separator className="my-5 bg-skobeloff" />
