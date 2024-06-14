@@ -24,16 +24,16 @@ const PowerUps = ({ questionnaire }: { questionnaire: number }) => {
       <div className="grid grid-cols-6 grid-rows-2 gap-[6px]">
         <PowerUpCard
           className="col-span-3 row-span-1 p-2"
-          description="+4 Seconds"
-          icon="power4"
+          description="+5 Seconds"
+          icon="power5"
           id={1}
           onClick={() => setPowerUp("PLUS_4_SECONDS")}
           {...commonPowerUpProps}
         />
         <PowerUpCard
           className="col-span-3 row-span-1 p-2"
-          description="+8 Seconds"
-          icon="power8"
+          description="+10 Seconds"
+          icon="power10"
           id={2}
           onClick={() => setPowerUp("PLUS_8_SECONDS")}
           {...commonPowerUpProps}
