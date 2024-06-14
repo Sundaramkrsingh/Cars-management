@@ -11,7 +11,6 @@ import TransitionWrapper from "./transition-wrapper"
 const postQConfig = {
   score: 300,
   infoCard: {
-    image: "/placeholder.png",
     description:
       "Delhi, India's capital, boasts a rich history as the seat of ancient kingdoms, including the Pandavas and Mughals. Rebuilt by various rulers",
   },
@@ -83,9 +82,7 @@ const PostQ = ({ questionnaire }: { questionnaire: number }) => {
             answerStatus={answerStatus}
             score={score[questionnaire] || 0}
           />
-          <PostQCard
-            {...{ ...postQConfig.infoCard, description: postAssessmentContent }}
-          />
+          <PostQCard {...{ description: postAssessmentContent }} />
         </QuestionWrapper>
         {currentStage === "post-q" && (
           <PostQAnswer questionnaire={questionnaire} />
