@@ -71,7 +71,7 @@ const RankerCard = ({ avatar, stars, rank, name, href }: RankerCardProps) => {
             rank === 1 && "mt-[10px]"
           )}
         >
-          {stars} {`stars`}
+          {stars} {`points`}
         </div>
       </div>
     </Link>

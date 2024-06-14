@@ -76,7 +76,7 @@ const TopRankers = ({
         </div> */}
       </TabsContent>
       <TabsContent value="overall">
-        <div className="flex gap-[10px] justify-center items-end mt-4">
+        <div className="flex gap-[15px] justify-center items-end mt-4">
           {isSuccess ? (
             reorderedRankConfig.map((data, idx) => (
               <RankerCard key={idx} {...data} />

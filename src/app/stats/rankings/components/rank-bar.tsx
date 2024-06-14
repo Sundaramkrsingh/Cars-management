@@ -43,7 +43,7 @@ const RankBar = ({ avatar, rank, stars, name, stage, href }: RankBarProps) => {
         </div>
       </div>
       <div className="flex items-center gap-2 w-[100px]">
-        <Icons.rankBarStar />
+        <Icons.myRankStarnew />
         <p className="font-medium text-lg text-eerie-black">{stars}</p>
       </div>
     </Link>
