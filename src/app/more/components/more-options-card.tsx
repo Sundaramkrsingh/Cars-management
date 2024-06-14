@@ -12,7 +12,7 @@ type Options = {
 
 const MoreOptionsCard = () => {
   return (
-    <div className="rounded-[10px] bg-white p-5 flex flex-col gap-6 relative">
+    <div className="rounded-[10px] bg-white px-5 py-[18px] flex flex-col gap-6 relative">
       {moreOptionsConfig.map(
         ({ href, icon, label, isNew = false }: Options, idx) => {
           const Icon = Icons[icon as keyof typeof Icons]
@@ -45,7 +45,7 @@ const MoreOptionsCard = () => {
           )
         }
       )}
-      <Icons.moreAba className="absolute right-[-20px] bottom-[-100px]" />
+      <Icons.moreAba className="absolute right-[-20px] bottom-[-180px]" />
     </div>
   )
 }

@@ -36,7 +36,7 @@ const ProfileSection = () => {
   const { name, progress, ...rest } = profileSectionConfig
 
   return (
-    <div className="flex flex-col bg-more p-5 text-white">
+    <div className="flex flex-col bg-more px-4 py-[17px] text-white">
       <Icons.moreStar className="absolute top-[280px] right-1" />
       <div className="flex gap-4 mb-1 mt-1">
         <Avatar {...rest} />
