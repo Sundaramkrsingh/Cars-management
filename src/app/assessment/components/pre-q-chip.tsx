@@ -1,7 +1,7 @@
 import React from "react"
 
 const PreQChip = ({
-  info = "Next question for 100 stars.",
+  info = "Next question for 100 points.",
 }: {
   info?: string
 }) => {
