@@ -255,6 +255,7 @@ export const useProfile = () => {
   } = useDetails()
 
   const getProfileKey = () => ["profile"]
+  const postProfileKey = () => ["post-profile"]
   const getProfileImageKey = () => ["profile-image"]
   const getResumeKey = () => ["resume-key"]
   const deleteProfileImage = () => ["delete-profile-img"]

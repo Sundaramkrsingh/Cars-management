@@ -24,13 +24,15 @@ const Splash = () => {
       <div className="mt-[40vh]">
         <div
           className={cn(
-            "relative h-16 w-44 flex items-center justify-center overflow-hidden",
+            "relative h-[64px] w-[200px] flex items-center justify-center overflow-hidden",
             !show && "animate-pulse "
           )}
         >
-          <Image src="/splash-logo.png" alt="splash" layout="fill" />
+          <Image src="/abouv-logo.png" alt="splash" layout="fill" />
         </div>
-        <p className="text-lg text-white font-medium">Sour above, step ahead</p>
+        <p className="text-lg text-white font-medium mt-4 flex justify-center">
+          {"assess > align > ahieve"}
+        </p>
       </div>
       <div
         className={cn(
@@ -39,14 +41,14 @@ const Splash = () => {
         )}
       >
         <Button
-          className="w-full"
+          className="w-full "
           onClick={() => router.push("welcome/intro")}
-          label="Sign up"
+          label="Sign in"
         />
-        <Button
+        {/* <Button
           className="bg-transparent w-full mt-4"
           label="Existing user? Login"
-        />
+        /> */}
       </div>
     </div>
   )

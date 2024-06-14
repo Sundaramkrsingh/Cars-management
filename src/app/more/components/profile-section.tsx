@@ -36,9 +36,9 @@ const ProfileSection = () => {
   const { name, progress, ...rest } = profileSectionConfig
 
   return (
-    <div className="flex flex-col bg-more p-5 text-white">
+    <div className="flex flex-col bg-more px-4 py-[17px] text-white">
       <Icons.moreStar className="absolute top-[280px] right-1" />
-      <div className="flex gap-4 mb-5">
+      <div className="flex gap-4 mb-1 mt-1">
         <Avatar {...rest} />
         <div>
           <p className="font-semibold text-[22px]">{name}</p>
@@ -48,7 +48,7 @@ const ProfileSection = () => {
           </Link>
         </div>
       </div>
-      <div className="flex w-full justify-between items-center  mb-5">
+      {/* <div className="flex w-full justify-between items-center  mb-5">
         <Progress
           indicatorClass="bg-magic-mint rounded-[11px]"
           className="bg-skobeloff rounded-[11px] h-[11px] w-[70%]"
@@ -57,8 +57,8 @@ const ProfileSection = () => {
         <p className="w-[30%] text-sm font-semibold text-right">
           {progress}% completed
         </p>
-      </div>
-      <div className="bg-eagle-green h-[111px] rounded-[10px] p-4 flex flex-col justify-between">
+      </div> */}
+      {/* <div className="bg-eagle-green h-[111px] rounded-[10px] p-4 flex flex-col justify-between">
         <p>Have any work experience to add ?</p>
         <div className="flex gap-4">
           <Button
@@ -70,7 +70,7 @@ const ProfileSection = () => {
             label="Skip"
           />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

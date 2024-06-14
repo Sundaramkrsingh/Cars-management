@@ -3,7 +3,6 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import React from "react"
 import ReportDrawer from "./report-drawer"
-import { useFacetsReports } from "@/query/facets-reports"
 
 type Stat = {
   value: string
@@ -25,20 +24,24 @@ type SummaryCardProps = {
 }
 
 const ProgressBar = ({ description, progress }: ProgressBarProps) => {
+  const clampedProgress = Math.min(Math.max(progress, 0), 100)
+  const descriptionLeft =
+    clampedProgress >= 2 ? `${clampedProgress - 2}%` : `0%`
+
   return (
     <div className="mb-6 relative mt-5">
       {description && (
         <div
           style={{
-            left: `${progress - 2}%`,
+            left: descriptionLeft,
           }}
-          className={cn("absolute z-10 top-[-15px] flex justify-center")}
+          className={cn("absolute z-10 top-[-15px] ")}
         >
           <Icons.triangle />
           <p className="absolute top-[-15px] text-nowrap text-xs text-dark-charcoal">
             {description}{" "}
             <span className="text-smoky-black font-semibold text-xs">
-              {progress}%
+              {clampedProgress}%
             </span>
           </p>
         </div>
@@ -46,7 +49,7 @@ const ProgressBar = ({ description, progress }: ProgressBarProps) => {
       <Progress
         indicatorClass="bg-celadon-green rounded-sm"
         className="bg-aero-blue rounded-sm"
-        value={progress}
+        value={clampedProgress}
       />
     </div>
   )

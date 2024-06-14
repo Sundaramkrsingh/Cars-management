@@ -7,7 +7,7 @@ export const profileSectionConfig = {
 }
 
 export const moreOptionsConfig = [
-  { label: "Refer your friends", href: "#", icon: "gift" },
+  // { label: "Refer your friends", href: "#", icon: "gift" },
   { label: "My Electives", href: "/more/electives", icon: "checkCircle" },
   { label: "Settings", href: "#", icon: "settings" },
   { label: "Help", href: "/more/help", icon: "help" },
@@ -15,9 +15,8 @@ export const moreOptionsConfig = [
 ]
 
 export const socialNavConfig = [
-  { icon: "instagram", href: "#" },
-  { icon: "facebook", href: "#" },
-  { icon: "linkedin", href: "#" },
+  { icon: "instagram", href: "https://www.instagram.com/be.abouv" },
+  { icon: "linkedin", href: "https://www.linkedin.com/company/beztlabs/" },
 ]
 
 export const profileCompletionCardsConfig = [

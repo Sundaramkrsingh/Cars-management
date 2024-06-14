@@ -12,9 +12,10 @@ let fetcher = dataProvider("userInstance")
 const useDetails = () => {
   const {
     user: { id },
+    setUser,
   } = useUser()((state) => state)
 
-  return { id }
+  return { id, setUser }
 }
 
 const useChatInfo = () => {
@@ -27,8 +28,8 @@ const getQuestions = (userId: string | number) => {
   return fetcher.get(`/core/${userId}`)
 }
 
-const getHomeData = (userId: string | number) => {
-  return fetcher.get(`/home/${userId}`)
+const getHomeData = () => {
+  return fetcher.get(`/home`)
 }
 
 const postAnswer: (
@@ -118,20 +119,21 @@ export const usePostAnswer = () => {
 }
 
 export const useHome = () => {
-  const { id: userId } = useDetails()
+  const { setUser } = useDetails()
   const { setAssessmentMetaData } = useChatInfo()
 
   const getHomeKey = () => ["home"]
 
   const getHome = useQuery({
     queryKey: getHomeKey(),
-    queryFn: () => getHomeData(userId),
+    queryFn: () => getHomeData(),
     select: (data) => data.data.data,
   })
 
   useEffect(() => {
     if (getHome.isSuccess) {
       const { assessment } = getHome.data
+      setUser({ id: assessment.userInfo.id })
       setAssessmentMetaData({ ...assessment })
     }
   }, [getHome.data, getHome.isSuccess, setAssessmentMetaData])

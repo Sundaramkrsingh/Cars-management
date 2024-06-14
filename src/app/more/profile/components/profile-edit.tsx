@@ -34,7 +34,7 @@ const ProfileEdit = ({ setEdit, getImage }: PageProps) => {
 
   const { deleteProfileImgReq } = useProfile()
   const handelSubmit = (data: any) => {
-    const { avatar, username, ...rest } = form.getValues() as any
+    const { avatar, username, email, ...rest } = form.getValues() as any
     editBasicInfo.mutateAsync({ ...rest } as any).then((res) => {
       const resp = res.data.data
       setProfileEdit({ ...resp, ...data, avatar })

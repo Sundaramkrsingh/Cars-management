@@ -23,7 +23,7 @@ const RankBar = ({ avatar, rank, stars, name, stage, href }: RankBarProps) => {
           {rank}
         </div>
         <div className="flex items-center">
-          <div className="rounded-full overflow-hidden  w-7 h-7 relative mr-[14px]">
+          <div className="rounded-full overflow-hidden  w-7 h-7  mr-[14px]">
             {avatar ? (
               <Image src={avatar} alt={avatar} layout="fill" />
             ) : (
@@ -43,7 +43,7 @@ const RankBar = ({ avatar, rank, stars, name, stage, href }: RankBarProps) => {
         </div>
       </div>
       <div className="flex items-center gap-2 w-[100px]">
-        <Icons.rankBarStar />
+        <Icons.myRankStarnew />
         <p className="font-medium text-lg text-eerie-black">{stars}</p>
       </div>
     </Link>

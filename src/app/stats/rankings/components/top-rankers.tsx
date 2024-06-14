@@ -28,8 +28,8 @@ const TopRankers = ({
     return {
       rank: data.rank || 0,
       avatar: data.avatarLink,
-      stars: String(data.netScore || null),
-      name: String(data.firstName || null),
+      stars: String(data.netScore || 0),
+      name: String(data.firstName || "unknown"),
       href: "#",
     }
   })
@@ -47,7 +47,7 @@ const TopRankers = ({
   return (
     <Tabs defaultValue={type}>
       <div className="flex w-full gap-2 items-center justify-center">
-        <TabsList>
+        {/* <TabsList>
           <TabsTrigger
             className="w-[158px]"
             onClick={() => setType("my-team")}
@@ -62,7 +62,7 @@ const TopRankers = ({
           >
             Overall
           </TabsTrigger>
-        </TabsList>
+        </TabsList> */}
         {/* <button className="w-11 h-10 rounded-lg bg-eagle-green flex justify-center items-center">
           <Icons.filter />
         </button> */}
@@ -76,7 +76,7 @@ const TopRankers = ({
         </div> */}
       </TabsContent>
       <TabsContent value="overall">
-        <div className="flex gap-[10px] justify-center items-end mt-4">
+        <div className="flex gap-[15px] justify-center items-end mt-4">
           {isSuccess ? (
             reorderedRankConfig.map((data, idx) => (
               <RankerCard key={idx} {...data} />
@@ -84,7 +84,7 @@ const TopRankers = ({
           ) : (
             <>
               <Skeleton className="relative py-[10px] flex flex-col w-[100px] h-[115px] items-center bg-white rounded-lg" />
-              <Skeleton className="relative py-[10px] flex flex-col w-[100px] h-[125px] items-center bg-white rounded-lg" />
+              <Skeleton className="relative py-[10px] flex flex-col w-[100px] h-[128px] items-center bg-white rounded-lg" />
               <Skeleton className="relative py-[10px] flex flex-col w-[100px] h-[115px] items-center bg-white rounded-lg" />
             </>
           )}
