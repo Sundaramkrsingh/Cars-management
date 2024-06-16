@@ -9,14 +9,4 @@ export type QuestionProps = {
     tier2: string
     tier3: string
   }
-  powerUps: {
-    id: number
-    name: string
-    codeName: string
-    status: {
-      isConsumed: boolean
-      isLocked: boolean
-      nextIn: number
-    }
-  }[]
 }

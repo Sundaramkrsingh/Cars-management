@@ -10,11 +10,11 @@ import QuestionWrapper from "./question-wrapper"
 import Default from "./questions-series/default"
 import Trait from "./questions-series/trait"
 import TransitionWrapper from "./transition-wrapper"
-import { useAddTrumps } from "@/query/trumps"
+import { useAddTrumps, useTrumpsInfo } from "@/query/trumps"
+import PreQChip from "./pre-q-chip"
 
 export const PreQ = ({
   questionnaire,
-  useInQuestion,
   ...rest
 }: {
   questionnaire: number
@@ -28,10 +28,13 @@ export const PreQ = ({
       activeQState,
       seriesType,
       powerUp,
+      wildCard,
+      trumpsInfo,
     },
     setCurrentStage,
     setActiveQState,
     setPowerUp,
+    setWildCard,
   } = useChat()((state) => state)
 
   const router = useRouter()
@@ -45,16 +48,20 @@ export const PreQ = ({
 
   const CurrentQuestion = questionTypeMap[seriesType]
 
+  const { getTrumps } = useTrumpsInfo()
+
+  const { addTrumps } = useAddTrumps()
+
   useEffect(() => {
-    activeQuestionnaire === questionnaire &&
+    if (activeQuestionnaire === questionnaire) {
       setActiveQState(`pre-q-${questionnaire}`)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      getTrumps.refetch()
+    }
+  }, [activeQuestionnaire, questionnaire, setActiveQState])
 
   useEffect(() => {
     router.push(`#pre-q-${questionnaire}`)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showPreQ])
+  }, [showPreQ, questionnaire, router])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -64,25 +71,39 @@ export const PreQ = ({
     return () => clearTimeout(timeout)
   }, [activeQState, questionnaire])
 
-  const { addTrumps } = useAddTrumps()
-
-  const handelClick = () => {
+  const handleClick = () => {
     setActiveQState(`in-q-${questionnaire}`)
     router.push(`#in-q-${questionnaire}`)
     setCurrentStage("in-q")
 
-    if (powerUp == "PLUS_5_SECONDS") {
-      console.log(1)
-      addTrumps.mutate({ powerUpId: 1, questionId: 1 })
+    let powerUpId
 
-      setPowerUp(null)
+    switch (powerUp) {
+      case "PLUS_5_SECONDS":
+        powerUpId = 1
+        break
+      case "PLUS_10_SECONDS":
+        powerUpId = 2
+        break
+      case "TWICE_UP":
+        powerUpId = 3
+        break
+      case "THRICE_UP":
+        powerUpId = 4
+        break
+      default:
+        return null
     }
-
-    if (powerUp == "PLUS_10_SECONDS") {
-      console.log(2)
-      addTrumps.mutate({ powerUpId: 2, questionId: 1 })
-
-      setPowerUp(null)
+    if (powerUpId) {
+      addTrumps.mutate(
+        { powerUpId, questionId: 1 },
+        {
+          onSuccess: () => {
+            setPowerUp(null)
+            getTrumps.refetch()
+          },
+        }
+      )
     }
   }
 
@@ -92,6 +113,7 @@ export const PreQ = ({
       show={showPreQ}
       id={`pre-q-${questionnaire}`}
     >
+      <PreQChip />
       <InfoDrawer />
       <QuestionWrapper
         className={cn(
@@ -102,7 +124,7 @@ export const PreQ = ({
       >
         <CurrentQuestion questionnaire={questionnaire} {...(rest as any)} />
       </QuestionWrapper>
-      {currentStage === "pre-q" && <AssessmentButton onClick={handelClick} />}
+      {currentStage === "pre-q" && <AssessmentButton onClick={handleClick} />}
     </TransitionWrapper>
   )
 }

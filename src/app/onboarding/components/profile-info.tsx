@@ -89,7 +89,7 @@ const ProfileInfo = ({
 
   const handelSubmit = (data: any) => {
     setProgress(100)
-    console.log(data)
+    // console.log(data)
     createProfile.mutateAsync(data, { onError: handleError })
   }
 

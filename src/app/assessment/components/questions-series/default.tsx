@@ -1,13 +1,18 @@
 "use client"
 
-import { Foresight, PowerUps } from "../../components"
+import { useTrumpsInfo } from "@/query/trumps"
+import { Foresight, PowerUps, WildCards } from "../../components"
 import type { QuestionProps } from "./series-type"
+import { useChat } from "@/store/chat-provider"
 
 const Default = ({ questionnaire, ...rest }: any) => {
   const {
     foresight: { avgTime, accuracy, timeLimit, tier1, tier2, tier3 },
-    powerUps,
   } = rest
+
+  const {
+    chat: { trumpsInfo },
+  } = useChat()((state) => state)
 
   return (
     <>
@@ -19,8 +24,11 @@ const Default = ({ questionnaire, ...rest }: any) => {
         tier2={tier2}
         tier3={tier3}
       />
-      <PowerUps questionnaire={questionnaire} powerUps={powerUps} />
-      {/* <WildCards questionnaire={questionnaire} />  */}
+      <PowerUps questionnaire={questionnaire} powerUps={trumpsInfo?.powerUps} />
+      <WildCards
+        questionnaire={questionnaire}
+        wildcards={trumpsInfo?.wildcards}
+      />
     </>
   )
 }
