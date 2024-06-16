@@ -13,8 +13,8 @@ const Header = ({
   isSuccess: boolean
 }) => {
   return (
-    <div className="fixed bg-stats w-inherit overflow-hidden bg-fixed bg-[center_top_60px] overflow-y-scroll no-scrollbar bg-red-50 text-primary px-5 w-full rounded-b-[32px] pb-[10px] bg-no-repeat">
-      <div className="h-[65px] flex items-center gap-2">
+    <div className="fixed bg-stats w-inherit overflow-hidden bg-fixed bg-[center_top_60px] overflow-y-scroll no-scrollbar bg-red-50 text-primary px-5 py-10 w-full rounded-b-[32px] pb-[18px] bg-no-repeat">
+      <div className="h-[66px] flex items-center gap-2 ">
         <Link href="/stats">
           <Icons.leftArrow className="w-7 h-7" />
         </Link>

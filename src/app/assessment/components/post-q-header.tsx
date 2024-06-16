@@ -54,10 +54,10 @@ const CorrectAnswer = ({
       <div className="text-medium-aquamarine">
         {isAbaHappy ? (
           <div className="text-3xl font-medium text-medium-aquamarine flex items-center gap-2">
-            <Icons.scoreStar />
+            <Icons.NewIcon />
             <p>
               <span className="mr-1">{score}</span>
-              stars
+              points
             </p>
           </div>
         ) : (
