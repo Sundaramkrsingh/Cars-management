@@ -13,8 +13,8 @@ export type Chat = {
   questionCount: number
   seriesType: "trait" | "default"
   powerUp:
-    | "PLUS_4_SECONDS"
-    | "PLUS_8_SECONDS"
+    | "PLUS_5_SECONDS"
+    | "PLUS_10_SECONDS"
     | "TWICE_UP"
     | "THRICE_UP"
     | "DICE_UP"
@@ -47,6 +47,7 @@ export type Chat = {
   assessmentMetaData: any
   postAssessmentStatus: boolean
   postAssessmentContent: string | null
+  trumpsInfo: any
 }
 
 const initialState: Chat = {
@@ -70,6 +71,7 @@ const initialState: Chat = {
   assessmentMetaData: {},
   postAssessmentStatus: false,
   postAssessmentContent: null,
+  trumpsInfo: null,
 }
 
 const createStore = (chat: Chat) =>
@@ -104,6 +106,7 @@ const createStore = (chat: Chat) =>
     setScore: (score: { [key: string | number]: number }) => void
     setPostAssessmentStatus: (status: boolean) => void
     setPostAssessmentContent: (content: string | null) => void
+    setTrumpsInfo: (content: string | null) => void
   }>((set) => ({
     chat,
     setCurrentStage(currentStage: Chat["currentStage"]) {
@@ -250,6 +253,15 @@ const createStore = (chat: Chat) =>
         chat: {
           ...prev.chat,
           postAssessmentContent: content,
+        },
+      }))
+    },
+    setTrumpsInfo(trumpsInfo) {
+      set((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          trumpsInfo: trumpsInfo,
         },
       }))
     },

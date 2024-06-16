@@ -70,7 +70,7 @@ const CorrectAnswer = ({
 
 const PostQHeader = ({ ...rest }: PostQHeaderProps) => {
   const isAnswerCorrect = rest?.score !== 0
-  console.log("isAnwser= " + isAnswerCorrect)
+  // console.log("isAnwser= " + isAnswerCorrect)
   return (
     <>
       {isAnswerCorrect ? (

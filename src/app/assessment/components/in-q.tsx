@@ -162,9 +162,10 @@ const InQ = ({ questionnaire, ...rest }: { questionnaire: number }) => {
       {wildCard === "ASK_ABA" && (
         <WildCardAskAba
           answer={
-            alphabeticOptionMap[
-              indexOfCorrect as keyof typeof alphabeticOptionMap
-            ]
+            // alphabeticOptionMap[
+            //   indexOfCorrect as keyof typeof alphabeticOptionMap
+            // ]
+            alphabeticOptionMap[0]
           }
           className={cn(currentQuestion && "mt-[-175px]")}
         />
