@@ -25,10 +25,10 @@ const useTimeManager = () => {
 
   const inQTimeManager = (powerUp: string | null) => {
     switch (powerUp) {
-      case "PLUS_4_SECONDS":
-        return baseInQTime + 4
-      case "PLUS_8_SECONDS":
-        return baseInQTime + 8
+      case "PLUS_5_SECONDS":
+        return baseInQTime + 5
+      case "PLUS_10_SECONDS":
+        return baseInQTime + 10
       default:
         return baseInQTime
     }

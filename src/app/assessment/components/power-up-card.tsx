@@ -15,6 +15,9 @@ type CardProps = {
   activeCard: string | number | undefined
   questionnaire: number
   onClick?: () => void
+  powerUp?: any
+  wildCard?: any
+  disable?: boolean
 }
 
 function capitalizeFirstLetter(str: string) {
@@ -31,6 +34,8 @@ const DefaultCard = ({
   activeCard,
   questionnaire,
   onClick,
+  powerUp,
+  wildCard,
 }: CardProps) => {
   const isInActive = state === "in-active"
 
@@ -53,7 +58,11 @@ const DefaultCard = ({
   const Icon = Icons[iconKey as keyof typeof Icons]
 
   const handleClick = () => {
-    if (isCardClickable) {
+    if (
+      isCardClickable &&
+      !powerUp?.status.isConsumed &&
+      !wildCard?.status.isConsumed
+    ) {
       activeCard === id ? setActive(undefined) : setActive(id)
       onClick && onClick()
     }
@@ -63,23 +72,46 @@ const DefaultCard = ({
     <div
       onClick={handleClick}
       className={cn(
-        "relative flex flex-col gap-1 bg-white justify-center items-center rounded-lg p-1 overflow-hidden transition-all duration-300",
+        "relative flex flex-col gap-1 bg-white justify-center items-center rounded-lg p-1 transition-all duration-300",
         className,
         activeCard === id && "bg-eucalyptus",
         isCardClickable ? "cursor-pointer" : "cursor-default"
       )}
     >
-      {isInActive && (
+      {powerUp?.status.isLocked && (
         <div className="absolute w-full h-full bg-moonstone-blue opacity-80 cursor-default" />
       )}
-      <Icon className={cn(activeCard === id && "stroke-white")} />
+      {wildCard?.status.isLocked && (
+        <div className="absolute w-full h-full bg-moonstone-blue opacity-80 cursor-default" />
+      )}
+      {id === 6 && wildCard?.status.isConsumed ? (
+        <Icons.inactiveAba
+          className={cn(activeCard === id && "stroke-white ")}
+        />
+      ) : (
+        <Icon
+          className={cn(
+            activeCard === id && id !== 6 && "stroke-white",
+            id === 6 && !wildCard?.status.isConsumed && "ml-[-12px]"
+          )}
+        />
+      )}
+
       <p
         className={cn(
           "text-black text-xs text-center font-medium transition-all duration-500",
           activeCard === id && "text-white"
         )}
       >
-        {description}
+        {(() => {
+          if (powerUp?.status.isConsumed) {
+            return `Next in ${powerUp.status.nextIn}Q`
+          } else if (wildCard?.status.isConsumed) {
+            return `Next in ${wildCard.status.nextIn}`
+          } else {
+            return description
+          }
+        })()}
       </p>
     </div>
   )
@@ -97,13 +129,37 @@ const LockedCard = ({ className }: { className: string }) => (
   </div>
 )
 
+const DisableCard = ({
+  className,
+  icon,
+}: {
+  className: string
+  icon: string
+}) => {
+  const Icon =
+    Icons[`active${capitalizeFirstLetter(icon)}` as keyof typeof Icons]
+
+  return (
+    <div
+      className={cn(
+        className,
+        "flex flex-col gap-1 bg-[#014455] justify-center items-center rounded-lg p-2 border border-crystal-blue "
+      )}
+    >
+      <Icon />
+      <p className="text-xs font-medium">Coming&nbsp;soon</p>
+    </div>
+  )
+}
+
 const PowerUpCard = ({ state = "default", ...rest }: CardProps) => {
   const isLocked = state === "locked"
+  const { disable, activeCard } = rest
 
   return (
     <>
-      {isLocked ? (
-        <LockedCard className={rest.className} />
+      {disable ? (
+        <DisableCard {...rest} />
       ) : (
         <DefaultCard state={state} {...rest} />
       )}
